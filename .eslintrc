@@ -1,0 +1,40 @@
+{
+	"extends": ["react-app", "prettier"],
+	"settings": {
+		"react": {
+			"rootDir": "./src"
+		}
+	},
+	"files": ["./src/**/*.js", "./src/**/*.jsx", "./src/**/*.tsx"],
+	"rules": {
+		"max-depth": ["error", 2],
+		"semi": "error",
+		"prettier/prettier": [
+			"warn",
+			{
+				"arrowParens": "always",
+				"bracketSameLine": false,
+				"bracketSpacing": true,
+				"embeddedLanguageFormatting": "auto",
+				"htmlWhitespaceSensitivity": "css",
+				"insertPragma": false,
+				"jsxSingleQuote": true,
+				"proseWrap": "preserve",
+				"quoteProps": "preserve",
+				"requirePragma": false,
+				"semi": true,
+				"singleAttributePerLine": true,
+				"singleQuote": true,
+				"trailingComma": "all",
+				"useTabs": true,
+				"vueIndentScriptAndStyle": false,
+				"printWidth": 100,
+				"tabWidth": 2
+			}
+		]
+	},
+	"plugins": ["react", "prettier"],
+	"env": {
+		"browser": true
+	}
+}
