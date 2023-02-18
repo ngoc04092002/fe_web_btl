@@ -1,3 +1,7 @@
-import { createAction } from '@reduxjs/toolkit';
+import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
-export const increment = createAction<number>('test/count');
+import { num } from '../types/test';
+
+export const Increment: CaseReducer<num, PayloadAction<num>> = (state, action) => {
+	state.counter = action.payload.counter;
+};

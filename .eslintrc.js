@@ -18,7 +18,7 @@ module.exports = {
 		//Update as of 2021: All current versions of major browsers now automatically use the behavior of rel="noopener" for any target="_blank" link, nullifying this issue
 		// Cảnh báo khi thẻ <a target='_blank'> mà không có rel="noreferrer"
 		'react/jsx-no-target-blank': 'warn',
-		'import/named': 'error',
+		'import/named': 'off',
 		'import/no-unresolved': 'off',
 		'import/order': [
 			'error',
