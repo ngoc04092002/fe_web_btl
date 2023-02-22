@@ -10,8 +10,10 @@ module.exports = {
 		'eslint-config-prettier',
 	],
 	'parser': '@typescript-eslint/parser',
-	'plugins': ['prettier', 'react-hooks', 'import'],
+	'plugins': ['prettier', 'react-hooks', 'import', '@tanstack/query'],
 	'rules': {
+		'@tanstack/query/exhaustive-deps': 'error',
+		'@tanstack/query/prefer-query-object-syntax': 'error',
 		// Tắt rule yêu cầu import React trong file jsx
 		'react/react-in-jsx-scope': 'off',
 
