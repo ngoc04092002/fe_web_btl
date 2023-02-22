@@ -10,7 +10,7 @@ module.exports = {
 		'eslint-config-prettier',
 	],
 	'parser': '@typescript-eslint/parser',
-	'plugins': ['prettier', 'react-hooks'],
+	'plugins': ['prettier', 'react-hooks', 'import'],
 	'rules': {
 		// Tắt rule yêu cầu import React trong file jsx
 		'react/react-in-jsx-scope': 'off',
@@ -24,10 +24,17 @@ module.exports = {
 			'error',
 			{
 				'newlines-between': 'always',
-				'groups': ['builtin', 'external', 'internal', ['parent', 'sibling', 'index']],
+				'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
 				'alphabetize': {
 					'order': 'asc',
 				},
+				'pathGroups': [
+					{
+						'pattern': 'react-query',
+						'group': 'external',
+						'position': 'before',
+					},
+				],
 			},
 		],
 		'jsx-quotes': ['error', 'prefer-single'],
@@ -70,7 +77,6 @@ module.exports = {
 		// enable additional rules
 		// "indent": ["error", 4],
 		'linebreak-style': ['error', 'unix'],
-		'semi': ['error', 'always'],
 
 		// override configuration set by extending "eslint:recommended"
 		'no-empty': 'warn',
