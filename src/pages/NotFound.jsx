@@ -8,7 +8,7 @@ const NotFound = () => {
 	const navigate = useNavigate();
 	return (
 		<div
-			id='error-page'
+			data-testid='error-page'
 			className='text-xl flex items-center flex-col justify-center w-full h-screen bg-slate-200'
 		>
 			<img
