@@ -1,10 +1,9 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
-import Home from '../pages/Home';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-
-import ErrorAuthLayout from './AuthLayout/Error';
+import Home from './Home';
+import Login from './Login';
+import NotFound from './NotFound';
+import Register from './Register';
 
 const AuthLayout = () => {
 	return <Outlet />;
@@ -13,7 +12,7 @@ const AuthLayout = () => {
 export const routers = createBrowserRouter([
 	{
 		element: <AuthLayout />,
-		errorElement: <ErrorAuthLayout />,
+		errorElement: <NotFound />,
 		children: [
 			{
 				path: '/',

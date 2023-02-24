@@ -68,7 +68,7 @@ module.exports = {
 		'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies
 		'react/display-name': 'error',
 		'react/jsx-uses-react': 'error',
-		'react/jsx-uses-vars': 'error',
+		'react/jsx-uses-vars': 'error', // kiểm tra xem câu lệnh nào k dùng sẽ báo lỗi
 		'react/jsx-no-undef': 'error',
 		'react/jsx-fragments': ['error', 'syntax'],
 		'react/no-multi-comp': 'error',

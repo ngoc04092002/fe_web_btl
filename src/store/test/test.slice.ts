@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Increment } from './actions';
 import { num } from '../types/test';
+
+import { Increment } from './actions';
 
 const initialState: num = { counter: 0 };
 

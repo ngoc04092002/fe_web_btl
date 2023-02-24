@@ -7,7 +7,7 @@ import './styles/globals.css';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 
-import { routers } from './routes/index';
+import { routers } from './pages/index';
 import { store } from './store/store';
 
 const queryClient = new QueryClient();
