@@ -28,4 +28,6 @@ class HttpClient implements IAxiosConfigure {
 	}
 }
 
-export default HttpClient;
+const http: AxiosInstance = new HttpClient().getConfigure();
+
+export default http;
