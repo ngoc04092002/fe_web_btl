@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link, useRouteError, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { getImage } from '../utils/CustomImagePath';
 
 const NotFound = () => {
-	const error = useRouteError();
 	const navigate = useNavigate();
 	return (
 		<div
@@ -17,7 +16,7 @@ const NotFound = () => {
 			/>
 			<h1 className='font-bold'>Oops!</h1>
 			<p>Sorry, an unexpected error occurred.</p>
-			<p>{error.message || error.statusText}</p>
+			<p>NotFound</p>
 			<Link
 				className='underline decoration-cyan-400 font-bold hover:text-gray-500'
 				onClick={() => {

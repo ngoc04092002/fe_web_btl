@@ -5,5 +5,6 @@ module.exports = {
 	collectCoverage: true,
 	testMatch: ['**/__test__/**/*.+(ts|tsx|js)', '**/?(*.)+(spec|_test_).+(ts|tsx|js)'],
 	testPathIgnorePatterns: ['/node_modules/'],
+	setupFiles: ['whatwg-fetch'],
 	testEnvironment: 'jsdom',
 };
