@@ -1,18 +1,24 @@
-import React from 'react';
+import { WarningOutlined } from '@ant-design/icons';
+import { ErrorMessage } from '@hookform/error-message';
+import React, { forwardRef, Ref } from 'react';
 
 import { Props } from '@/types/components/AuthLayoutWrapper/type';
 
-const FormGroup: React.FC<Props> = ({
-	id,
-	label,
-	placeholder,
-	styleDiv,
-	type,
-	styleLabel = '',
-	styleInput,
-	i18Label,
-	children,
-}) => {
+const FormGroup = (props: Props, ref: Ref<HTMLInputElement>) => {
+	const {
+		id,
+		label,
+		placeholder,
+		styleDiv,
+		styleError,
+		type,
+		styleLabel = '',
+		styleInput,
+		i18Label,
+		children,
+		errors,
+		...rest
+	} = props;
 	return (
 		<div
 			id={id}
@@ -29,13 +35,28 @@ const FormGroup: React.FC<Props> = ({
 				id={label}
 				placeholder={placeholder}
 				className={`${
-					type !== 'checkbox' && 'focus:ring-blue-500 focus:ring-2'
+					type !== 'checkbox' && errors[id]
+						? 'border-red-500 border-solid border-2'
+						: 'focus:ring-blue-500 focus:ring-2'
 				} flex-auto font-normal h-full p-1 rounded-md caret-slate-500 ${styleInput}`}
+				ref={ref}
+				{...rest}
 			/>
 			{children}
+			<ErrorMessage
+				errors={errors}
+				name={id}
+				render={({ message }) => (
+					<p className={`absolute flex items-center text-red-600 ${styleError}`}>
+						{' '}
+						<WarningOutlined />
+						<span>{message}</span>
+					</p>
+				)}
+			/>
 			<span className={`error_message_${id}`}></span>
 		</div>
 	);
 };
 
-export default FormGroup;
+export default forwardRef(FormGroup);

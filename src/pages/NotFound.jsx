@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { getImage } from '../utils/CustomImagePath';
 
 const NotFound = () => {
 	const navigate = useNavigate();
+	useEffect(() => {
+		document.title = 'Not Found';
+	}, []);
 	return (
 		<div
 			data-testid='error-page'

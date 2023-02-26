@@ -1,17 +1,13 @@
 import React from 'react';
-import { Form } from 'react-router-dom';
 
-type Props = {
-	id: string;
-	children: React.ReactNode;
-};
+import {
+	PropsAuthContainer,
+	// IFormSignUp,
+} from '@/types/components/AuthLayoutWrapper/type';
 
-const AuthContainer: React.FC<Props> = (props) => {
-	const { id, children } = props;
+const AuthContainer: React.FC<PropsAuthContainer> = ({ id, children }) => {
 	return (
-		<Form
-			method='post'
-			action={`/${id}`}
+		<section
 			id={id}
 			className='w-full h-screen flex items-center justify-center'
 		>
@@ -22,7 +18,7 @@ const AuthContainer: React.FC<Props> = (props) => {
 			>
 				{children}
 			</div>
-		</Form>
+		</section>
 	);
 };
 

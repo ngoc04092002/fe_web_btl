@@ -1,9 +1,14 @@
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useState, useMemo, useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Form, Link } from 'react-router-dom';
 
 import AuthContainer from '@/components/AuthLayoutWrapper';
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
+import { initialSignupalues } from '@/constants/InitialValuesAuth';
+import { schemaSignup } from '@/constants/SchemaYups';
+import { IFormSignUp, RegisterId } from '@/types/components/AuthLayoutWrapper/type';
 import {
 	initializePasswordValue,
 	ISignUpCheckbox,
@@ -16,6 +21,16 @@ const SignUp = () => {
 		'password1': false,
 		'password2': false,
 	});
+
+	const {
+		handleSubmit,
+		register,
+		formState: { errors },
+	} = useForm<IFormSignUp>({
+		defaultValues: initialSignupalues,
+		resolver: yupResolver(schemaSignup),
+	});
+	const onSubmit: SubmitHandler<IFormSignUp> = (data) => console.log(data);
 
 	const handleVisibilityChange: (value: string) => void = (id: string) => {
 		setVisiblePassword((prev: initializePasswordValue) => ({
@@ -90,7 +105,7 @@ const SignUp = () => {
 			{
 				id: 'group_form_male',
 				label: 'male',
-				styleDiv: 'mr-2',
+				styleDiv: 'mr-2 h-fit',
 				type: 'checkbox',
 				i18Label: 'Nam',
 			},
@@ -99,14 +114,22 @@ const SignUp = () => {
 				label: 'female',
 				type: 'checkbox',
 				i18Label: 'Nữ',
-				styleDiv: '',
+				styleDiv: 'h-fit',
 			},
 		],
 		[],
 	);
+
+	useEffect(() => {
+		document.title = 'Sign Up';
+	}, []);
 	return (
 		<AuthContainer id='sign-up'>
-			<div className='w-full h-full select-none p-3 flex items-center flex-col'>
+			<Form
+				onSubmit={handleSubmit(onSubmit)}
+				method='post'
+				className='w-full h-full select-none p-3 flex items-center flex-col'
+			>
 				<h1 className='capitalize font-bold text-3xl mb-10'>Đăng ký</h1>
 				{!!dataFormGroupText &&
 					dataFormGroupText.map((text) => (
@@ -118,7 +141,10 @@ const SignUp = () => {
 							styleDiv={text.styleDiv}
 							styleLabel={text.styleLabel}
 							type={text.type}
+							styleError='left-36 text-xs -bottom-4'
 							i18Label={text.i18Label}
+							errors={errors}
+							{...register(text.id as RegisterId)}
 						/>
 					))}
 				{!!dataFormGroupPassword &&
@@ -132,7 +158,10 @@ const SignUp = () => {
 							styleInput={pass.styleInput}
 							styleLabel={pass.styleLabel}
 							type={pass.type}
+							styleError='left-36 text-xs -bottom-4'
 							i18Label={pass.i18Label}
+							errors={errors}
+							{...register(pass.id as RegisterId)}
 						>
 							<p
 								onClick={() => handleVisibilityChange('password1')}
@@ -142,7 +171,7 @@ const SignUp = () => {
 							</p>
 						</FormGroup>
 					))}
-				<div className='flex items-center self-baseline'>
+				<div className='flex items-center self-baseline h-4 w-48 pt-2'>
 					{!!dataFormGroupCheckBox &&
 						dataFormGroupCheckBox.map((checkBox) => (
 							<FormGroup
@@ -150,8 +179,12 @@ const SignUp = () => {
 								id={checkBox.id}
 								label={checkBox.label}
 								styleDiv={checkBox.styleDiv}
+								styleInput='flex-none'
 								type={checkBox.type}
+								styleError='left-0 text-xs -bottom-4'
 								i18Label={checkBox.i18Label}
+								errors={errors}
+								{...register(checkBox.id as RegisterId)}
 							/>
 						))}
 				</div>
@@ -162,10 +195,13 @@ const SignUp = () => {
 				>
 					Đăng nhập
 				</Link>
-				<button className='mt-3 rounded-xl w-full cursor-pointer p-[0.65rem] text-white font-semibold bg-[#02dcff] hover:bg-[#56e8ffe0]'>
+				<button
+					type='submit'
+					className='mt-3 rounded-xl w-full cursor-pointer p-[0.65rem] text-white font-semibold bg-[#02dcff] hover:bg-[#56e8ffe0]'
+				>
 					Đăng ký
 				</button>
-			</div>
+			</Form>
 		</AuthContainer>
 	);
 };

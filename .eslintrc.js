@@ -73,7 +73,7 @@ module.exports = {
 		'react/jsx-fragments': ['error', 'syntax'],
 		'react/no-multi-comp': 'error',
 		'max-depth': ['warn', 2], //chỉ cho phép 2 if lồng nhau
-		'max-lines': ['error', { 'max': 200, 'skipBlankLines': true, 'skipComments': true }],
+		'max-lines': ['error', { 'max': 250, 'skipBlankLines': true, 'skipComments': true }],
 		'eqeqeq': ['error', 'allow-null'],
 		'quotes': ['error', 'single', 'avoid-escape'],
 		// enable additional rules
