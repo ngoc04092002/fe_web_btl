@@ -11,6 +11,9 @@ module.exports = {
 				'3xl': '2px 2px 30px 8px rgb(0 ,0 ,0,0.28)',
 			},
 		},
+		screens: {
+			'cus-screen': '840px',
+		},
 	},
 	plugins: [],
 };
