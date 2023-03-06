@@ -40,7 +40,7 @@ const ForgotPassword = () => {
 	}, []);
 	return (
 		<section
-			data-id='forgot_password'
+			data-testid='forgot_password'
 			className='w-full h-screen flex items-center justify-center px-3'
 		>
 			<div className='bg-white h-56 shadow-2xl w-96 rounded-xl p-3'>

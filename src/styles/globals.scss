@@ -5,34 +5,41 @@
 @tailwind utilities;
 
 @layer base {
-    *{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        outline: none;border: none;
-        list-style: none;
-        text-decoration: none;
-        transition: all .15s ease-in-out;
-    }
-    html{
-        font-size: 100%;
-        background-color: rgb(247, 247, 247);
-        overflow-y:overlay ;
-        overflow-x: hidden;
-        &::-webkit-scrollbar{
-            width:.6rem;
-        }
-    
-        &::-webkit-scrollbar-track{
-            background: transparent;
-        }
-    
-        &::-webkit-scrollbar-thumb{
-            background: #ccc;
-            border-radius: 3rem;
-        }
-    }
+	* {
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+		outline: none;
+		border: none;
+		list-style: none;
+		text-decoration: none;
+		transition: all 0.15s ease-in-out;
+	}
+	html {
+		font-size: 100%;
+		background-color: rgb(247, 247, 247);
+		overflow-y: overlay;
+		overflow-x: hidden;
+		&::-webkit-scrollbar {
+			width: 0.6rem;
+		}
+
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: #ccc;
+			border-radius: 3rem;
+		}
+	}
 }
 
-
-
+@layer utilities {
+	.d-rtl {
+		direction: rtl;
+	}
+	.color-main {
+		color: #01adba;
+	}
+}
