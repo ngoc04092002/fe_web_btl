@@ -31,6 +31,7 @@ const FormGroup = (props: Props, ref: Ref<HTMLInputElement>) => {
 				{i18Label}:
 			</label>
 			<input
+				autoComplete={type === 'password' ? 'current-password' : ''}
 				type={type}
 				id={label}
 				placeholder={placeholder}

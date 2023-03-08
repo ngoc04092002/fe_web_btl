@@ -42,7 +42,7 @@ const SignIn = () => {
 			<Form
 				onSubmit={handleSubmit(onSubmit)}
 				method='post'
-				className='w-[55%] h-full select-none p-3 flex items-center flex-col'
+				className=' lg:w-[55%] w-full h-full select-none p-3 flex items-center flex-col'
 			>
 				<h1 className='capitalize font-bold text-3xl lg:mb-12 mb-8'>Đăng nhập</h1>
 				<FormGroup
@@ -79,7 +79,7 @@ const SignIn = () => {
 				</FormGroup>
 				<div className='flex items-center justify-between w-full px-3 mt-3'>
 					<Link
-						to='/forget-password'
+						to='/forgot-password'
 						className='inline-block cursor-pointer font-semibold hover:text-blue-400 text-blue-600'
 					>
 						Quên mật khẩu?
