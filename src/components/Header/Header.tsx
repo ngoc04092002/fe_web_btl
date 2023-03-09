@@ -2,7 +2,7 @@ import { MenuOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Search from '../helper/Search';
+import Search from '../helpers/Search';
 
 import { IMenuNavBar } from '@/types/components/Header/type';
 import { getImage } from '@/utils/CustomImagePath';
