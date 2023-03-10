@@ -12,6 +12,7 @@ module.exports = {
 	'parser': '@typescript-eslint/parser',
 	'plugins': ['prettier', 'react-hooks', 'import', '@tanstack/query'],
 	'rules': {
+		'react/no-multi-comp': ['on', { 'ignoreStateless': true }], // cho phép return 2 comp trong 1 file
 		'@tanstack/query/exhaustive-deps': 'error',
 		'@tanstack/query/prefer-query-object-syntax': 'error',
 		// Tắt rule yêu cầu import React trong file jsx
@@ -71,7 +72,6 @@ module.exports = {
 		'react/jsx-uses-vars': 'error', // kiểm tra xem câu lệnh nào k dùng sẽ báo lỗi
 		'react/jsx-no-undef': 'error',
 		'react/jsx-fragments': ['error', 'syntax'],
-		'react/no-multi-comp': 'error',
 		'max-depth': ['warn', 2], //chỉ cho phép 2 if lồng nhau
 		'max-lines': ['error', { 'max': 250, 'skipBlankLines': true, 'skipComments': true }],
 		'eqeqeq': ['error', 'allow-null'],

@@ -23,7 +23,7 @@ const Header: React.FC<Props> = () => {
 		setActive(!active);
 	};
 	return (
-		<section className='header bg-white fixed z-[1000] h-14 left-0 top-0 right-0 drop-shadow-lg px-32 w-full select-none'>
+		<section className='header bg-white fixed z-[1000] h-14 left-0 top-0 right-0 drop-shadow-lg px-10 md:px-32 w-full select-none'>
 			<div className='header-container h-full flex items-center'>
 				<div className='navbar_logo w-12 h-12'>
 					<Link to='/'>

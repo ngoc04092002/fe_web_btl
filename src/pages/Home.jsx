@@ -8,7 +8,7 @@ const Home = () => {
 		<section className='w-full min-h-full'>
 			<Header />
 			<div className='mt-14 min-h-[65vh] bg-white'>
-				<div className='h-screen'>a</div>
+				<div className='h-full'>a</div>
 			</div>
 			<Footer />
 		</section>

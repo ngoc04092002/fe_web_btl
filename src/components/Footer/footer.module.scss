@@ -1,5 +1,18 @@
 .footer-01 {
 	li {
-		margin-bottom: 1rem;
+		margin-bottom: 0.5rem;
+		font-size: 0.8rem;
+		display: flex;
+		align-items: baseline;
+	}
+}
+
+.footer-02 {
+	li:nth-child(1) {
+		font-weight: 600;
+	}
+	li:not(:first-child):not(:last-child) {
+		font-size: 0.8rem;
+		font-style: italic;
 	}
 }
