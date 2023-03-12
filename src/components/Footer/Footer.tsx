@@ -41,7 +41,7 @@ const footerIntroduce: IFooterIntroduce[] = [
 
 const Footer: React.FC<Props> = () => {
 	return (
-		<section className='footer bg-[#dbdbdbd4] min-h-[24rem] w-full py-8'>
+		<section className='footer bg-[#dbdbdbd4] min-h-[24rem] w-full py-8 cursor-default'>
 			<div className='footer-container mx-10 md:mx-20 px-2 flex items-center lg:flex-row flex-col lg:items-start'>
 				<div className='flex lg:flex-col flex-wrap text-center md:text-start lg:w-1/3 w-full lg:justify-start md:justify-between justify-center flex-row footer_left text-black lg:mb-0 mb-6'>
 					<ul
@@ -53,7 +53,7 @@ const Footer: React.FC<Props> = () => {
 							<img
 								src={getImage('branch.jpg')}
 								alt='branch'
-								className='object-cover object-center w-28 h-20'
+								className='object-cover object-center w-28 h-20 rounded-2xl'
 							/>
 						</li>
 						<li className='text-sm'>

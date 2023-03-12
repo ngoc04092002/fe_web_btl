@@ -12,7 +12,7 @@ module.exports = {
 	'parser': '@typescript-eslint/parser',
 	'plugins': ['prettier', 'react-hooks', 'import', '@tanstack/query'],
 	'rules': {
-		'react/no-multi-comp': ['on', { 'ignoreStateless': true }], // cho phép return 2 comp trong 1 file
+		'react/no-multi-comp': [2, { 'ignoreStateless': true }], // cho phép return 2 comp trong 1 file
 		'@tanstack/query/exhaustive-deps': 'error',
 		'@tanstack/query/prefer-query-object-syntax': 'error',
 		// Tắt rule yêu cầu import React trong file jsx

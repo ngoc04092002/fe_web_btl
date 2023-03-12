@@ -1,36 +1,68 @@
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState, useMemo, useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
+import React, { useState, useMemo } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Form, Link } from 'react-router-dom';
 
 import AuthContainer from '@/components/AuthLayoutWrapper';
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
+import { signUpUser } from '@/config/axiosActions';
 import { initialSignupalues } from '@/constants/InitialValuesAuth';
 import { schemaSignup } from '@/constants/SchemaYups';
+import { dataFormGroupCheckBox, dataFormGroupText } from '@/constants/SignUpConstant';
+import HeadTitle from '@/hooks/Head';
 import { IFormSignUp, RegisterId } from '@/types/components/AuthLayoutWrapper/type';
-import {
-	initializePasswordValue,
-	ISignUpCheckbox,
-	ISignUpPassword,
-	ISignUpText,
-} from '@/types/pages/ISignUp';
+import { initializePasswordValue, ISignUpPassword } from '@/types/pages/ISignUp';
+import { getToast } from '@/utils/CustomToast';
 
 const SignUp = () => {
+	HeadTitle('Sign Up');
+
 	const [visiblePassword, setVisiblePassword] = useState<initializePasswordValue>({
 		'password1': false,
 		'password2': false,
+	});
+
+	const { mutate, isLoading } = useMutation<
+		AxiosResponse<string, any>,
+		AxiosError,
+		IFormSignUp,
+		unknown
+	>({
+		mutationFn: (formData: IFormSignUp) => {
+			const res = signUpUser({
+				username: formData.group_form_username,
+				email: formData.group_form_email,
+				address: formData.group_form_address,
+				gender: formData.group_form_male ? 'male' : 'female',
+				password: formData.password1,
+			});
+			return res;
+		},
 	});
 
 	const {
 		handleSubmit,
 		register,
 		formState: { errors },
+		reset,
 	} = useForm<IFormSignUp>({
 		defaultValues: initialSignupalues,
 		resolver: yupResolver(schemaSignup),
 	});
-	const onSubmit: SubmitHandler<IFormSignUp> = (data) => console.log(data);
+	const onSubmit: SubmitHandler<IFormSignUp> = async (data) => {
+		mutate(data, {
+			onError: (res: AxiosError) => {
+				getToast(res.response?.data as string, 'error');
+			},
+			onSuccess: (res) => {
+				getToast(res.data, 'success');
+				reset();
+			},
+		});
+	};
 
 	const handleVisibilityChange: (value: string) => void = (id: string) => {
 		setVisiblePassword((prev: initializePasswordValue) => ({
@@ -38,39 +70,6 @@ const SignUp = () => {
 			[id]: !prev[id],
 		}));
 	};
-
-	const dataFormGroupText: ISignUpText[] = useMemo(
-		() => [
-			{
-				id: 'group_form_username',
-				label: 'username',
-				placeholder: 'Nhập tên của bạn',
-				styleDiv: 'mb-5',
-				styleLabel: 'w-36',
-				type: 'text',
-				i18Label: 'Tên đăng nhập',
-			},
-			{
-				id: 'group_form_email',
-				label: 'email',
-				placeholder: 'Nhập email của bạn',
-				styleDiv: 'mb-5',
-				styleLabel: 'w-36',
-				type: 'text',
-				i18Label: 'Email',
-			},
-			{
-				id: 'group_form_address',
-				label: 'address',
-				placeholder: 'ngõ, xóm, phường, thị xã, tỉnh (thành phố)',
-				styleDiv: 'mb-5',
-				type: 'text',
-				styleLabel: 'w-36',
-				i18Label: 'Địa chỉ',
-			},
-		],
-		[],
-	);
 
 	const dataFormGroupPassword: ISignUpPassword[] = useMemo(
 		() => [
@@ -100,29 +99,6 @@ const SignUp = () => {
 		[visiblePassword.password1, visiblePassword.password2],
 	);
 
-	const dataFormGroupCheckBox: ISignUpCheckbox[] = useMemo(
-		() => [
-			{
-				id: 'group_form_male',
-				label: 'male',
-				styleDiv: 'mr-2 h-fit',
-				type: 'checkbox',
-				i18Label: 'Nam',
-			},
-			{
-				id: 'group_form_female',
-				label: 'female',
-				type: 'checkbox',
-				i18Label: 'Nữ',
-				styleDiv: 'h-fit',
-			},
-		],
-		[],
-	);
-
-	useEffect(() => {
-		document.title = 'Sign Up';
-	}, []);
 	return (
 		<AuthContainer id='sign-up'>
 			<Form
@@ -184,7 +160,27 @@ const SignUp = () => {
 								styleError='left-0 text-xs -bottom-4'
 								i18Label={checkBox.i18Label}
 								errors={errors}
-								{...register(checkBox.id as RegisterId)}
+								{...register(checkBox.id as RegisterId, {
+									onChange(e) {
+										const myId = e.target.id;
+										const allCheckBox = document.querySelectorAll('input[type="checkbox"]');
+										const input1 = allCheckBox[0] as HTMLInputElement;
+										const input2 = allCheckBox[1] as HTMLInputElement;
+										if (e.target.checked) {
+											if (myId === 'male') {
+												input2.checked = false;
+											} else {
+												input1.checked = false;
+											}
+										} else {
+											if (myId === 'male' && !input2.checked) {
+												input2.checked = true;
+											} else {
+												input1.checked = true;
+											}
+										}
+									},
+								})}
 							/>
 						))}
 				</div>
@@ -196,10 +192,13 @@ const SignUp = () => {
 					Đăng nhập
 				</Link>
 				<button
+					disabled={isLoading}
 					type='submit'
-					className='mt-3 rounded-xl w-full cursor-pointer p-[0.65rem] text-white font-semibold bg-[#02dcff] hover:bg-[#56e8ffe0]'
+					className={`mt-3 rounded-xl w-full cursor-pointer p-[0.65rem] text-white font-semibold ${
+						isLoading ? 'bg-[#ccc]' : 'bg-[#02dcff] hover:bg-[#56e8ffe0]'
+					}`}
 				>
-					Đăng ký
+					{isLoading ? 'Loading...' : 'Đăng ký'}
 				</button>
 			</Form>
 		</AuthContainer>

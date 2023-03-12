@@ -12,6 +12,7 @@ import Loading from './components/Loading';
 import { routes } from './pages/index';
 import { store } from './store/store';
 import 'react-toastify/dist/ReactToastify.css';
+import '@/pages/firebase';
 
 const queryClient = new QueryClient();
 

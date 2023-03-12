@@ -32,6 +32,7 @@ const FormGroup = (props: Props, ref: Ref<HTMLInputElement>) => {
 			</label>
 			<input
 				autoComplete={type === 'password' ? 'current-password' : ''}
+				defaultChecked={type === 'checkbox' && label === 'male'}
 				type={type}
 				id={label}
 				placeholder={placeholder}

@@ -29,8 +29,8 @@ export interface IFormSignUp {
 	group_form_username: string;
 	group_form_email: string;
 	group_form_address: string;
-	group_form_male: string;
-	group_form_female: string;
+	group_form_male: boolean;
+	group_form_female: boolean;
 	password1: string;
 	password2: string;
 }

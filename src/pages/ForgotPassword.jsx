@@ -1,26 +1,20 @@
 import { ArrowRightOutlined, MailOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+
+import HeadTitle from '@/hooks/Head';
+import { getToast } from '@/utils/CustomToast';
 
 const regex = new RegExp('[a-z0-9]+@[a-z]+\\.[a-z]{2,3}'); // validate email
 
 const ForgotPassword = () => {
+	HeadTitle('Forgot Password');
 	const [acceptCond, setAcceptCond] = useState(false);
 	const [email, setEmail] = useState('');
 
 	const handleAcceptSend = () => {
 		if (!regex.test(email)) {
-			toast.warn('Email không hợp lệ!', {
-				position: 'top-right',
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-			});
+			getToast('Email không hợp lệ!', 'warn');
 			return;
 		}
 		setAcceptCond(!acceptCond);
@@ -34,10 +28,6 @@ const ForgotPassword = () => {
 		console.log(email);
 	};
 
-	// set head
-	useEffect(() => {
-		document.title = 'Forgot Password';
-	}, []);
 	return (
 		<section
 			data-testid='forgot_password'

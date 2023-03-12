@@ -1,17 +1,30 @@
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState, useEffect } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Form, Link } from 'react-router-dom';
+import { Form, Link, useNavigate } from 'react-router-dom';
 
 import AuthContainer from '@/components/AuthLayoutWrapper';
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
+import { signInUser } from '@/config/axiosActions';
 import { initialSigninValues } from '@/constants/InitialValuesAuth';
 import { schemaSignin } from '@/constants/SchemaYups';
+import { AuthContext } from '@/context/AuthProvider';
+import HeadTitle from '@/hooks/Head';
 import { IFormSignIn } from '@/types/components/AuthLayoutWrapper/type';
+import { IUserLogged } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
+import { getToast } from '@/utils/CustomToast';
 
 const SignIn = () => {
+	HeadTitle('Sign In');
+	const auth = getAuth();
+	const navigation = useNavigate();
+	const { setUser } = useContext(AuthContext);
+
 	const {
 		handleSubmit,
 		register,
@@ -20,16 +33,54 @@ const SignIn = () => {
 		defaultValues: initialSigninValues,
 		resolver: yupResolver(schemaSignin),
 	});
-	const onSubmit: SubmitHandler<IFormSignIn> = (data) => console.log(data);
+
+	const { mutate, isLoading } = useMutation<
+		AxiosResponse<IUserLogged, any>,
+		AxiosError,
+		IFormSignIn,
+		unknown
+	>({
+		mutationFn: (formData: IFormSignIn) => {
+			const res = signInUser({
+				email: formData.group_form_email,
+				password: formData.group_form_password,
+			});
+			return res;
+		},
+	});
+
+	const onSubmit: SubmitHandler<IFormSignIn> = (data) => {
+		mutate(data, {
+			onError: (res: AxiosError) => {
+				getToast(res.response?.data as string, 'error');
+			},
+			onSuccess: (res) => {
+				localStorage.setItem('accessToken', res.data.token as string);
+				setUser(res.data);
+				navigation('/');
+			},
+		});
+	};
+
 	const [visiblePassword, setVisiblePassword] = useState(false);
 
 	const handleVisibilityChange = () => {
 		setVisiblePassword(!visiblePassword);
 	};
 
-	useEffect(() => {
-		document.title = 'Sign In';
+	const handleLoginWithGoogle = async () => {
+		const provider = new GoogleAuthProvider();
+		await signInWithPopup(auth, provider);
+	};
+
+	useLayoutEffect(() => {
+		if (localStorage.getItem('accessToken')) {
+			navigation('/');
+			return;
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	return (
 		<AuthContainer id='sign-in'>
 			<div className='w-full lg:w-[45%] lg:h-full h-[60%] overflow-hidden'>
@@ -93,11 +144,16 @@ const SignIn = () => {
 				</div>
 				<button
 					type='submit'
-					className='mt-3 rounded-xl w-full cursor-pointer p-[0.65rem] text-white font-semibold bg-[#02dcff] hover:bg-[#62eaffe0]'
+					className={`mt-3 rounded-xl w-full cursor-pointer p-[0.65rem] text-white font-semibold ${
+						isLoading ? 'bg-[#ccc]' : 'bg-[#02dcff] hover:bg-[#62eaffe0]'
+					}`}
 				>
-					Đăng nhập
+					{isLoading ? 'Loading...' : 'Đăng nhập'}
 				</button>
-				<div className='bg-white flex items-center w-full h-10 px-2 rounded-lg cursor-pointer select-none lg:mt-2 mt-1'>
+				<div
+					onClick={handleLoginWithGoogle}
+					className='bg-white flex items-center w-full h-10 px-2 rounded-lg cursor-pointer select-none lg:mt-2 mt-1'
+				>
 					<img
 						src={getImage('google.png')}
 						alt='google'

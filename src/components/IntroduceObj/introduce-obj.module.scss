@@ -1,0 +1,42 @@
+.intro-web {
+	background: url('https://static.vecteezy.com/system/resources/previews/015/393/167/non_2x/car-insurance-policy-form-with-shield-umbrella-insurance-agent-or-salesman-providing-security-document-people-buying-auto-leasing-protection-warranty-of-vehicle-from-accident-damage-or-collision-vector.jpg')
+		no-repeat center center/cover;
+	height: 26rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.container-bg {
+		padding-left: 4rem;
+		p {
+			font-family: 'Tapestry', cursive;
+			font-size: 3rem;
+			color: black;
+			animation: typing 10s steps(54) infinite, bblink 1s infinite;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			@keyframes typing {
+				0%,
+				100% {
+					width: 0%;
+				}
+				70%,
+				90% {
+					width: 100%;
+				}
+			}
+
+			@keyframes bblink {
+				0%,
+				100% {
+					border-right: 10px solid transparent;
+				}
+				50% {
+					border-right: 10px solid #96ee1c;
+				}
+			}
+		}
+		width: 70%;
+	}
+}
