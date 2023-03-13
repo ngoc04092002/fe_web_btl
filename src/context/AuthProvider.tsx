@@ -19,6 +19,7 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 			if (u?.uid) {
 				localStorage.setItem('accessToken', u.refreshToken);
 				setUser(u);
+				navigation('/');
 				return;
 			}
 			setUser({});

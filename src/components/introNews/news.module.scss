@@ -24,3 +24,13 @@
 	padding-bottom: 0.2rem;
 	margin-bottom: 0.75rem;
 }
+
+.hot_news-des {
+	padding: 0.5rem;
+	p {
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+	}
+}
