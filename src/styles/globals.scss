@@ -45,4 +45,7 @@
 	.cus-shadow {
 		box-shadow: -1.5px 0 1.6px;
 	}
+	.linear-shadow {
+		transition: box-shadow 0.3s linear;
+	}
 }

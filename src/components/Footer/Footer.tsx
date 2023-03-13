@@ -4,7 +4,7 @@ import React from 'react';
 
 import { FacebookIcon, ZaloIcon } from '../assests/icons';
 
-import styles from './Footer.module.scss';
+import styles from './footer.module.scss';
 
 import { IFooterIntroduce } from '@/types/components/Footer/type';
 import { getImage } from '@/utils/CustomImagePath';

@@ -10,7 +10,6 @@ const Home = () => {
 			<Header />
 			<div className='mt-14 min-h-[65vh] bg-white'>
 				<Outlet />
-				<div className='h-full'>a</div>
 			</div>
 			<Footer />
 		</section>

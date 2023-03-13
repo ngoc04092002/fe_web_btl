@@ -9,6 +9,10 @@ module.exports = {
 		extend: {
 			boxShadow: {
 				'3xl': '2px 2px 30px 8px rgb(0 ,0 ,0,0.28)',
+				'sm-cs': '1px 1px 3px 2px #ccc',
+			},
+			gridTemplateColumns: {
+				'3r-cus': 'repeat(3, minmax(100px, 1fr))',
 			},
 		},
 		screens: {

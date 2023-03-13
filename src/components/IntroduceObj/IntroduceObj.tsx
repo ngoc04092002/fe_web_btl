@@ -9,7 +9,9 @@ const IntroduceObj: FC<Props> = () => {
 	return (
 		<section className={`${cx('intro-web')}`}>
 			<div className={`${cx('container-bg')}`}>
-				<p>An tâm chọn, An tâm thuê, Uy tín tạo lên thương hiệu</p>
+				<p className='lg:text-5xl md:text-3xl text-2xl'>
+					An tâm chọn, An tâm thuê, Uy tín tạo lên thương hiệu!
+				</p>
 			</div>
 		</section>
 	);

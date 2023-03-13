@@ -7,7 +7,7 @@ import ProtectedRoute from './ProtectedRoute';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-import IntroduceObj from '@/components/IntroduceObj';
+import WrapperElm from '@/components/WrapperElm';
 import AuthProvider from '@/context/AuthProvider';
 
 const AuthLayout = () => {
@@ -44,7 +44,7 @@ export const routes = createBrowserRouter([
 						children: [
 							{
 								path: '/',
-								element: <IntroduceObj />,
+								element: <WrapperElm />,
 							},
 						],
 					},
