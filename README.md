@@ -1,3 +1,14 @@
+# Các bước chạy
+
+-git fetch
+-git pull
+-npm install (Nếu có lỗi thì thêm --legancy gì đó cái mà nó báo lỗi)
+-vd npm install --legancy ..
+
+- npm run lint:fix
+  -npm start
+  ---------------end----------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
