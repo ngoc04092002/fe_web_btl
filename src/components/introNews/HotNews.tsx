@@ -4,16 +4,19 @@ import { Link } from 'react-router-dom';
 
 import styles from './news.module.scss';
 const cx = classNames.bind(styles);
-type Props = {};
+type Props = {
+	title: string;
+	isRent?: boolean;
+};
 
-const HotNews: FC<Props> = () => {
+const HotNews: FC<Props> = ({ title, isRent = false }) => {
 	return (
 		<section className='mt-12'>
-			<h1 className='mx-0 mb-4 text-[1.3rem] font-bold font-[emoji]'>Dự án nổi bật</h1>
+			<h1 className='mx-0 mb-4 text-[1.3rem] font-bold font-[emoji]'>{title}</h1>
 			<div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3'>
 				<Link
 					to='/'
-					className='rounded-lg shadow-006 h-[17rem]'
+					className={`rounded-lg shadow-006 h-[${isRent ? '17.6rem' : '17rem'}]`}
 				>
 					<div>
 						<img
@@ -22,19 +25,37 @@ const HotNews: FC<Props> = () => {
 							alt='bds'
 						/>
 					</div>
-					<div className={`${cx('hot_news-des')}`}>
-						<p className='text-lg font-bold'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='text-base text-[#837676]'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
-					</div>
+					{isRent ? (
+						<div className={`${cx('how_news-rent')}`}>
+							<p className={`${cx('des')} text-sm font-medium`}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sunt quia quaerat
+								consectetur consequuntur sapiente recusandae illum quibusdam tempora aliquam commodi
+								doloremque facere, sed nemo corporis. Vero ex alias quos.
+							</p>
+							<div className={`${cx('propers')}`}>
+								<span className='font-bold'>
+									70 m<sub className='align-super'>2</sub>
+								</span>
+								<span>1 WC</span>
+								<span>2 VP</span>
+							</div>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					) : (
+						<div className={`${cx('hot_news-des')}`}>
+							<p className='text-lg font-bold'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='text-base text-[#837676]'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					)}
 				</Link>
 				<Link
 					to='/'
-					className='rounded-lg shadow-006 h-[17rem]'
+					className={`rounded-lg shadow-006 h-[${isRent ? '17.6rem' : '17rem'}]`}
 				>
 					<div>
 						<img
@@ -43,19 +64,37 @@ const HotNews: FC<Props> = () => {
 							alt='bds'
 						/>
 					</div>
-					<div className={`${cx('hot_news-des')}`}>
-						<p className='text-lg font-bold'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='text-base text-[#837676]'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
-					</div>
+					{isRent ? (
+						<div className={`${cx('how_news-rent')}`}>
+							<p className={`${cx('des')} text-sm font-medium`}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sunt quia quaerat
+								consectetur consequuntur sapiente recusandae illum quibusdam tempora aliquam commodi
+								doloremque facere, sed nemo corporis. Vero ex alias quos.
+							</p>
+							<div className={`${cx('propers')}`}>
+								<span className='font-bold'>
+									70 m<sub className='align-super'>2</sub>
+								</span>
+								<span>1 WC</span>
+								<span>2 VP</span>
+							</div>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					) : (
+						<div className={`${cx('hot_news-des')}`}>
+							<p className='text-lg font-bold'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='text-base text-[#837676]'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					)}
 				</Link>
 				<Link
 					to='/'
-					className='rounded-lg shadow-006 h-[17rem]'
+					className={`rounded-lg shadow-006 h-[${isRent ? '17.6rem' : '17rem'}]`}
 				>
 					<div>
 						<img
@@ -64,19 +103,37 @@ const HotNews: FC<Props> = () => {
 							alt='bds'
 						/>
 					</div>
-					<div className={`${cx('hot_news-des')}`}>
-						<p className='text-lg font-bold'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='text-base text-[#837676]'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
-					</div>
+					{isRent ? (
+						<div className={`${cx('how_news-rent')}`}>
+							<p className={`${cx('des')} text-sm font-medium`}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sunt quia quaerat
+								consectetur consequuntur sapiente recusandae illum quibusdam tempora aliquam commodi
+								doloremque facere, sed nemo corporis. Vero ex alias quos.
+							</p>
+							<div className={`${cx('propers')}`}>
+								<span className='font-bold'>
+									70 m<sub className='align-super'>2</sub>
+								</span>
+								<span>1 WC</span>
+								<span>2 VP</span>
+							</div>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					) : (
+						<div className={`${cx('hot_news-des')}`}>
+							<p className='text-lg font-bold'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='text-base text-[#837676]'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					)}
 				</Link>
 				<Link
 					to='/'
-					className='rounded-lg shadow-006 h-[17rem]'
+					className={`rounded-lg shadow-006 h-[${isRent ? '17.6rem' : '17rem'}]`}
 				>
 					<div>
 						<img
@@ -85,19 +142,37 @@ const HotNews: FC<Props> = () => {
 							alt='bds'
 						/>
 					</div>
-					<div className={`${cx('hot_news-des')}`}>
-						<p className='text-lg font-bold'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='text-base text-[#837676]'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
-					</div>
+					{isRent ? (
+						<div className={`${cx('how_news-rent')}`}>
+							<p className={`${cx('des')} text-sm font-medium`}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sunt quia quaerat
+								consectetur consequuntur sapiente recusandae illum quibusdam tempora aliquam commodi
+								doloremque facere, sed nemo corporis. Vero ex alias quos.
+							</p>
+							<div className={`${cx('propers')}`}>
+								<span className='font-bold'>
+									70 m<sub className='align-super'>2</sub>
+								</span>
+								<span>1 WC</span>
+								<span>2 VP</span>
+							</div>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					) : (
+						<div className={`${cx('hot_news-des')}`}>
+							<p className='text-lg font-bold'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='text-base text-[#837676]'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					)}
 				</Link>
 				<Link
 					to='/'
-					className='rounded-lg shadow-006 h-[17rem]'
+					className={`rounded-lg shadow-006 h-[${isRent ? '17.6rem' : '17rem'}]`}
 				>
 					<div>
 						<img
@@ -106,15 +181,33 @@ const HotNews: FC<Props> = () => {
 							alt='bds'
 						/>
 					</div>
-					<div className={`${cx('hot_news-des')}`}>
-						<p className='text-lg font-bold'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='text-base text-[#837676]'>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. No
-						</p>
-						<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
-					</div>
+					{isRent ? (
+						<div className={`${cx('how_news-rent')}`}>
+							<p className={`${cx('des')} text-sm font-medium`}>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sunt quia quaerat
+								consectetur consequuntur sapiente recusandae illum quibusdam tempora aliquam commodi
+								doloremque facere, sed nemo corporis. Vero ex alias quos.
+							</p>
+							<div className={`${cx('propers')}`}>
+								<span className='font-bold'>
+									70 m<sub className='align-super'>2</sub>
+								</span>
+								<span>1 WC</span>
+								<span>2 VP</span>
+							</div>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					) : (
+						<div className={`${cx('hot_news-des')}`}>
+							<p className='text-lg font-bold'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='text-base text-[#837676]'>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. No
+							</p>
+							<p className='color-main text-[1.3rem] font-semibold'>Từ 3 tỷ 55 triệu</p>
+						</div>
+					)}
 				</Link>
 			</div>
 		</section>

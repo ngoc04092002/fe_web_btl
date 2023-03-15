@@ -10,7 +10,7 @@ const WrapperElm: FC<Props> = () => {
 	return (
 		<div className='mt-12'>
 			<DailyNews />
-			<HotNews />
+			<HotNews title='Dự án nổi bật' />
 			<Link to='vourcher'>
 				<img
 					className='mt-12 w-full object-center object-fill h-48'
@@ -18,6 +18,10 @@ const WrapperElm: FC<Props> = () => {
 					alt='vourcher'
 				/>
 			</Link>
+			<HotNews
+				title='Bất động sản cho thuê'
+				isRent
+			/>
 		</div>
 	);
 };
