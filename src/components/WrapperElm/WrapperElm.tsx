@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
+import PaginationUtility from '../PaginationUtility';
 import DailyNews from '../introNews/DailyNews';
 import HotNews from '../introNews/HotNews';
 
@@ -8,7 +9,7 @@ type Props = {};
 
 const WrapperElm: FC<Props> = () => {
 	return (
-		<div className='mt-12'>
+		<div className='mt-12 pb-12'>
 			<DailyNews />
 			<HotNews title='Dự án nổi bật' />
 			<Link to='vourcher'>
@@ -22,6 +23,7 @@ const WrapperElm: FC<Props> = () => {
 				title='Bất động sản cho thuê'
 				isRent
 			/>
+			<PaginationUtility />
 		</div>
 	);
 };

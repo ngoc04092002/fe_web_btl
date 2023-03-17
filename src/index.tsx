@@ -3,7 +3,6 @@ import React from 'react';
 // eslint-disable-next-line import/order
 import ReactDOM from 'react-dom/client';
 
-import './styles/globals.scss';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';

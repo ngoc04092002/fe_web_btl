@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
+import NewsContainer from './NewsContainer';
 import styles from './news.module.scss';
 const cx = classNames.bind(styles);
 type Props = {
@@ -11,8 +12,7 @@ type Props = {
 
 const HotNews: FC<Props> = ({ title, isRent = false }) => {
 	return (
-		<section className='mt-12'>
-			<h1 className='mx-0 mb-4 text-[1.3rem] font-bold font-[emoji]'>{title}</h1>
+		<NewsContainer title={title}>
 			<div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3'>
 				<Link
 					to='/'
@@ -210,7 +210,7 @@ const HotNews: FC<Props> = ({ title, isRent = false }) => {
 					)}
 				</Link>
 			</div>
-		</section>
+		</NewsContainer>
 	);
 };
 

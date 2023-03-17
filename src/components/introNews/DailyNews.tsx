@@ -2,14 +2,14 @@ import classNames from 'classnames/bind';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
+import NewsContainer from './NewsContainer';
 import styles from './news.module.scss';
 const cx = classNames.bind(styles);
 type Props = {};
 
 const DailyNews: FC<Props> = () => {
 	return (
-		<section>
-			<h1 className='mx-0 mb-4 text-[1.3rem] font-bold font-[emoji]'>Tin tức nhà trọ</h1>
+		<NewsContainer title='Tin tức nhà trọ'>
 			<div className='grid grid-cols-2 cus-screen:grid-cols-3 gap-3'>
 				<div className='col-span-2'>
 					<div className='grid grid-rows-2 gap-3'>
@@ -144,7 +144,7 @@ const DailyNews: FC<Props> = () => {
 					</div>
 				</div>
 			</div>
-		</section>
+		</NewsContainer>
 	);
 };
 

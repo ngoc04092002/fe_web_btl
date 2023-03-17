@@ -1,4 +1,4 @@
-import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { EyeOutlined, EyeInvisibleOutlined, LoadingOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -198,7 +198,7 @@ const SignUp = () => {
 						isLoading ? 'bg-[#ccc]' : 'bg-[#02dcff] hover:bg-[#56e8ffe0]'
 					}`}
 				>
-					{isLoading ? 'Loading...' : 'Đăng ký'}
+					{isLoading ? <LoadingOutlined /> : 'Đăng ký'}
 				</button>
 			</Form>
 		</AuthContainer>
