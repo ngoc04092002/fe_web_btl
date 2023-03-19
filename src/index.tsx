@@ -3,6 +3,7 @@ import React from 'react';
 // eslint-disable-next-line import/order
 import ReactDOM from 'react-dom/client';
 
+import './styles/globals.scss';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -12,7 +13,6 @@ import { routes } from './pages/index';
 import { store } from './store/store';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/pages/firebase';
-
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

@@ -8,40 +8,47 @@ import NewsContainer from '../introNews/NewsContainer';
 type Props = {};
 
 const PaginationUtility: FC<Props> = () => {
+	const dataUtiliity = [
+		{
+			path: '/',
+			Icon: <AreaChartOutlined className='color-main ' />,
+			text: 'Review khu vực',
+		},
+		{
+			path: '/',
+			Icon: <Graduate />,
+			text: 'Phòng trọ gần trường',
+		},
+		{
+			path: '/',
+			Icon: <Worker />,
+			text: 'Phòng trọ công nhân',
+		},
+		{
+			path: '/',
+			Icon: <List color='#7e00c2' />,
+			text: 'Các bước thuê trọ',
+		},
+		{
+			path: '/',
+			Icon: <List color='#00abc2' />,
+			text: 'Hướng dẫn đăng ký tài khoản',
+		},
+	];
 	return (
 		<NewsContainer title='Tiện tích từ chúng tôi'>
 			<div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3'>
-				<Link
-					to='/'
-					className='shadow-006 rounded-lg h-[6rem] p-3 flex flex-col justify-between items-baseline'
-				>
-					<AreaChartOutlined className='color-main ' />{' '}
-					<p className='font-semibold'>Review khu vực</p>
-				</Link>
-				<Link
-					to='/'
-					className='shadow-006 rounded-lg h-[6rem] p-3 flex flex-col justify-between items-baseline'
-				>
-					<Graduate /> <p className='font-semibold'>Phòng trọ gần trường</p>
-				</Link>
-				<Link
-					to='/'
-					className='shadow-006 rounded-lg h-[6rem] p-3 flex flex-col justify-between items-baseline'
-				>
-					<Worker /> <p className='font-semibold'>Phòng trọ công nhân</p>
-				</Link>
-				<Link
-					to='/'
-					className='shadow-006 rounded-lg h-[6rem] p-3 flex flex-col justify-between items-baseline'
-				>
-					<List color='#7e00c2' /> <p className='font-semibold'>Các bước thuê trọ</p>
-				</Link>
-				<Link
-					to='/'
-					className='shadow-006 rounded-lg h-[6rem] p-3 flex flex-col justify-between items-baseline'
-				>
-					<List color='#00abc2' /> <p className='font-semibold'>Hướng dẫn đăng ký tài khoản</p>
-				</Link>
+				{dataUtiliity &&
+					!!dataUtiliity.length &&
+					dataUtiliity.map(({ path, Icon, text }, index) => (
+						<Link
+							key={index}
+							to={path}
+							className='shadow-006 rounded-lg h-[6rem] p-3 flex flex-col justify-between items-baseline'
+						>
+							{Icon} <p className='font-semibold'>{text}</p>
+						</Link>
+					))}
 			</div>
 		</NewsContainer>
 	);

@@ -9,11 +9,11 @@ import { Form, Link, useNavigate } from 'react-router-dom';
 
 import AuthContainer from '@/components/AuthLayoutWrapper';
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
-import { signInUser } from '@/config/axiosActions';
 import { initialSigninValues } from '@/constants/InitialValuesAuth';
 import { schemaSignin } from '@/constants/SchemaYups';
 import { AuthContext } from '@/context/AuthProvider';
 import HeadTitle from '@/hooks/Head';
+import { signInUser } from '@/infrastructure/authActions';
 import { IFormSignIn } from '@/types/components/AuthLayoutWrapper/type';
 import { IUserLogged } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
@@ -85,11 +85,13 @@ const SignIn = () => {
 	return (
 		<AuthContainer id='sign-in'>
 			<div className='w-full lg:w-[45%] lg:h-full h-[60%] overflow-hidden'>
-				<img
-					src={getImage('vali.gif')}
-					alt='vali'
-					className='select-none w-full h-full object-center object-cover lg:rounded-l-2xl rounded-t-2xl lg:rounded-tr-none'
-				/>
+				<Link to='/'>
+					<img
+						src={getImage('vali.gif')}
+						alt='vali'
+						className='select-none w-full h-full object-center object-cover lg:rounded-l-2xl rounded-t-2xl lg:rounded-tr-none'
+					/>
+				</Link>
 			</div>
 			<Form
 				onSubmit={handleSubmit(onSubmit)}

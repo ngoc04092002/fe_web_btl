@@ -12,6 +12,7 @@ module.exports = {
 	'parser': '@typescript-eslint/parser',
 	'plugins': ['prettier', 'react-hooks', 'import', '@tanstack/query'],
 	'rules': {
+		'no-extra-boolean-cast': 'warn', //vd: var foo = !!bar;
 		'react/no-multi-comp': [2, { 'ignoreStateless': true }], // cho phép return 2 comp trong 1 file
 		'@tanstack/query/exhaustive-deps': 'error',
 		'@tanstack/query/prefer-query-object-syntax': 'error',

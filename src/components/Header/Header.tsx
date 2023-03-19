@@ -1,13 +1,21 @@
 import { MenuOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
+import { UserInfo } from 'firebase/auth';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Search from '../helpers/Search';
 
+import HeaderDetail from './HeaderDetail';
+
+import { AuthContext } from '@/context/AuthProvider';
 import { IMenuNavBar } from '@/types/components/Header/type';
+import { IAuthContext } from '@/types/context/type';
+import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 
-interface Props {}
+interface Props {
+	handleActive: () => void;
+}
 
 const menuNavBar: IMenuNavBar[] = [
 	{ title: 'Tìm thuê', to: 'rent' },
@@ -16,14 +24,24 @@ const menuNavBar: IMenuNavBar[] = [
 	{ title: 'Dự án', to: 'project' },
 ];
 
-const Header: React.FC<Props> = () => {
-	const [active, setActive] = useState<boolean>(false);
+const Header: React.FC<Props> = ({ handleActive }) => {
+	const { user } = useContext<IAuthContext>(AuthContext);
+	const [show, setShow] = useState<boolean>(false);
 
-	const handleActive = () => {
-		setActive(!active);
+	const handleShowNavInfo = (e: React.MouseEvent<HTMLElement>) => {
+		const class_name = (e.target as HTMLElement).className;
+
+		if (typeof class_name === 'string' && class_name.includes('dynamic')) {
+			setShow(!show);
+		}
 	};
+
+	const handleUnShow = () => {
+		setShow(false);
+	};
+
 	return (
-		<section className='header bg-white fixed z-[1000] h-14 left-0 top-0 right-0 drop-shadow-lg px-10 md:px-32 w-full select-none'>
+		<section className='header bg-white fixed z-[1000] h-14 left-0 top-0 right-0 drop-shadow-lg px-10 md:px-[7rem] w-full select-none'>
 			<div className='header-container h-full flex items-center'>
 				<div className='navbar_logo w-12 h-12'>
 					<Link to='/'>
@@ -34,7 +52,11 @@ const Header: React.FC<Props> = () => {
 					</Link>
 				</div>
 				<Search />
-				<MenuOutlined className='cus-screen:hidden block text-xl' />
+
+				<MenuOutlined
+					onClick={handleActive}
+					className='cus-screen:hidden block text-xl cursor-pointer'
+				/>
 				<div className='navbar-menu flex-1 d-rtl cus-screen:flex hidden'>
 					{menuNavBar.map((d) => (
 						<Link
@@ -47,25 +69,31 @@ const Header: React.FC<Props> = () => {
 					))}
 				</div>
 				<div className='navbar-user items-center cus-screen:flex hidden'>
-					{/* <Link
-						to='sign-in'
-						className='pr-4'
-					>
-						Đăng nhập
-					</Link> */}
-					<div
-						className={`flex mr-4 items-end cursor-pointer ${
-							active && 'bg-[#e6fafa]'
-						} rounded-2xl py-1 px-1`}
-						onClick={handleActive}
-					>
-						<img
-							className='w-7 h-7 object-contain'
-							src={getImage('user.png')}
-							alt='user'
-						/>
-						<span className='pl-1 font-medium'>Ngoc</span>
-					</div>
+					{Object.values(user).length > 0 ? (
+						<div
+							className={`dynamic flex mr-4 items-end cursor-pointer ${
+								show && 'bg-[#e6fafa]'
+							} rounded-2xl py-1 px-1 relative`}
+							onClick={handleShowNavInfo}
+						>
+							<img
+								className='dynamic w-7 h-7 object-contain'
+								src={getImage('user.png')}
+								alt='user'
+							/>
+							<span className='dynamic pl-1 font-medium overflow-hidden text-ellipsis whitespace-nowrap max-w-[67px]'>
+								{(user as UserInfo)?.displayName || (user as IUser)?.username}
+							</span>
+							{show && <HeaderDetail handleUnShow={handleUnShow} />}
+						</div>
+					) : (
+						<Link
+							to='sign-in'
+							className='pr-4'
+						>
+							Đăng nhập
+						</Link>
+					)}
 					<Link
 						to='publish'
 						className='py-1 px-3 rounded hover:text-[#3dbfc9] font-medium border-solid border-[1px] border-[#01adba]'

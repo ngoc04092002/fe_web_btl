@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
 import IntroduceObj from '../IntroduceObj';
 
@@ -17,4 +17,4 @@ const WrapperElmContainer: FC<Props> = () => {
 	);
 };
 
-export default WrapperElmContainer;
+export default memo(WrapperElmContainer);

@@ -1,6 +1,6 @@
 import { MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import React from 'react';
+import React, { memo } from 'react';
 
 import { FacebookIcon, ZaloIcon } from '../assests/icons';
 
@@ -111,4 +111,4 @@ const Footer: React.FC<Props> = () => {
 	);
 };
 
-export default Footer;
+export default memo(Footer);

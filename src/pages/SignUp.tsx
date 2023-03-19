@@ -8,11 +8,11 @@ import { Form, Link } from 'react-router-dom';
 
 import AuthContainer from '@/components/AuthLayoutWrapper';
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
-import { signUpUser } from '@/config/axiosActions';
 import { initialSignupalues } from '@/constants/InitialValuesAuth';
 import { schemaSignup } from '@/constants/SchemaYups';
 import { dataFormGroupCheckBox, dataFormGroupText } from '@/constants/SignUpConstant';
 import HeadTitle from '@/hooks/Head';
+import { signUpUser } from '@/infrastructure/authActions';
 import { IFormSignUp, RegisterId } from '@/types/components/AuthLayoutWrapper/type';
 import { initializePasswordValue, ISignUpPassword } from '@/types/pages/ISignUp';
 import { getToast } from '@/utils/CustomToast';

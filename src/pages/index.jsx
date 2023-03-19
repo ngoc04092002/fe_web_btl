@@ -6,6 +6,7 @@ import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
+import Profile from './dashboard/Profile';
 
 import WrapperElm from '@/components/WrapperElm';
 import AuthProvider from '@/context/AuthProvider';
@@ -45,6 +46,10 @@ export const routes = createBrowserRouter([
 							{
 								path: '/',
 								element: <WrapperElm />,
+							},
+							{
+								path: '/profile',
+								element: <Profile />,
 							},
 						],
 					},

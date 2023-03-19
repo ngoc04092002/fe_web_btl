@@ -1,0 +1,56 @@
+.backdrop {
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+		width: 0;
+	}
+	transform: translateX(-100%);
+	transition: transform 0.5s linear;
+	&.show {
+		transform: translateX(0);
+	}
+
+	.check_icon {
+		font-size: 4rem;
+		svg {
+			font-size: 1rem;
+			border-radius: 50%;
+			fill: #01adba;
+			background-color: #01adba;
+			path {
+				fill: white;
+			}
+		}
+	}
+
+	.building_icon {
+		svg {
+			fill: #17ff00;
+			width: 24px;
+			height: 24px;
+		}
+	}
+}
+.manager_info {
+	margin: 2rem 25px 0;
+	svg {
+		width: 20px;
+		height: 20px;
+		margin-right: 0.5rem;
+	}
+	li {
+		width: 100%;
+		margin-bottom: 1rem;
+		font-size: 1rem;
+		font-weight: 600;
+		color: #3c4146;
+		padding: 0.6rem 0;
+		&:hover {
+			color: #01adba;
+		}
+	}
+	a {
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
+}
