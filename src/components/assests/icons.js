@@ -1,4 +1,23 @@
 /* eslint-disable max-lines */
+
+export const LineIcon = ({ classSvg = '' }) => {
+	return (
+		<svg
+			className={classSvg}
+			height='6'
+			width='20'
+		>
+			<line
+				x1='0'
+				y1='0'
+				x2='20'
+				y2='0'
+				stroke='black'
+				strokeWidth='3'
+			/>
+		</svg>
+	);
+};
 export const FacebookIcon = () => {
 	return (
 		<svg

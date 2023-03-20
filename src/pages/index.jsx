@@ -1,13 +1,15 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
+import DashBoard from './Dashboard';
+import Profile from './Dashboard/Profile';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
-import Profile from './dashboard/Profile';
 
+import DashBoardMain from '@/components/DashBoardComponents/DashBoardMain';
 import WrapperElm from '@/components/WrapperElm';
 import AuthProvider from '@/context/AuthProvider';
 
@@ -48,8 +50,18 @@ export const routes = createBrowserRouter([
 								element: <WrapperElm />,
 							},
 							{
-								path: '/profile',
-								element: <Profile />,
+								path: '/dash-board/',
+								element: <DashBoard />,
+								children: [
+									{
+										path: 'profile',
+										element: <Profile />,
+									},
+									{
+										path: '',
+										element: <DashBoardMain />,
+									},
+								],
 							},
 						],
 					},

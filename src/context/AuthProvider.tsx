@@ -1,6 +1,5 @@
 import { getAuth, UserInfo } from 'firebase/auth';
 import React, { FC, createContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { getUserInfo } from '@/infrastructure/authActions';
 import { IAuthContext, PropsAuth } from '@/types/context/type';
@@ -12,17 +11,14 @@ export const AuthContext = createContext<IAuthContext>({
 });
 
 const AuthProvider: FC<PropsAuth> = ({ children }) => {
-	const navigation = useNavigate();
 	const auth = getAuth();
 	const [user, setUser] = useState<{} | (UserInfo & IUser)>({});
-	// const isUserExist = Object.keys(user).length;
 
 	useEffect(() => {
 		const unsubscribed = auth.onIdTokenChanged((u) => {
 			if (u?.uid) {
 				localStorage.setItem('accessToken', u.refreshToken);
 				setUser(u);
-				navigation('/');
 				return;
 			}
 		});

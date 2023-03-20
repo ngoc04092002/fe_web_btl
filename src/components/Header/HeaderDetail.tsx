@@ -48,12 +48,12 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 
 	const dataManager = [
 		{
-			path: '/profile',
+			path: '/',
 			Icon: <HomeOutlined />,
-			text: 'Quản lý thông tin trọ',
+			text: 'Quản lý thông tin',
 		},
 		{
-			path: '/',
+			path: '/dash-board/profile',
 			Icon: <UserOutlined />,
 			text: 'Thông tin tài khoản',
 		},

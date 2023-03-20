@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
 
 const Home = () => {
+	const location = useLocation();
+	const isDashBoard = location.pathname.includes('dash-board');
 	const [active, setActive] = useState(false);
 	const [isMobile, setIsMobile] = useState(false);
 	const handleShowMenu = () => {
@@ -47,8 +49,8 @@ const Home = () => {
 					setActive={setActive}
 				/>
 			)}
-			<Header handleActive={handleShowMenu} />
-			<div className='mt-14 min-h-[65vh] bg-white'>
+			{!isDashBoard && <Header handleActive={handleShowMenu} />}
+			<div className={`${!isDashBoard && 'mt-14'} min-h-[65vh] bg-white`}>
 				<Outlet />
 			</div>
 			<Footer />

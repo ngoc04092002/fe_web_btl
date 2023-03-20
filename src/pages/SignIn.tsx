@@ -72,6 +72,7 @@ const SignIn = () => {
 	const handleLoginWithGoogle = async () => {
 		const provider = new GoogleAuthProvider();
 		await signInWithPopup(auth, provider);
+		navigation('/');
 	};
 
 	useLayoutEffect(() => {
