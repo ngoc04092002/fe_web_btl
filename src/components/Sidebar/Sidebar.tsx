@@ -170,6 +170,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 								key={index}
 								className='shadow-006 rounded-lg h-20 px-3 pt-3 pb-2 flex flex-col justify-between items-baseline'
 								to={d.path}
+								onClick={handleActive}
 							>
 								<ul className='h-full flex flex-col items-start justify-between'>
 									<li>{d.Icon}</li>
@@ -182,7 +183,10 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 					{!!dataManager &&
 						dataManager.length &&
 						dataManager.map((d, index) => (
-							<li key={index}>
+							<li
+								key={index}
+								onClick={handleActive}
+							>
 								<Link to={d.path}>
 									{d.Icon}
 									<span>{d.text}</span>

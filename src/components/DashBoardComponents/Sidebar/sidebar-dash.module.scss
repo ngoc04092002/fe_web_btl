@@ -2,8 +2,16 @@
 	box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.06);
 	width: 18rem;
 	transition: width 0.25s linear;
+	overflow: hidden;
 	&.expanded {
 		width: 5rem;
+		@media screen and (max-width: 1024px) {
+			width: 0;
+		}
+	}
+	@media screen and (max-width: 1024px) {
+		padding-left: 0;
+		padding-right: 0;
 	}
 	.header_bar {
 		svg {

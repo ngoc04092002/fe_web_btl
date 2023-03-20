@@ -50,10 +50,14 @@ const Home = () => {
 				/>
 			)}
 			{!isDashBoard && <Header handleActive={handleShowMenu} />}
-			<div className={`${!isDashBoard && 'mt-14'} min-h-[65vh] bg-white`}>
+			<div
+				className={`${!isDashBoard ? 'mt-14' : ''} min-h-[${
+					isDashBoard ? '100vh' : '65vh'
+				}] bg-white`}
+			>
 				<Outlet />
 			</div>
-			<Footer />
+			{!isDashBoard && <Footer />}
 			<div
 				className={`fixed bg-backdrop inset-0 z-[9999] cus-screen:hidden ${
 					active ? 'block' : 'hidden'

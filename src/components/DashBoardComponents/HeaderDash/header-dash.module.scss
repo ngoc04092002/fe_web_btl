@@ -1,0 +1,24 @@
+.header_dash {
+	background-color: #11cdef;
+	ul {
+		li {
+			padding-left: 1.2rem;
+			padding-right: 1.2rem;
+			@media screen and (max-width: 639px) {
+				padding-left: 1rem;
+				padding-right: 1rem;
+			}
+		}
+		li:nth-child(1) {
+			div {
+				padding-bottom: 0;
+			}
+		}
+		li:not(:first-child) {
+			svg {
+				width: 20px;
+				height: 20px;
+			}
+		}
+	}
+}
