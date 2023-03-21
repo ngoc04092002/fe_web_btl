@@ -10,7 +10,7 @@ type Props = {};
 const DashBoardContainer: FC<Props> = () => {
 	HeadTitle('Dashboard');
 
-	const [showSidebar, setShowSidebar] = useState<boolean>(false);
+	const [showSidebar, setShowSidebar] = useState<boolean>(true);
 
 	const handleToggleShowSidebar = () => {
 		setShowSidebar(!showSidebar);

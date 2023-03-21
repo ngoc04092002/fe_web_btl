@@ -1,5 +1,104 @@
 /* eslint-disable max-lines */
 
+export const HomeRentIcon = () => {
+	return (
+		<svg
+			fill='#ffffff'
+			version='1.1'
+			height='24px'
+			width='24px'
+			id='Layer_1'
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 245 256'
+			enable-background='new 0 0 245 256'
+			stroke='#ffffff'
+		>
+			<g
+				id='SVGRepo_bgCarrier'
+				stroke-width='0'
+			></g>
+			<g
+				id='SVGRepo_tracerCarrier'
+				stroke-linecap='round'
+				stroke-linejoin='round'
+			></g>
+			<g id='SVGRepo_iconCarrier'>
+				{' '}
+				<path d='M190,63.24V7h-31v27.73L122.97,1.82L1.94,110.15l18.4,20.74L39,114.04V254h167V115.08l18.36,16.85l18.89-20.22L190,63.24z M162.96,169.32c-6.88,6.87-16.46,9.29-25.26,7.38l-9.08,9.08l-14.86-3.01l1.52,13.24l-11.4-2.93l1.52,13.1l-11.76-3l1.45,13.31 l-20.58,1.48L74,198.44l42.83-42.83c-1.84-8.72,0.65-18.24,7.45-25.04c10.68-10.67,27.93-10.78,38.68-0.03 C173.7,141.28,173.66,158.61,162.96,169.32z M149.64,135.31c-2.38,2.39-2.35,6.26,0,8.61c2.35,2.35,6.19,2.43,8.61,0 c2.39-2.39,2.39-6.22,0-8.61C155.87,132.92,152.03,132.92,149.64,135.31z'></path>{' '}
+			</g>
+		</svg>
+	);
+};
+
+export const ChartRevenueIcon = () => {
+	return (
+		<svg
+			fill='#ffffff'
+			viewBox='0 0 32 32'
+			height='24px'
+			width='24px'
+			version='1.1'
+			xmlns='http://www.w3.org/2000/svg'
+			stroke='#ffffff'
+		>
+			<g
+				id='SVGRepo_bgCarrier'
+				strokeWidth='0'
+			></g>
+			<g
+				id='SVGRepo_tracerCarrier'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+			></g>
+			<g id='SVGRepo_iconCarrier'>
+				{' '}
+				<path d='M8.502 9.999h-7.002c-0.552 0-1 0.447-1 1v20.001c0 0.552 0.448 1 1 1h7.002c0.553 0 1-0.448 1-1v-20c0-0.553-0.447-1-1-1zM7.502 30h-5.002v-18h5.002v18zM19.492 15.945h-7.003c-0.553 0-1 0.448-1 1v14.055c0 0.552 0.447 1 1 1h7.003c0.552 0 1-0.448 1-1v-14.055c0-0.553-0.447-1-1-1zM18.492 30h-5.003v-12.055h5.003v12.055zM30.5 0h-6.992c-0.552 0-1 0.448-1 1v30c0 0.552 0.448 1 1 1h6.992c0.552 0 1-0.448 1-1v-30c0-0.552-0.448-1-1-1zM29.5 30h-4.992v-28h4.992v28z'></path>{' '}
+			</g>
+		</svg>
+	);
+};
+
+export const MapIcon = ({ className = '' }) => {
+	return (
+		<svg
+			className={className}
+			fill='#ffffff'
+			height='24px'
+			width='24px'
+			version='1.1'
+			xmlns='http://www.w3.org/2000/svg'
+			viewBox='0 0 24 24'
+			stroke='#ffffff'
+		>
+			<g
+				id='SVGRepo_bgCarrier'
+				strokeWidth='0'
+			></g>
+			<g
+				id='SVGRepo_tracerCarrier'
+				strokeLinecap='round'
+				strokeLinejoin='round'
+			></g>
+			<g id='SVGRepo_iconCarrier'>
+				{' '}
+				<g id='map-location'>
+					{' '}
+					<path
+						className='st0'
+						d='M18.3,4.4C17.4,1.8,14.9,0,12,0C8.8,0,6.1,2.3,5.4,5.3L0,3v17.2l8,3.4l8-3l8,3.4V6.8L18.3,4.4z M9,14.4 c1.2,1.4,2.3,2.2,2.4,2.3l0.7,0.6l0.6-0.6c0.3-0.3,0.7-0.7,1.1-1c0.4-0.4,0.8-0.8,1.2-1.2v4.3l-6,2.3V14.4z M12,2 c2.6,0,4.8,2.1,4.8,4.8c0,1.9-0.8,3.4-1.8,4.7l0,0l0,0c-0.8,1-1.7,1.9-2.6,2.7c-0.1,0.1-0.3,0.3-0.4,0.4c-1.8-1.6-4.8-5-4.8-7.8 C7.2,4.1,9.4,2,12,2z M2,6l3.3,1.4c0.2,1.5,0.9,3,1.7,4.4V21l-5-2.1V6z M22,21l-5-2.1v-6.7c1-1.5,1.8-3.2,1.8-5.4L22,8.2V21z'
+					></path>{' '}
+					<circle
+						className='st0'
+						cx='12'
+						cy='7'
+						r='2'
+					></circle>{' '}
+				</g>{' '}
+			</g>
+		</svg>
+	);
+};
+
 export const LineIcon = ({ classSvg = '' }) => {
 	return (
 		<svg
@@ -259,9 +358,10 @@ export const CallIcon = () => {
 	);
 };
 
-export const HomeIcon = () => {
+export const HomeIcon = ({ className = '' }) => {
 	return (
 		<svg
+			className={className}
 			width='24px'
 			height='24px'
 			fill='#01becb'
