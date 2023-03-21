@@ -73,7 +73,7 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 		<div
 			className={`${cx(
 				'detail',
-			)} absolute bg-white shadow-006 left-[-89px] top-[40px] p-3 w-96 rounded-md cursor-default`}
+			)} absolute bg-white shadow-006 right-[-100px] top-[40px] p-3 w-96 rounded-md cursor-default`}
 		>
 			<div className='flex items-center select-none'>
 				<div className='mr-4'>
