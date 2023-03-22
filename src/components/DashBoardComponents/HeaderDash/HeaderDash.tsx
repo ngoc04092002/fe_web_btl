@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import styles from './header-dash.module.scss';
 
 import { ChartRevenueIcon, HomeIcon, HomeRentIcon, MapIcon } from '@/components/assests/icons';
+import LineChart from '@/components/d3/LineChart/LineChart';
 import Bar from '@/components/helpers/Bar';
 import { AuthContext } from '@/context/AuthProvider';
 import { IBar, IDataStat } from '@/types/pages/IDashBoard';
@@ -136,6 +137,7 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 					</div>
 				))}
 			</div>
+			<LineChart />
 		</div>
 	);
 };

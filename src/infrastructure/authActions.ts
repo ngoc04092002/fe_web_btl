@@ -21,6 +21,10 @@ export const signInWithSocial: (payload: IUser) => Promise<AxiosResponse<IUserLo
 	return http.post<IUserLogged>('sign-in-social', payload);
 };
 
+export const refreshToken: () => Promise<AxiosResponse<string, any>> = () => {
+	return http.get<string>('refresh-cookie');
+};
+
 export const getUserInfo: (payload: string) => Promise<AxiosResponse<IUserLogged, any>> = (
 	payload: string,
 ) => {

@@ -1,6 +1,6 @@
 import React, { FC, createContext, useState, useEffect } from 'react';
 
-import { getUserInfo } from '@/infrastructure/authActions';
+import { getUserInfo, refreshToken } from '@/infrastructure/authActions';
 import { IAuthContext, PropsAuth } from '@/types/context/type';
 import { IUser } from '@/types/pages/types';
 
@@ -12,19 +12,22 @@ export const AuthContext = createContext<IAuthContext>({
 const AuthProvider: FC<PropsAuth> = ({ children }) => {
 	const [user, setUser] = useState<{} | IUser>({});
 
-	console.log(user);
-
 	useEffect(() => {
 		const accessToken = localStorage.getItem('accessToken');
 		async function getUser() {
-			if (accessToken) {
+			// const re = await refreshToken();
+			// if (re.data === 'no') {
+			// 	localStorage.clear();
+			// 	setUser({});
+			// 	return;
+			// }
+
+			if (accessToken && !Object.keys(user).length) {
 				const res = await getUserInfo(accessToken);
 				setUser(res.data);
 			}
 		}
-		return () => {
-			getUser();
-		};
+		getUser();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
