@@ -13,7 +13,7 @@ import { initialSigninValues } from '@/constants/InitialValuesAuth';
 import { schemaSignin } from '@/constants/SchemaYups';
 import { AuthContext } from '@/context/AuthProvider';
 import HeadTitle from '@/hooks/Head';
-import { signInUser } from '@/infrastructure/authActions';
+import { signInUser, signInWithSocial } from '@/infrastructure/authActions';
 import { IFormSignIn } from '@/types/components/AuthLayoutWrapper/type';
 import { IUserLogged } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
@@ -69,10 +69,24 @@ const SignIn = () => {
 		setVisiblePassword(!visiblePassword);
 	};
 
-	const handleLoginWithGoogle = async () => {
+	const handleLoginWithGoogle = () => {
 		const provider = new GoogleAuthProvider();
-		await signInWithPopup(auth, provider);
-		navigation('/');
+		signInWithPopup(auth, provider)
+			.then(async (result) => {
+				const { displayName, email, phoneNumber, photoURL } = result.user;
+				const res = await signInWithSocial({
+					username: displayName || 'username',
+					email: email || 'email',
+					sdt: phoneNumber || '',
+					avatar: photoURL || getImage('user.png'),
+				});
+				localStorage.setItem('accessToken', res.data.token as string);
+				setUser(res.data);
+				navigation('/');
+			})
+			.catch(() => {
+				getToast('', 'network bad');
+			});
 	};
 
 	useLayoutEffect(() => {

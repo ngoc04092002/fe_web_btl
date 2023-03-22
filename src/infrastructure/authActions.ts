@@ -15,6 +15,12 @@ export const signInUser: (payload: IFormSignInUser) => Promise<AxiosResponse<IUs
 	return http.post<IUserLogged>('sign-in', payload);
 };
 
+export const signInWithSocial: (payload: IUser) => Promise<AxiosResponse<IUserLogged, any>> = (
+	payload: IUser,
+) => {
+	return http.post<IUserLogged>('sign-in-social', payload);
+};
+
 export const getUserInfo: (payload: string) => Promise<AxiosResponse<IUserLogged, any>> = (
 	payload: string,
 ) => {

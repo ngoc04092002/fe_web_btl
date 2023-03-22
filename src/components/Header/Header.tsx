@@ -1,5 +1,4 @@
 import { MenuOutlined } from '@ant-design/icons';
-import { UserInfo } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -82,7 +81,7 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 								alt='user'
 							/>
 							<span className='dynamic pl-1 font-medium overflow-hidden text-ellipsis whitespace-nowrap max-w-[67px]'>
-								{(user as UserInfo)?.displayName || (user as IUser)?.username}
+								{(user as IUser)?.username}
 							</span>
 							{show && <HeaderDetail handleUnShow={handleUnShow} />}
 						</div>

@@ -1,4 +1,3 @@
-import { getAuth, UserInfo } from 'firebase/auth';
 import React, { FC, createContext, useState, useEffect } from 'react';
 
 import { getUserInfo } from '@/infrastructure/authActions';
@@ -11,36 +10,22 @@ export const AuthContext = createContext<IAuthContext>({
 });
 
 const AuthProvider: FC<PropsAuth> = ({ children }) => {
-	const auth = getAuth();
-	const [user, setUser] = useState<{} | (UserInfo & IUser)>({});
+	const [user, setUser] = useState<{} | IUser>({});
+
+	console.log(user);
 
 	useEffect(() => {
-		const unsubscribed = auth.onIdTokenChanged((u) => {
-			if (u?.uid) {
-				localStorage.setItem('accessToken', u.refreshToken);
-				setUser(u);
-				return;
-			}
-		});
-
-		return () => {
-			unsubscribed();
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-
-	useEffect(() => {
-		if ((user as UserInfo)?.uid || (user as UserInfo)?.uid === undefined) {
-			return;
-		}
 		const accessToken = localStorage.getItem('accessToken');
 		async function getUser() {
 			if (accessToken) {
+				console.log(user);
 				const res = await getUserInfo(accessToken);
 				setUser(res.data);
 			}
 		}
-		getUser();
+		return () => {
+			getUser();
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

@@ -8,7 +8,7 @@ import {
 	UserOutlined,
 } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import { getAuth, signOut, UserInfo } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
 import React, { FC, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -117,9 +117,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 						{!!isUserExist && (
 							<ul>
 								<li>
-									<span className='mr-2'>
-										{(user as UserInfo)?.displayName || (user as IUser)?.username}
-									</span>
+									<span className='mr-2'>{(user as IUser)?.username}</span>
 									<CheckCircleOutlined className={cx('check_icon')} />
 								</li>
 								<li className='color-main text-base font-semibold'>Thành viên của NV</li>
