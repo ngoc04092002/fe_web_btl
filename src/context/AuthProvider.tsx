@@ -18,7 +18,6 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 		const accessToken = localStorage.getItem('accessToken');
 		async function getUser() {
 			if (accessToken) {
-				console.log(user);
 				const res = await getUserInfo(accessToken);
 				setUser(res.data);
 			}

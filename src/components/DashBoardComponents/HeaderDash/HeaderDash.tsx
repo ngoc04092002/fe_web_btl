@@ -1,18 +1,21 @@
 import { ArrowUpOutlined, BellOutlined, SwitcherOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import styles from './header-dash.module.scss';
 
 import { ChartRevenueIcon, HomeIcon, HomeRentIcon, MapIcon } from '@/components/assests/icons';
 import Bar from '@/components/helpers/Bar';
+import { AuthContext } from '@/context/AuthProvider';
 import { IBar, IDataStat } from '@/types/pages/IDashBoard';
+import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 
 const cx = classNames.bind(styles);
 
 const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) => {
+	const { user } = useContext(AuthContext);
 	const location = useLocation();
 	const pathname: string = location.pathname;
 	const splitPathname: string[] = pathname.split('/');
@@ -80,7 +83,7 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 						/>
 					</p>
 					<p className='text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]'>
-						ladjkslkasjdlkasjldkjlaksd
+						{(user as IUser).username}
 					</p>
 				</div>
 			</div>
