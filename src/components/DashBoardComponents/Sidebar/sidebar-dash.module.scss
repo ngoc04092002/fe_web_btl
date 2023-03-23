@@ -27,6 +27,7 @@
 
 	ul {
 		li {
+			overflow: hidden;
 			margin-bottom: 16px;
 			a {
 				padding: 0.5rem 1rem;
@@ -48,6 +49,30 @@
 					transition: width 0.25s linear;
 					&.unshow {
 						width: 0;
+					}
+				}
+				.arrow-expand {
+					margin: 0;
+					transform: rotate(0deg);
+					svg {
+						width: 16px;
+						height: 16px;
+					}
+					&.active {
+						transform: rotate(90deg);
+					}
+				}
+			}
+			.expand-info {
+				overflow: hidden;
+				li {
+					margin: 0;
+					padding: 1rem;
+					&:hover {
+						background-color: #f6f9fc99;
+					}
+					a {
+						padding: 0;
 					}
 				}
 			}

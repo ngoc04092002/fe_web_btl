@@ -1,6 +1,6 @@
-import { HomeOutlined, UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, RightOutlined, UserOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import styles from './sidebar-dash.module.scss';
@@ -12,6 +12,12 @@ import { getImage } from '@/utils/CustomImagePath';
 const cx = classNames.bind(styles);
 
 const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
+	const [active, setActive] = useState(false);
+	const handleExpandInfo = () => {
+		if (!showSidebar) {
+			setActive(!active);
+		}
+	};
 	return (
 		<nav
 			className={`${cx('sidebar_dash', {
@@ -58,6 +64,7 @@ const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 						<NavLink
 							to='/dash-board/profile'
 							className={({ isActive }) => (isActive ? cx('active') : '')}
+							onClick={handleExpandInfo}
 						>
 							<UserOutlined
 								title='Thông tin tài khoản'
@@ -70,7 +77,21 @@ const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 							>
 								Thông tin tài khoản
 							</p>
+							<RightOutlined
+								className={cx('arrow-expand', {
+									active: active,
+								})}
+							/>
 						</NavLink>
+						<ul className={`${cx('expand-info')} ${active ? 'h-[112px]' : 'h-0'}`}>
+							<li>
+								<Link to='profile/edit-profile'>Chỉnh sửa thông tin</Link>
+							</li>
+
+							<li>
+								<Link to='profile/edit-password'>Đổi mật khẩu</Link>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</div>

@@ -9,8 +9,8 @@ import { Form, Link, useNavigate } from 'react-router-dom';
 
 import AuthContainer from '@/components/AuthLayoutWrapper';
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
-import { initialSigninValues } from '@/constants/InitialValuesAuth';
 import { schemaSignin } from '@/constants/SchemaYups';
+import { initialSigninValues } from '@/constants/initiallValues';
 import { AuthContext } from '@/context/AuthProvider';
 import HeadTitle from '@/hooks/Head';
 import { signInUser, signInWithSocial } from '@/infrastructure/authActions';

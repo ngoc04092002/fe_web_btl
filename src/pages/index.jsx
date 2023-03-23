@@ -1,7 +1,8 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
+import Profile from '../components/DashBoardComponents/Profile';
+
 import DashBoard from './Dashboard';
-import Profile from './Dashboard/Profile';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
 import NotFound from './NotFound';
@@ -10,6 +11,8 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 import DashBoardMain from '@/components/DashBoardComponents/DashBoardMain';
+import EditPassword from '@/components/DashBoardComponents/Profile/EditPassword';
+import EditProfile from '@/components/DashBoardComponents/Profile/EditProfile';
 import WrapperElm from '@/components/WrapperElm';
 import AuthProvider from '@/context/AuthProvider';
 
@@ -50,16 +53,26 @@ export const routes = createBrowserRouter([
 								element: <WrapperElm />,
 							},
 							{
-								path: '/dash-board/',
+								path: '/dash-board',
 								element: <DashBoard />,
 								children: [
 									{
-										path: 'profile',
-										element: <Profile />,
-									},
-									{
 										path: '',
 										element: <DashBoardMain />,
+									},
+									{
+										path: 'profile',
+										element: <Profile />,
+										children: [
+											{
+												path: 'edit-password',
+												element: <EditPassword />,
+											},
+											{
+												path: 'edit-profile',
+												element: <EditProfile />,
+											},
+										],
 									},
 								],
 							},

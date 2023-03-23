@@ -1,6 +1,6 @@
 import React, { FC, createContext, useState, useEffect } from 'react';
 
-import { getUserInfo, refreshToken } from '@/infrastructure/authActions';
+import { getUserInfo } from '@/infrastructure/authActions';
 import { IAuthContext, PropsAuth } from '@/types/context/type';
 import { IUser } from '@/types/pages/types';
 

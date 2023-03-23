@@ -100,9 +100,13 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 							<span className='mx-2'>-</span>Dashboards
 							<span className='mx-2'>{splitPathname.at(-1) ? '-' : ''}</span>
 						</li>
-						{slicePathName.map((l) => (
-							<li className='text-[#f6f9fc] text-md font-semibold capitalize'>
-								Dashboards<span className='mx-2'>-</span>
+						{slicePathName.map((l, index) => (
+							<li
+								key={index}
+								className='text-[#f6f9fc] text-md font-semibold capitalize'
+							>
+								{l}
+								<span className='mx-2'>-</span>
 							</li>
 						))}
 						<li className='text-[#dee2e6] text-md font-semibold'>{splitPathname.at(-1)}</li>

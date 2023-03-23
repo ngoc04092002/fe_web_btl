@@ -16,7 +16,9 @@ const DashBoard: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 				handleToggleShowSidebar={handleToggleShowSidebar}
 				className='flex flex-col items-center cursor-pointer py-3 md:px-3 px-0'
 			/>
-			<Outlet />
+			<div className='absolute mt-6 flex items-center justify-between flex-wrap right-5 left-5'>
+				<Outlet />
+			</div>
 		</div>
 	);
 };

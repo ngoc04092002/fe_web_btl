@@ -8,9 +8,9 @@ import { Form, Link } from 'react-router-dom';
 
 import AuthContainer from '@/components/AuthLayoutWrapper';
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
-import { initialSignupalues } from '@/constants/InitialValuesAuth';
 import { schemaSignup } from '@/constants/SchemaYups';
 import { dataFormGroupCheckBox, dataFormGroupText } from '@/constants/SignUpConstant';
+import { initialSignupalues } from '@/constants/initiallValues';
 import HeadTitle from '@/hooks/Head';
 import { signUpUser } from '@/infrastructure/authActions';
 import { IFormSignUp, RegisterId } from '@/types/components/AuthLayoutWrapper/type';

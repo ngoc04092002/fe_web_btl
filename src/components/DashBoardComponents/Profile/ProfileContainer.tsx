@@ -6,7 +6,7 @@ type Props = {};
 
 const ProfileContainer: FC<Props> = () => {
 	return (
-		<div>
+		<div className='w-full'>
 			<Profile />
 		</div>
 	);

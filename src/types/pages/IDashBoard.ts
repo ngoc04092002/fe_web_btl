@@ -16,3 +16,14 @@ export interface IDataStat {
 	developSpeed: string;
 	timestamp: string;
 }
+
+export interface IFromEditProfile {
+	username?: string;
+	email?: string;
+	address?: string;
+	gender?: string;
+	avatar?: string;
+	sdt?: string;
+	male?: boolean;
+	female?: boolean;
+}
