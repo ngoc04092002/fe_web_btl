@@ -6,7 +6,11 @@ import { IBar } from '@/types/pages/IDashBoard';
 
 const DashBoard: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 	return (
-		<div className={`${showSidebar ? 'lg:ml-[5rem]' : 'lg:ml-[18rem]'} py-4 px-6 bg-[#11cdef]`}>
+		<div
+			className={`${
+				showSidebar ? 'lg:ml-[5rem]' : 'lg:ml-[18rem]'
+			} pb-24 pt-4 px-6 bg-[#11cdef] relative`}
+		>
 			<HeaderDash
 				classSvg={showSidebar ? 'w-[11px] translate-x-1' : 'w-[20px] translate-x-0'}
 				handleToggleShowSidebar={handleToggleShowSidebar}
