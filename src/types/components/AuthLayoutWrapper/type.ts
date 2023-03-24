@@ -13,6 +13,8 @@ export type Props = {
 	errors?: any;
 };
 
+export type DashBoardFormId = 'password' | 'verifyPassword';
+
 export type RegisterId = keyof IFormSignIn & keyof IFormSignUp;
 
 export type PropsAuthContainer = {

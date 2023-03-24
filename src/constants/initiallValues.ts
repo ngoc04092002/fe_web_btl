@@ -1,5 +1,5 @@
 import { IFormSignUp, IFormSignIn } from '@/types/components/AuthLayoutWrapper/type';
-import { IFromEditProfile } from '@/types/pages/IDashBoard';
+import { IFormEditPassword, IFromEditProfile } from '@/types/pages/IDashBoard';
 
 export const initialSignupalues: IFormSignUp = {
 	group_form_username: '',
@@ -24,4 +24,9 @@ export const initialFormEditProfile: IFromEditProfile = {
 	male: true,
 	female: false,
 	sdt: '',
+};
+
+export const initialFormEditPassword: IFormEditPassword = {
+	password: '',
+	verifyPassword: '',
 };

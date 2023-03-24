@@ -27,3 +27,8 @@ export interface IFromEditProfile {
 	male?: boolean;
 	female?: boolean;
 }
+
+export interface IFormEditPassword {
+	password?: string;
+	verifyPassword?: string;
+}

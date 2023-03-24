@@ -22,7 +22,7 @@ const FormGroup = (props: Props, ref: Ref<HTMLInputElement>) => {
 	return (
 		<div
 			id={id}
-			className={`w-full h-[2.4rem] flex items-center font-semibold relative ${styleDiv}`}
+			className={`w-full h-[2.4rem] flex-wrap sm:mb-5 mb-8 flex items-center font-semibold relative ${styleDiv}`}
 		>
 			<label
 				htmlFor={label}

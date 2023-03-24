@@ -68,3 +68,20 @@ export const schemaFormEditProfie = yup
 		avatar: yup.string().trim().max(1024, 'Chỉ cho phép giới hạn 1024 ký tự'),
 	})
 	.required();
+export const schemaFormEditPassword = yup
+	.object({
+		password: yup
+			.string()
+			.trim()
+			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
+			.required('Trường này bắt buộc')
+			.min(8, 'Mật khẩu ít nhất phải 8 ký tự'),
+		verifyPassword: yup
+			.string()
+			.trim()
+			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
+			.oneOf([yup.ref('password')], 'Mật khẩu không khớp')
+			.required('Trường này bắt buộc')
+			.min(8, 'Mật khẩu ít nhất phải 8 ký tự'),
+	})
+	.required();

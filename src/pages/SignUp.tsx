@@ -140,14 +140,14 @@ const SignUp = () => {
 							{...register(pass.id as RegisterId)}
 						>
 							<p
-								onClick={() => handleVisibilityChange('password1')}
-								className='absolute right-2 cursor-pointer pb-1'
+								onClick={() => handleVisibilityChange(pass.id)}
+								className='absolute cursor-pointer sm:right-[10px] sm:top-[4px] top-[28px] right-[7px]'
 							>
 								{pass.isVisible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
 							</p>
 						</FormGroup>
 					))}
-				<div className='flex items-center self-baseline h-4 w-48 pt-2'>
+				<div className='flex sm:mt-0 mt-5 items-center self-baseline h-4 w-48 pt-2'>
 					{!!dataFormGroupCheckBox &&
 						dataFormGroupCheckBox.map((checkBox) => (
 							<FormGroup
@@ -155,7 +155,7 @@ const SignUp = () => {
 								id={checkBox.id}
 								label={checkBox.label}
 								styleDiv={checkBox.styleDiv}
-								styleInput='flex-none'
+								styleInput='flex-none focus:ring-transparent'
 								type={checkBox.type}
 								styleError='left-0 text-xs -bottom-4'
 								i18Label={checkBox.i18Label}

@@ -15,7 +15,7 @@ const Profile: FC<Props> = () => {
 				<Outlet />
 			) : (
 				<div className='flex items-center px-10 justify-between flex-wrap'>
-					<div className='flex flex-col items-center mx-auto mb-8'>
+					<div className='mx-auto mb-8'>
 						<div>
 							<img
 								src={getImage('user.png')}
@@ -24,6 +24,7 @@ const Profile: FC<Props> = () => {
 							/>
 						</div>
 					</div>
+					<div>a</div>
 				</div>
 			)}
 		</div>

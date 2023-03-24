@@ -14,7 +14,7 @@ const AuthContainer: React.FC<PropsAuthContainer> = ({ id, children }) => {
 					className='w-full h-screen flex items-center justify-center absolute z-10'
 				>
 					<div
-						className={`mx-3 w-[44rem] h-[30rem] flex items-center bg-slate-200 rounded-2xl flex-col shadow-3xl ${
+						className={`mx-3 sm:w-[44rem] w-[22rem] h-[36rem] sm:h-[30rem] flex items-center bg-slate-200 rounded-2xl flex-col shadow-3xl ${
 							id === 'sign-in' ? 'lg:flex-row' : ''
 						}`}
 					>

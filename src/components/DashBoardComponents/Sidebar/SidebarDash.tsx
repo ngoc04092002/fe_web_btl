@@ -83,7 +83,7 @@ const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 								})}
 							/>
 						</NavLink>
-						<ul className={`${cx('expand-info')} ${active ? 'h-[112px]' : 'h-0'}`}>
+						<ul className={`${cx('expand-info')} ${active && !showSidebar ? 'h-[112px]' : 'h-0'}`}>
 							<li>
 								<Link to='profile/edit-profile'>Chỉnh sửa thông tin</Link>
 							</li>
