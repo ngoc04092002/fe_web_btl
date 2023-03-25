@@ -6,8 +6,9 @@ import { Form } from 'react-router-dom';
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
 import Button from '@/components/helpers/ButtonWrapper';
 import { schemaFormEditProfie } from '@/constants/SchemaYups';
+import { dataFormGroupEditProfile, dataFormGroupTextEditProfile } from '@/constants/SignUpConstant';
 import { initialFormEditProfile } from '@/constants/initiallValues';
-import { IFromEditProfile } from '@/types/pages/IDashBoard';
+import { DashBoardFormIdEditProfile, IFromEditProfile } from '@/types/pages/IDashBoard';
 import { getImage } from '@/utils/CustomImagePath';
 
 type Props = {};
@@ -18,6 +19,7 @@ const EditProfile: FC<Props> = () => {
 		register,
 		formState: { errors },
 		reset,
+		setValue,
 	} = useForm<IFromEditProfile>({
 		defaultValues: initialFormEditProfile,
 		resolver: yupResolver(schemaFormEditProfie),
@@ -44,62 +46,64 @@ const EditProfile: FC<Props> = () => {
 				<Button>Thay đổi</Button>
 			</div>
 			<div className='mx-auto w-[66%] flex flex-col'>
-				<FormGroup
-					key={'username'}
-					id={'username'}
-					label={'username'}
-					placeholder={'Nhập tên của bạn'}
-					styleLabel={'w-28 whitespace-nowrap'}
-					type={'text'}
-					styleInput={'border-solid border-2 border-[#005aff47] '}
-					styleDiv={'mr-3 mb-8 flex-wrap'}
-					styleError='left-36 text-xs -bottom-4'
-					i18Label={'Tên đăng nhập'}
-					errors={errors}
-					{...register('username')}
-				/>
-				<FormGroup
-					key={'email'}
-					id={'email'}
-					label={'email'}
-					placeholder={'Nhập email của bạn'}
-					styleLabel={'w-28'}
-					type={'text'}
-					styleDiv={'mb-8 flex-wrap'}
-					styleInput={'border-solid border-2 border-[#005aff47]'}
-					styleError='left-36 text-xs -bottom-4'
-					i18Label={'Email'}
-					errors={errors}
-					{...register('email')}
-				/>
-				<FormGroup
-					key={'address'}
-					id={'address'}
-					label={'address'}
-					placeholder={'Ngõ, xóm, phường, thị xã, tỉnh (thành phố)'}
-					styleDiv={'mb-8 flex-wrap'}
-					styleInput={'border-solid border-2 border-[#005aff47]'}
-					styleLabel={'w-28'}
-					type={'text'}
-					styleError='left-36 text-xs -bottom-4'
-					i18Label={'Địa chỉ'}
-					errors={errors}
-					{...register('address')}
-				/>
-				<FormGroup
-					key={'sdt'}
-					id={'sdt'}
-					label={'sdt'}
-					placeholder={'0123456789'}
-					styleDiv={'mb-8 flex-wrap'}
-					styleLabel={'w-28'}
-					styleInput={'border-solid border-2 border-[#005aff47]'}
-					type={'text'}
-					styleError='left-36 text-xs -bottom-4'
-					i18Label={'Số điện thoại'}
-					errors={errors}
-					{...register('sdt')}
-				/>
+				{!!dataFormGroupTextEditProfile &&
+					dataFormGroupTextEditProfile.map((text) => (
+						<FormGroup
+							key={text.id}
+							id={text.id}
+							label={text.label}
+							placeholder={text.placeholder}
+							styleDiv={text.styleDiv}
+							styleInput={'border-solid border-2 border-[#005aff47] '}
+							styleLabel={text.styleLabel}
+							type={text.type}
+							styleError='left-36 text-xs -bottom-4'
+							i18Label={text.i18Label}
+							errors={errors}
+							{...register(text.id as DashBoardFormIdEditProfile)}
+						/>
+					))}
+				<div className='flex sm:mt-0 mt-5 items-center self-baseline h-4 w-48 pt-2'>
+					{!!dataFormGroupEditProfile &&
+						dataFormGroupEditProfile.map((checkBox) => (
+							<FormGroup
+								key={checkBox.id}
+								id={checkBox.id}
+								label={checkBox.label}
+								styleDiv={checkBox.styleDiv}
+								styleInput='flex-none focus:ring-transparent'
+								type={checkBox.type}
+								styleError='left-0 text-xs -bottom-4'
+								i18Label={checkBox.i18Label}
+								errors={errors}
+								{...register(checkBox.id as DashBoardFormIdEditProfile, {
+									onChange(e) {
+										const myId = e.target.id;
+										const allCheckBox = document.querySelectorAll('input[type="checkbox"]');
+										const input1 = allCheckBox[0] as HTMLInputElement;
+										const input2 = allCheckBox[1] as HTMLInputElement;
+										if (e.target.checked) {
+											if (myId === 'male') {
+												input2.checked = false;
+												setValue('female', false);
+											} else {
+												input1.checked = false;
+												setValue('male', false);
+											}
+										} else {
+											if (myId === 'male' && !input2.checked) {
+												input2.checked = true;
+												setValue('female', true);
+											} else {
+												input1.checked = true;
+												setValue('male', true);
+											}
+										}
+									},
+								})}
+							/>
+						))}
+				</div>
 				<Button styles='mt-4 self-end'>Xác nhận</Button>
 			</div>
 		</Form>

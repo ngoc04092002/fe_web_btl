@@ -13,6 +13,7 @@ import { routes } from './pages/index';
 import { store } from './store/store';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/pages/firebase';
+
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);

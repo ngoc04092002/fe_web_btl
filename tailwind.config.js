@@ -1,10 +1,28 @@
 /** @type {import('tailwindcss').Config} */
+
+const labelsClasses = ['indigo', 'gray', 'green', 'blue', 'red', 'purple'];
 module.exports = {
 	content: [
 		'./src/pages/**/*.{js,ts,jsx,tsx}',
 		'./src/components/**/*.{js,ts,jsx,tsx}',
 		'./src/router/**/*.{js,ts,jsx,tsx}',
 	],
+	purge: {
+		content: [
+			'./src/pages/**/*.{js,ts,jsx,tsx}',
+			'./src/components/**/*.{js,ts,jsx,tsx}',
+			'./src/router/**/*.{js,ts,jsx,tsx}',
+			'./public/index.html',
+		],
+		//Because we made a dynamic class with the label we need to add those clases
+		// to the safe list so the purge does not remove that
+		safelist: [
+			...labelsClasses.map((lbl) => `bg-${lbl}-500`),
+			...labelsClasses.map((lbl) => `bg-${lbl}-200`),
+			...labelsClasses.map((lbl) => `text-${lbl}-400`),
+		],
+	},
+	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
 			boxShadow: {
@@ -13,6 +31,10 @@ module.exports = {
 			},
 			gridTemplateColumns: {
 				'3r-cus': 'repeat(3, minmax(100px, 1fr))',
+				'1/5': '1fr 5fr',
+			},
+			fontFamily: {
+				sans: ['Open Sans'],
 			},
 		},
 		screens: {
@@ -33,5 +55,8 @@ module.exports = {
 			// => @media (min-width: 1536px) { ... }
 		},
 	},
-	plugins: [],
+	variants: {
+		extend: {},
+	},
+	plugins: [require('@tailwindcss/forms')],
 };

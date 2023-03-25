@@ -8,8 +8,7 @@ import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
 import Button from '@/components/helpers/ButtonWrapper';
 import { schemaFormEditPassword } from '@/constants/SchemaYups';
 import { initialFormEditPassword } from '@/constants/initiallValues';
-import { DashBoardFormId } from '@/types/components/AuthLayoutWrapper/type';
-import { IFormEditPassword } from '@/types/pages/IDashBoard';
+import { DashBoardFormIdEditPassword, IFormEditPassword } from '@/types/pages/IDashBoard';
 import { ISignUpPassword } from '@/types/pages/ISignUp';
 
 type Props = {};
@@ -89,7 +88,7 @@ const EditPassword: FC<Props> = () => {
 							styleError='left-36 text-xs -bottom-4'
 							i18Label={pass.i18Label}
 							errors={errors}
-							{...register(pass.id as DashBoardFormId)}
+							{...register(pass.id as DashBoardFormIdEditPassword)}
 						>
 							<p
 								onClick={() => handleVisibilityChange(pass.id)}

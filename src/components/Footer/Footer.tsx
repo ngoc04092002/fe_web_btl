@@ -2,7 +2,7 @@ import { MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import React, { memo } from 'react';
 
-import { FacebookIcon, ZaloIcon } from '../assests/icons';
+import { FacebookIcon, ZaloIcon } from '../../assests/icons';
 
 import styles from './footer.module.scss';
 

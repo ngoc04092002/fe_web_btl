@@ -45,3 +45,59 @@ export const dataFormGroupCheckBox: ISignUpCheckbox[] = [
 		styleDiv: 'h-fit',
 	},
 ];
+
+export const dataFormGroupTextEditProfile: ISignUpText[] = [
+	{
+		id: 'username',
+		label: 'username',
+		placeholder: 'Nhập tên của bạn',
+		styleDiv: 'mr-3 mb-8 flex-wrap',
+		styleLabel: 'w-28 whitespace-nowrap',
+		type: 'text',
+		i18Label: 'Tên đăng nhập',
+	},
+	{
+		id: 'email',
+		label: 'email',
+		placeholder: 'Nhập email của bạn',
+		styleDiv: 'mb-5',
+		styleLabel: 'w-28',
+		type: 'text',
+		i18Label: 'Email',
+	},
+	{
+		id: 'address',
+		label: 'address',
+		placeholder: 'Ngõ, xóm, phường, thị xã, tỉnh (thành phố)',
+		styleDiv: 'mb-8 flex-wrap',
+		type: 'text',
+		styleLabel: 'w-28',
+		i18Label: 'Địa chỉ',
+	},
+	{
+		id: 'sdt',
+		label: 'sdt',
+		placeholder: '0123456789',
+		styleDiv: 'mb-8 flex-wrap',
+		type: 'text',
+		styleLabel: 'w-28',
+		i18Label: 'Số điện thoại',
+	},
+];
+
+export const dataFormGroupEditProfile: ISignUpCheckbox[] = [
+	{
+		id: 'male',
+		label: 'male',
+		styleDiv: 'mr-2 h-fit',
+		type: 'checkbox',
+		i18Label: 'Nam',
+	},
+	{
+		id: 'female',
+		label: 'female',
+		type: 'checkbox',
+		i18Label: 'Nữ',
+		styleDiv: 'h-fit',
+	},
+];

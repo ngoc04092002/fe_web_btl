@@ -10,16 +10,20 @@ import ProtectedRoute from './ProtectedRoute';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
+import CalendarContainer from '@/components/Calendar';
 import DashBoardMain from '@/components/DashBoardComponents/DashBoardMain';
 import EditPassword from '@/components/DashBoardComponents/Profile/EditPassword';
 import EditProfile from '@/components/DashBoardComponents/Profile/EditProfile';
 import WrapperElm from '@/components/WrapperElm';
 import AuthProvider from '@/context/AuthProvider';
+import ContextWrapper from '@/context/ContextWrapper';
 
 const AuthLayout = () => {
 	return (
 		<AuthProvider>
-			<Outlet />
+			<ContextWrapper>
+				<Outlet />
+			</ContextWrapper>
 		</AuthProvider>
 	);
 };
@@ -73,6 +77,10 @@ export const routes = createBrowserRouter([
 												element: <EditProfile />,
 											},
 										],
+									},
+									{
+										path: 'calendar',
+										element: <CalendarContainer />,
 									},
 								],
 							},

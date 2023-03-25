@@ -16,6 +16,8 @@ export interface IDataStat {
 	developSpeed: string;
 	timestamp: string;
 }
+export type DashBoardFormIdEditPassword = 'password' | 'verifyPassword';
+export type DashBoardFormIdEditProfile = keyof IFromEditProfile;
 
 export interface IFromEditProfile {
 	username?: string;
@@ -32,3 +34,23 @@ export interface IFormEditPassword {
 	password?: string;
 	verifyPassword?: string;
 }
+
+export interface ISidebarIconProps {
+	title: string;
+	color: string;
+}
+
+export interface ISidebarRest {
+	path: string;
+	title: string;
+	color: string;
+	// eslint-disable-next-line no-undef
+	Icon: (props: ISidebarIconProps) => JSX.Element;
+	child: string[];
+}
+
+export type IListSidebarDash = {
+	rest: Omit<ISidebarRest, 'Icon'>;
+	Icon: ISidebarRest['Icon'];
+	showSidebar?: boolean;
+};

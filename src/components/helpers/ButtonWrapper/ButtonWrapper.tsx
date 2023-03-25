@@ -7,11 +7,12 @@ type Props = {
 
 const ButtonWrapper: FC<Props> = ({ children, styles }) => {
 	return (
-		<div
-			className={`${styles} cursor-pointer mb-4 px-4 py-2 font-semibold bg-[#01adba] text-white hover:bg-[#1cbcc7]`}
+		<button
+			type='submit'
+			className={`${styles} select-none cursor-pointer mb-4 px-4 py-2 font-semibold bg-[#01adba] text-white hover:bg-[#1cbcc7]`}
 		>
 			{children}
-		</div>
+		</button>
 	);
 };
 

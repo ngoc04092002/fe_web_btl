@@ -1,23 +1,57 @@
-import { HomeOutlined, RightOutlined, UserOutlined } from '@ant-design/icons';
+import { ContactsOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import React, { FC, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 
+import ListSidebarDash from './ListSidebarDash';
 import styles from './sidebar-dash.module.scss';
 
 import Bar from '@/components/helpers/Bar';
-import { IBar } from '@/types/pages/IDashBoard';
+import { IBar, ISidebarIconProps, ISidebarRest } from '@/types/pages/IDashBoard';
 import { getImage } from '@/utils/CustomImagePath';
 
 const cx = classNames.bind(styles);
 
 const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
-	const [active, setActive] = useState(false);
-	const handleExpandInfo = () => {
-		if (!showSidebar) {
-			setActive(!active);
-		}
-	};
+	const siderbarData: ISidebarRest[] = [
+		{
+			path: '/dash-board/',
+			title: 'Bảng điều khiển',
+			Icon: (props: ISidebarIconProps) => (
+				<HomeOutlined
+					title={props.title}
+					style={{ color: props.color }}
+				/>
+			),
+			child: [],
+			color: '#c310c3',
+		},
+		{
+			path: '/dash-board/profile',
+			title: 'Thông tin tài khoản',
+			Icon: (props: ISidebarIconProps) => (
+				<UserOutlined
+					title={props.title}
+					style={{ color: props.color }}
+				/>
+			),
+			child: ['Chỉnh sửa thông tin', 'Đổi mật khẩu'],
+			color: '#c3ab00',
+		},
+		{
+			path: '/dash-board/calendar',
+			title: 'Lịch cá nhân',
+			Icon: (props: ISidebarIconProps) => (
+				<ContactsOutlined
+					title={props.title}
+					style={{ color: props.color }}
+				/>
+			),
+			child: [],
+			color: '#f5365c',
+		},
+	];
+
 	return (
 		<nav
 			className={`${cx('sidebar_dash', {
@@ -42,57 +76,18 @@ const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 					/>
 				</div>
 				<ul>
-					<li>
-						<NavLink
-							to='/dash-board/'
-							className={({ isActive }) => (isActive ? cx('active') : '')}
+					{siderbarData.map(({ Icon, ...rest }, index) => (
+						<li
+							key={index}
+							className={rest.path.endsWith('calendar') ? 'sm:block hidden' : ''}
 						>
-							<HomeOutlined
-								title='Bảng điều khiển'
-								style={{ color: '#c310c3' }}
-							/>{' '}
-							<p
-								className={`${cx('text', {
-									unshow: showSidebar,
-								})} whitespace-nowrap overflow-hidden`}
-							>
-								Bảng điều khiển
-							</p>
-						</NavLink>
-					</li>
-					<li>
-						<NavLink
-							to='/dash-board/profile'
-							className={({ isActive }) => (isActive ? cx('active') : '')}
-							onClick={handleExpandInfo}
-						>
-							<UserOutlined
-								title='Thông tin tài khoản'
-								style={{ color: '#c3ab00' }}
-							/>{' '}
-							<p
-								className={`${cx('text', {
-									unshow: showSidebar,
-								})} whitespace-nowrap overflow-hidden`}
-							>
-								Thông tin tài khoản
-							</p>
-							<RightOutlined
-								className={cx('arrow-expand', {
-									active: active,
-								})}
+							<ListSidebarDash
+								Icon={Icon}
+								rest={rest}
+								showSidebar={showSidebar}
 							/>
-						</NavLink>
-						<ul className={`${cx('expand-info')} ${active && !showSidebar ? 'h-[112px]' : 'h-0'}`}>
-							<li>
-								<Link to='profile/edit-profile'>Chỉnh sửa thông tin</Link>
-							</li>
-
-							<li>
-								<Link to='profile/edit-password'>Đổi mật khẩu</Link>
-							</li>
-						</ul>
-					</li>
+						</li>
+					))}
 				</ul>
 			</div>
 		</nav>

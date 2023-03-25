@@ -48,6 +48,7 @@ const SignUp = () => {
 		register,
 		formState: { errors },
 		reset,
+		setValue,
 	} = useForm<IFormSignUp>({
 		defaultValues: initialSignupalues,
 		resolver: yupResolver(schemaSignup),
@@ -169,14 +170,18 @@ const SignUp = () => {
 										if (e.target.checked) {
 											if (myId === 'male') {
 												input2.checked = false;
+												setValue('group_form_female', false);
 											} else {
 												input1.checked = false;
+												setValue('group_form_male', false);
 											}
 										} else {
 											if (myId === 'male' && !input2.checked) {
 												input2.checked = true;
+												setValue('group_form_female', true);
 											} else {
 												input1.checked = true;
+												setValue('group_form_male', true);
 											}
 										}
 									},
