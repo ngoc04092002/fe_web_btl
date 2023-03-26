@@ -3,8 +3,10 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Profile from '../components/DashBoardComponents/Profile';
 
 import DashBoard from './Dashboard';
+import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
+import News from './News';
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import SignIn from './SignIn';
@@ -46,6 +48,10 @@ export const routes = createBrowserRouter([
 				element: <ForgotPassword />,
 			},
 			{
+				path: 'news',
+				element: <News />,
+			},
+			{
 				element: <ProtectedRoute />,
 				children: [
 					{
@@ -57,7 +63,11 @@ export const routes = createBrowserRouter([
 								element: <WrapperElm />,
 							},
 							{
-								path: '/dash-board',
+								path: 'feedback',
+								element: <FeedBack />,
+							},
+							{
+								path: 'dash-board',
 								element: <DashBoard />,
 								children: [
 									{

@@ -62,7 +62,7 @@ const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 				<div className='flex items-center lg:justify-between justify-center mb-6'>
 					<Link to='/'>
 						<img
-							src={getImage('branch.jpg')}
+							src={getImage('branch.png')}
 							alt='branch'
 							className='object-contain object-center w-28 h-16'
 						/>

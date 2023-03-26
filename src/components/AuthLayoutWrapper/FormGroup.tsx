@@ -39,7 +39,9 @@ const FormGroup = (props: Props, ref: Ref<HTMLInputElement>) => {
 					type !== 'checkbox' && errors[id]
 						? 'border-red-500 border-solid border-2'
 						: 'focus:ring-blue-500 focus:ring-2'
-				} flex-auto font-normal h-full p-1 rounded-md caret-slate-500 ${styleInput}`}
+				} flex-auto font-normal ${
+					type !== 'checkbox' ? 'rounded-md h-full' : 'border-solid border-2 border-blue-500'
+				} p-1 caret-slate-500 ${styleInput}`}
 				ref={ref}
 				{...rest}
 			/>

@@ -16,7 +16,7 @@ function CalendarContainer() {
 		setCurrentMonth(getMonth(monthIndex));
 	}, [monthIndex]);
 	return (
-		<div className='bg-white w-full h-full rounded-md mb-8'>
+		<div className='bg-white w-full h-full rounded-md mb-8 p-4 shadow-md'>
 			{showEventModal && <EventModal />}
 
 			<div className='h-full flex flex-col'>

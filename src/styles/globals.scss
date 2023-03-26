@@ -14,6 +14,7 @@
 		list-style: none;
 		text-decoration: none;
 		transition: all 0.15s ease-in-out;
+		font-family: math;
 	}
 	body {
 		font-size: 100%;
@@ -31,6 +32,36 @@
 		&::-webkit-scrollbar-thumb {
 			background: #ccc;
 			border-radius: 3rem;
+		}
+	}
+	.icon-feedback {
+		svg {
+			width: 40px;
+			height: 40px;
+			margin-right: 1rem;
+			margin-left: 1rem;
+			cursor: pointer;
+		}
+		&.smile {
+			svg {
+				fill: #b4ff00;
+			}
+		}
+		&.frown {
+			svg {
+				fill: #ff8f03;
+			}
+		}
+		&.meh {
+			svg {
+				fill: #2f45ff;
+			}
+		}
+	}
+	#scrollToTop {
+		display: none;
+		&.active {
+			display: flex;
 		}
 	}
 }

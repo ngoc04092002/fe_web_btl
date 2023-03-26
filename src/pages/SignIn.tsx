@@ -162,6 +162,7 @@ const SignIn = () => {
 				</div>
 				<button
 					type='submit'
+					disabled={isLoading}
 					className={`mt-3 rounded-xl w-full cursor-pointer p-[0.65rem] text-white font-semibold ${
 						isLoading ? 'bg-[#ccc]' : 'bg-[#02dcff] hover:bg-[#62eaffe0]'
 					}`}

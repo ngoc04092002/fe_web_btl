@@ -15,7 +15,7 @@ const DailyNews: FC<Props> = () => {
 					<div className='grid grid-rows-2 gap-3'>
 						<div className='row-span-2 h-52 w-full bg-[#f0f2f5] rounded-2xl shadow-md'>
 							<Link
-								to='/a'
+								to='/news'
 								className='grid grid-cols-2 h-52'
 							>
 								<div className='h-52'>
@@ -45,7 +45,7 @@ const DailyNews: FC<Props> = () => {
 						</div>
 						<div className='grid grid-cols-2 gap-3 '>
 							<Link
-								to='/b'
+								to='/news'
 								className='grid grid-cols-3 h-28 hover:shadow-sm-cs linear-shadow rounded-lg'
 							>
 								<div className='h-28'>
@@ -64,7 +64,7 @@ const DailyNews: FC<Props> = () => {
 								</div>
 							</Link>
 							<Link
-								to='/c'
+								to='/news'
 								className='grid grid-cols-3 h-28 hover:shadow-sm-cs linear-shadow rounded-lg'
 							>
 								<div className='h-28'>
@@ -89,7 +89,7 @@ const DailyNews: FC<Props> = () => {
 					<div className='grid grid-cols-2 gap-2 cus-screen:block'>
 						<Link
 							className={`${cx('news-more')}`}
-							to='/'
+							to='/news'
 						>
 							Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad veniam suscipit dolore
 							beatae quod inventore recusandae necessitatibus deserunt facilis quae minus sint ex

@@ -21,6 +21,7 @@ const menuNavBar: IMenuNavBar[] = [
 	{ title: 'Hỏi đáp', to: 'q-a' },
 	{ title: 'Xem sau', to: 'view-later' },
 	{ title: 'Dự án', to: 'project' },
+	{ title: 'Góp ý kiến', to: 'feedback' },
 ];
 
 const Header: React.FC<Props> = ({ handleActive }) => {
@@ -45,7 +46,7 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 				<div className='navbar_logo w-12 h-12'>
 					<Link to='/'>
 						<img
-							src={getImage('branch.jpg')}
+							src={getImage('branch.png')}
 							alt='branch store'
 						/>
 					</Link>
@@ -60,7 +61,7 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 					{menuNavBar.map((d) => (
 						<Link
 							key={d.to}
-							className='px-4 hover:color-main'
+							className='px-3 hover:color-main'
 							to={d.to}
 						>
 							{d.title}

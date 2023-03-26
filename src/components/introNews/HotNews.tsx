@@ -1,3 +1,4 @@
+import { RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
@@ -90,7 +91,7 @@ const HotNews: FC<Props> = ({ title, isRent = false }) => {
 	];
 	return (
 		<NewsContainer title={title}>
-			<div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3'>
+			<div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3 relative'>
 				{!isRent &&
 					!!dataHotNews.length &&
 					dataHotNews.map((d, index) => (
@@ -142,6 +143,11 @@ const HotNews: FC<Props> = ({ title, isRent = false }) => {
 							</div>
 						</Link>
 					))}
+				<div className='absolute -right-[16px] top-1/2 -translate-y-1/2 lg:block hidden'>
+					<a href='/'>
+						<RightOutlined className='text-[30px] bg-white rounded-full w-[46px] h-[46px] flex items-center justify-center shadow-sm-cs' />
+					</a>
+				</div>
 			</div>
 		</NewsContainer>
 	);

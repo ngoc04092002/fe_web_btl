@@ -26,3 +26,8 @@ export interface IToastify {
 	progress: undefined;
 	theme: string;
 }
+
+export interface IFeedback {
+	type: string;
+	feedback: string;
+}

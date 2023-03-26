@@ -92,7 +92,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 			text: 'Thông báo',
 		},
 		{
-			path: '/',
+			path: '/feedback',
 			Icon: <QuestionCircleOutlined />,
 			text: 'Góp ý kiến',
 		},
