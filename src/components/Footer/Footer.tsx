@@ -96,7 +96,7 @@ const Footer: React.FC<Props> = () => {
 								key={f.title}
 								className='sm:w-1/2 mb-4 w-full  text-center md:text-start'
 							>
-								<h3 className='font-semibold'>{f.title}</h3>
+								<h3 className='font-semibold text-2xl'>{f.title}</h3>
 								<ul>
 									{f.intros.map((fi, index) => (
 										<li key={index}>{fi}</li>

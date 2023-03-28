@@ -29,6 +29,7 @@ module.exports = {
 				'3xl': '2px 2px 30px 8px rgb(0 ,0 ,0,0.28)',
 				'sm-cs': '1px 1px 3px 2px #ccc',
 				'sm-cs-0': '1px 1px 4px 0px rgba(0, 0, 0, 0.15)',
+				'sm-cs-0360': '0px 3px 6px 0px rgba(0, 0, 0, 0.2)',
 			},
 			gridTemplateColumns: {
 				'3r-cus': 'repeat(3, minmax(100px, 1fr))',
