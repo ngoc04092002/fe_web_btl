@@ -2,12 +2,14 @@ import React, { FC } from 'react';
 
 import HeaderNews from './HeaderNews';
 
-type Props = {};
+type Props = {
+	hanleShowSearch: React.MouseEventHandler<HTMLElement>;
+};
 
-const HeaderNewsContainer: FC<Props> = () => {
+const HeaderNewsContainer: FC<Props> = ({ hanleShowSearch }) => {
 	return (
 		<div className='drop-shadow-lg bg-white'>
-			<HeaderNews />
+			<HeaderNews hanleShowSearch={hanleShowSearch} />
 		</div>
 	);
 };

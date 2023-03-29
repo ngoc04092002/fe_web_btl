@@ -1,0 +1,40 @@
+.backdrop-search-news {
+	position: relative;
+	&::after {
+		content: '';
+		position: absolute;
+		background-color: white;
+		height: 1px;
+		bottom: -1px;
+		border-radius: 4px;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		transition: width 0.2s linear;
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		animation: expandWidth 0.4s linear;
+		z-index: 1;
+		background-color: rgb(63, 146, 255);
+		height: 1px;
+		bottom: -1px;
+		border-radius: 4px;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		transition: width 0.2s linear;
+	}
+	@keyframes expandWidth {
+		0% {
+			width: 0%;
+			background-color: white;
+		}
+		100% {
+			width: 100%;
+			background-color: #4981f8;
+		}
+	}
+}

@@ -3,3 +3,10 @@ export interface ITopicNewsData {
 	topic: string;
 	child: { to: string; title: string }[] | [];
 }
+
+export interface IListSearchData {
+	to: string;
+	img: string;
+	des: string;
+	createdAt: string;
+}
