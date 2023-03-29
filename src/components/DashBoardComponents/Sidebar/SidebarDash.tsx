@@ -35,7 +35,10 @@ const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 					style={{ color: props.color }}
 				/>
 			),
-			child: ['Chỉnh sửa thông tin', 'Đổi mật khẩu'],
+			child: [
+				{ to: 'profile/edit-profile', title: 'Chỉnh sửa thông tin' },
+				{ to: 'profile/edit-password', title: 'Đổi mật khẩu' },
+			],
 			color: '#c3ab00',
 		},
 		{
@@ -80,11 +83,13 @@ const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 						<li
 							key={index}
 							className={rest.path.endsWith('calendar') ? 'sm:block hidden' : ''}
+							onClick={!rest.child.length ? handleToggleShowSidebar : undefined}
 						>
 							<ListSidebarDash
 								Icon={Icon}
 								rest={rest}
 								showSidebar={showSidebar}
+								handleToggleShowSidebar={handleToggleShowSidebar}
 							/>
 						</li>
 					))}

@@ -45,7 +45,7 @@ const EditProfile: FC<Props> = () => {
 				</div>
 				<Button>Thay đổi</Button>
 			</div>
-			<div className='mx-auto w-[66%] flex flex-col'>
+			<div className='mx-auto sm:w-[66%] w-full flex flex-col'>
 				{!!dataFormGroupTextEditProfile &&
 					dataFormGroupTextEditProfile.map((text) => (
 						<FormGroup
@@ -57,7 +57,7 @@ const EditProfile: FC<Props> = () => {
 							styleInput={'border-solid border-2 border-[#005aff47] '}
 							styleLabel={text.styleLabel}
 							type={text.type}
-							styleError='left-36 text-xs -bottom-4'
+							styleError='sm-500:left-32 left-0 text-xs sm-500:-bottom-4 -bottom-[2.4rem]'
 							i18Label={text.i18Label}
 							errors={errors}
 							{...register(text.id as DashBoardFormIdEditProfile)}

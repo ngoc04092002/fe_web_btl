@@ -1,7 +1,7 @@
 import React from 'react';
 
 export interface IBar {
-	handleToggleShowSidebar: React.MouseEventHandler<HTMLDivElement>;
+	handleToggleShowSidebar: React.MouseEventHandler<HTMLElement> | undefined;
 	classSvg?: string;
 	className?: string;
 	showSidebar?: boolean;
@@ -40,13 +40,18 @@ export interface ISidebarIconProps {
 	color: string;
 }
 
+interface IChild {
+	to: string;
+	title: string;
+}
+
 export interface ISidebarRest {
 	path: string;
 	title: string;
 	color: string;
 	// eslint-disable-next-line no-undef
 	Icon: (props: ISidebarIconProps) => JSX.Element;
-	child: string[];
+	child: IChild[];
 }
 
 export type IListSidebarDash = {

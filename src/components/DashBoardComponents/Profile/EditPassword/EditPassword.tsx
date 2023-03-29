@@ -72,8 +72,9 @@ const EditPassword: FC<Props> = () => {
 			onSubmit={handleSubmit(onSubmit)}
 			method='post'
 			className='flex items-center md:px-10 px-4 justify-between flex-wrap'
+			hidden
 		>
-			<div className='mx-auto w-[66%] flex flex-col'>
+			<div className='mx-auto md:w-[66%] w-full flex flex-col'>
 				{!!dataFormGroupPassword &&
 					dataFormGroupPassword.map((pass) => (
 						<FormGroup
@@ -85,14 +86,14 @@ const EditPassword: FC<Props> = () => {
 							styleInput={pass.styleInput}
 							styleLabel={pass.styleLabel}
 							type={pass.type}
-							styleError='left-36 text-xs -bottom-4'
+							styleError='sm-500:left-36 left-0 text-xs sm-500:-bottom-4 -bottom-[2.4rem]'
 							i18Label={pass.i18Label}
 							errors={errors}
 							{...register(pass.id as DashBoardFormIdEditPassword)}
 						>
 							<p
 								onClick={() => handleVisibilityChange(pass.id)}
-								className='absolute cursor-pointer sm:right-[10px] sm:top-[4px] top-[26px] right-[-18px]'
+								className='absolute cursor-pointer md:right-[10px] sm-500:top-[5px] top-[28px] right-[7px]'
 							>
 								{pass.isVisible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
 							</p>

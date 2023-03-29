@@ -118,8 +118,9 @@ const SignIn = () => {
 					id='group_form_email'
 					label='email'
 					placeholder='Nhập email của bạn'
-					styleDiv='mb-10'
-					styleError='left-[4.6rem] text-sm -bottom-6'
+					styleInput='sm:w-fit w-full'
+					styleDiv=''
+					styleError='left-0 sm:left-[4.6rem] text-sm sm:-bottom-[1.1rem] -bottom-[2.5rem]'
 					styleLabel='w-[4.6rem]'
 					type='text'
 					i18Label='Email'
@@ -130,8 +131,8 @@ const SignIn = () => {
 					id='group_form_password'
 					label='password'
 					placeholder='Nhập mật khẩu của bạn'
-					styleDiv='mb-5'
-					styleError='left-[4.6rem] text-sm -bottom-6'
+					styleDiv=''
+					styleError='left-0 sm:left-[4.6rem] text-sm sm:-bottom-[1.1rem] -bottom-[2.5rem]'
 					styleLabel='w-[4.6rem]'
 					styleInput='pr-8'
 					type={visiblePassword ? 'text' : 'password'}
@@ -141,7 +142,7 @@ const SignIn = () => {
 				>
 					<p
 						onClick={handleVisibilityChange}
-						className='absolute right-2 cursor-pointer pb-1'
+						className='absolute sm:right-[10px] sm:top-[5px] top-[29px] right-[7px] cursor-pointer pb-1'
 					>
 						{visiblePassword ? <EyeOutlined /> : <EyeInvisibleOutlined />}
 					</p>

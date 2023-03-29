@@ -5,10 +5,15 @@ import { Link, NavLink } from 'react-router-dom';
 
 import styles from './sidebar-dash.module.scss';
 
-import { IListSidebarDash } from '@/types/pages/IDashBoard';
+import { IBar, IListSidebarDash } from '@/types/pages/IDashBoard';
 const cx = classNames.bind(styles);
 
-const ListSidebarDash: FC<IListSidebarDash> = ({ showSidebar, Icon, rest }) => {
+const ListSidebarDash: FC<IListSidebarDash & Pick<IBar, 'handleToggleShowSidebar'>> = ({
+	showSidebar,
+	Icon,
+	rest,
+	handleToggleShowSidebar,
+}) => {
 	const [active, setActive] = useState(false);
 	const handleExpandInfo = () => {
 		if (!showSidebar && rest.child?.length > 0) {
@@ -43,13 +48,14 @@ const ListSidebarDash: FC<IListSidebarDash> = ({ showSidebar, Icon, rest }) => {
 			</NavLink>
 			{!!rest.child?.length && (
 				<ul className={`${cx('expand-info')} ${active && !showSidebar ? 'h-[112px]' : 'h-0'}`}>
-					<li>
-						<Link to='profile/edit-profile'>Chỉnh sửa thông tin</Link>
-					</li>
-
-					<li>
-						<Link to='profile/edit-password'>Đổi mật khẩu</Link>
-					</li>
+					{rest.child?.map((r, i) => (
+						<li
+							key={i}
+							onClick={handleToggleShowSidebar}
+						>
+							<Link to={r.to}>{r.title}</Link>
+						</li>
+					))}
 				</ul>
 			)}
 		</>

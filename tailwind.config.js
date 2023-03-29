@@ -41,6 +41,7 @@ module.exports = {
 		},
 		screens: {
 			'cus-screen': '840px',
+			'sm-500': '500px',
 			'sm': '640px',
 			// => @media (min-width: 640px) { ... }
 

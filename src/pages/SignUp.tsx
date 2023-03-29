@@ -78,7 +78,7 @@ const SignUp = () => {
 				id: 'password1',
 				label: 'password',
 				placeholder: 'Nhập mật khẩu của bạn',
-				styleDiv: 'mb-5',
+				styleDiv: '',
 				styleInput: 'pr-8',
 				styleLabel: 'w-36',
 				type: visiblePassword.password1 ? 'text' : 'password',
@@ -89,7 +89,7 @@ const SignUp = () => {
 				id: 'password2',
 				label: 'password2',
 				placeholder: 'Nhập lại mật khẩu của bạn',
-				styleDiv: 'mb-5',
+				styleDiv: '',
 				styleInput: 'pr-8',
 				styleLabel: 'w-36',
 				type: visiblePassword.password2 ? 'text' : 'password',
@@ -118,7 +118,7 @@ const SignUp = () => {
 							styleDiv={text.styleDiv}
 							styleLabel={text.styleLabel}
 							type={text.type}
-							styleError='left-36 text-xs -bottom-4'
+							styleError='sm:left-36 left-0 text-xs sm:-bottom-4 -bottom-10'
 							i18Label={text.i18Label}
 							errors={errors}
 							{...register(text.id as RegisterId)}
@@ -135,14 +135,14 @@ const SignUp = () => {
 							styleInput={pass.styleInput}
 							styleLabel={pass.styleLabel}
 							type={pass.type}
-							styleError='left-36 text-xs -bottom-4'
+							styleError='sm:left-36 left-0 text-xs sm:-bottom-4 -bottom-10'
 							i18Label={pass.i18Label}
 							errors={errors}
 							{...register(pass.id as RegisterId)}
 						>
 							<p
 								onClick={() => handleVisibilityChange(pass.id)}
-								className='absolute cursor-pointer sm:right-[10px] sm:top-[4px] top-[28px] right-[7px]'
+								className='absolute cursor-pointer sm:right-[10px] sm:top-[5px] top-[28px] right-[7px]'
 							>
 								{pass.isVisible ? <EyeOutlined /> : <EyeInvisibleOutlined />}
 							</p>

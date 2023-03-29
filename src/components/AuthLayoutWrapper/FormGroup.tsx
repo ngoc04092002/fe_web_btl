@@ -22,16 +22,16 @@ const FormGroup = (props: Props, ref: Ref<HTMLInputElement>) => {
 	return (
 		<div
 			id={id}
-			className={`w-full h-[2.4rem] flex-wrap sm:mb-5 mb-8 flex items-center font-semibold relative ${styleDiv}`}
+			className={`w-full h-[2.4rem] flex-wrap sm:mb-5 mb-10 flex items-center font-semibold relative ${styleDiv}`}
 		>
 			<label
 				htmlFor={label}
-				className={`mr-2 cursor-pointer ${styleLabel}`}
+				className={`mr-2 cursor-pointer whitespace-nowrap ${styleLabel}`}
 			>
 				{i18Label}:
 			</label>
 			<input
-				autoComplete={type === 'password' ? 'current-password' : ''}
+				autoComplete={type === 'password' ? '' : 'username email'}
 				type={type}
 				id={label}
 				placeholder={placeholder}

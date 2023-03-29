@@ -40,9 +40,9 @@ export const schemaSignin = yup
 		group_form_email: yup
 			.string()
 			.trim()
+			.required('Trường này bắt buộc')
 			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
-			.matches(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+\b/i, 'Email không hợp lệ')
-			.required('Trường này bắt buộc'),
+			.matches(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+\b/i, 'Email không hợp lệ'),
 		group_form_password: yup
 			.string()
 			.trim()
