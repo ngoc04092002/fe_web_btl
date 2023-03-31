@@ -47,7 +47,11 @@ const ListSidebarDash: FC<IListSidebarDash & Pick<IBar, 'handleToggleShowSidebar
 				)}
 			</NavLink>
 			{!!rest.child?.length && (
-				<ul className={`${cx('expand-info')} ${active && !showSidebar ? 'h-[112px]' : 'h-0'}`}>
+				<ul
+					className={`${cx('expand-info')} ${
+						active && !showSidebar ? `h-[${rest.child?.length * 56}px]` : 'h-0'
+					}`}
+				>
 					{rest.child?.map((r, i) => (
 						<li
 							key={i}

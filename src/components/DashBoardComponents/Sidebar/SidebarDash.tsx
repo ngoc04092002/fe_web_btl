@@ -12,49 +12,48 @@ import { getImage } from '@/utils/CustomImagePath';
 
 const cx = classNames.bind(styles);
 
+const siderbarData: ISidebarRest[] = [
+	{
+		path: '/dash-board/',
+		title: 'Bảng điều khiển',
+		Icon: (props: ISidebarIconProps) => (
+			<HomeOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [],
+		color: '#c310c3',
+	},
+	{
+		path: '/dash-board/profile',
+		title: 'Thông tin tài khoản',
+		Icon: (props: ISidebarIconProps) => (
+			<UserOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [
+			{ to: 'profile/edit-profile', title: 'Chỉnh sửa thông tin' },
+			{ to: 'profile/edit-password', title: 'Đổi mật khẩu' },
+		],
+		color: '#c3ab00',
+	},
+	{
+		path: '/dash-board/calendar',
+		title: 'Lịch cá nhân',
+		Icon: (props: ISidebarIconProps) => (
+			<ContactsOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [],
+		color: '#f5365c',
+	},
+];
 const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
-	const siderbarData: ISidebarRest[] = [
-		{
-			path: '/dash-board/',
-			title: 'Bảng điều khiển',
-			Icon: (props: ISidebarIconProps) => (
-				<HomeOutlined
-					title={props.title}
-					style={{ color: props.color }}
-				/>
-			),
-			child: [],
-			color: '#c310c3',
-		},
-		{
-			path: '/dash-board/profile',
-			title: 'Thông tin tài khoản',
-			Icon: (props: ISidebarIconProps) => (
-				<UserOutlined
-					title={props.title}
-					style={{ color: props.color }}
-				/>
-			),
-			child: [
-				{ to: 'profile/edit-profile', title: 'Chỉnh sửa thông tin' },
-				{ to: 'profile/edit-password', title: 'Đổi mật khẩu' },
-			],
-			color: '#c3ab00',
-		},
-		{
-			path: '/dash-board/calendar',
-			title: 'Lịch cá nhân',
-			Icon: (props: ISidebarIconProps) => (
-				<ContactsOutlined
-					title={props.title}
-					style={{ color: props.color }}
-				/>
-			),
-			child: [],
-			color: '#f5365c',
-		},
-	];
-
 	return (
 		<nav
 			className={`${cx('sidebar_dash', {

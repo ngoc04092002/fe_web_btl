@@ -6,54 +6,20 @@ import { Link } from 'react-router-dom';
 
 import styles from './header-news.module.scss';
 
-import { IListSearchData, ITopicNewsData } from '@/types/components/News/types';
+import { topicNewsData } from '@/constants/NewsConst';
+import { IListSearchData } from '@/types/components/News/types';
 import { getImage } from '@/utils/CustomImagePath';
 const cx = classNames.bind(styles);
 
-type Props = { hanleShowSearch: React.MouseEventHandler<HTMLElement> };
-const topicNewsData: ITopicNewsData[] = [
-	{
-		to: '/news',
-		topic: 'Tin tức bds',
-		child: [
-			{ to: '/news', title: 'Thị trường nhà đất' },
-			{ to: '/news', title: 'Tài chính BĐS' },
-			{ to: '/news', title: 'Phân tích - nhận định' },
-		],
-	},
-	{
-		to: '/news',
-		topic: 'Kiến thức bds',
-		child: [
-			{ to: '/news', title: 'Xây dựng' },
-			{ to: '/news', title: 'Kiến trúc' },
-			{ to: '/news', title: 'Nhà của sao' },
-		],
-	},
-	{ to: '/news', topic: 'Phong thuỷ', child: [] },
-	{
-		to: '/news',
-		topic: 'Lời khuyên',
-		child: [
-			{ to: '/news', title: 'Góc đầu tư' },
-			{ to: '/news', title: 'Cho người thuê' },
-		],
-	},
-	{
-		to: '/news',
-		topic: 'luật nhà đất',
-		child: [
-			{ to: '/news', title: 'Quyền sở hữu' },
-			{ to: '/news', title: 'Tranh chấp' },
-			{ to: '/news', title: 'Nghĩa vụ tài chính' },
-		],
-	},
-];
+type Props = {
+	hanleShowSearch: React.MouseEventHandler<HTMLElement>;
+	hanleShowMenu: React.MouseEventHandler<HTMLElement>;
+};
+const isLg = window.innerWidth >= 1024;
 
-const HeaderNews: FC<Props> = ({ hanleShowSearch }) => {
+const HeaderNews: FC<Props> = ({ hanleShowSearch, hanleShowMenu }) => {
 	const [selectTopic, setSelectTopic] = useState('');
 	const [showSearch, setShowSearch] = useState(false);
-	const isLg = window.innerWidth >= 1024;
 
 	const handleSearchNews = () => {
 		setShowSearch(!showSearch);
@@ -84,7 +50,10 @@ const HeaderNews: FC<Props> = ({ hanleShowSearch }) => {
 	return (
 		<div className='px-8 pt-2 flex flex-col relative'>
 			<div className='mb-4 lg:w-fit flex items-center justify-between w-full'>
-				<div className='text-[2rem] color-main cursor-pointer lg:hidden inline-block'>
+				<div
+					className='text-[2rem] color-main cursor-pointer lg:hidden inline-block'
+					onClick={hanleShowMenu}
+				>
 					<MenuOutlined />
 				</div>
 				<a href='/'>

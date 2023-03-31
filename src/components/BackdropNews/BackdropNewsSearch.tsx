@@ -4,17 +4,16 @@ import dayjs from 'dayjs';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from './backdrop-news-search.module.scss';
+import styles from './backdrop-news.module.scss';
 
 import { IListSearchData } from '@/types/components/News/types';
 
 const cx = classNames.bind(styles);
 type Props = {
 	hanleShowSearch: React.MouseEventHandler<HTMLElement>;
-	showSearch: boolean;
 };
 
-const BackdropNewsSearch: FC<Props> = ({ hanleShowSearch, showSearch }) => {
+const BackdropNewsSearch: FC<Props> = ({ hanleShowSearch }) => {
 	const listSearchData: IListSearchData[] = Array(6).fill({
 		to: '',
 		img: 'https://cdnnews.mogi.vn/news/wp-content/uploads/2022/11/30100256/ong-lam-to-trong-nha-tot-hay-xau-324x400.jpg',
@@ -22,11 +21,7 @@ const BackdropNewsSearch: FC<Props> = ({ hanleShowSearch, showSearch }) => {
 		createdAt: dayjs().format('DD/MM/YYYY'),
 	});
 	return (
-		<div
-			className={`fixed scroll-none py-4 px-8 flex-col items-center bg-backdrop-md will-change-contents inset-0 z-[9999] duration-300 ${
-				showSearch ? 'flex' : 'hidden'
-			}`}
-		>
+		<div className='flex flex-col items-center w-full'>
 			<div
 				onClick={hanleShowSearch}
 				className='self-end text-white text-4xl cursor-pointer p-3'

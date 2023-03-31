@@ -1,21 +1,29 @@
 import React, { FC, useCallback, useState } from 'react';
 
-import BackdropNewsSearch from '@/components/BackdropNewsSearch';
+import BackdropNews from '@/components/BackdropNews';
 import BodyNews from '@/components/News/BodyNews';
 import FooterNews from '@/components/News/FooterNews';
 import HeaderNews from '@/components/News/HeaderNews';
 import Goup from '@/components/helpers/Goup';
 
 type Props = {};
+const isLg = window.innerWidth >= 1024;
 
 const News: FC<Props> = () => {
 	const [showSearch, setShowSearch] = useState(false);
+	const [showMenu, setShowMenu] = useState(false);
+
+	const conditionShow = showSearch || showMenu;
 
 	const hanleShowSearch = useCallback(() => {
 		setShowSearch(!showSearch);
 	}, [showSearch]);
 
-	if (showSearch) {
+	const hanleShowMenu = useCallback(() => {
+		setShowMenu(!showMenu);
+	}, [showMenu]);
+
+	if (showSearch || showMenu) {
 		document.body.style.overflowY = 'hidden';
 	} else {
 		document.body.style.overflowY = 'overlay';
@@ -23,18 +31,25 @@ const News: FC<Props> = () => {
 	return (
 		<>
 			<section
-				className={`${showSearch ? 'scale-95' : 'scale-100'} duration-500 relative`}
-				style={{ boxShadow: `${showSearch ? '0 0 46px' : ' none'}` }}
+				className={`${conditionShow ? 'scale-95' : 'scale-100'} duration-500 relative`}
+				style={{ boxShadow: `${conditionShow ? '0 0 46px' : ' none'}` }}
 			>
-				<HeaderNews hanleShowSearch={hanleShowSearch} />
+				<HeaderNews
+					hanleShowSearch={hanleShowSearch}
+					hanleShowMenu={hanleShowMenu}
+				/>
 				<BodyNews />
 				<FooterNews />
 				<Goup />
 			</section>
-			<BackdropNewsSearch
-				hanleShowSearch={hanleShowSearch}
-				showSearch={showSearch}
-			/>
+			{!isLg && conditionShow && (
+				<BackdropNews
+					hanleShowSearch={hanleShowSearch}
+					hanleShowMenu={hanleShowMenu}
+					showSearch={showSearch}
+					showMenu={showMenu}
+				/>
+			)}
 		</>
 	);
 };

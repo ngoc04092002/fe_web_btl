@@ -38,3 +38,51 @@
 		}
 	}
 }
+.backdrop_menu {
+	.backdrop_menu-social {
+		li {
+			padding: 0.5rem;
+			a {
+				font-size: 1.4rem;
+				color: #fff;
+			}
+		}
+	}
+
+	.backdrop_menu-topic {
+		li {
+			& > a {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+		}
+		.backdrop_menu-active {
+			p {
+				color: #73c7e3;
+			}
+		}
+		.backdrop_menu-arrow-expand {
+			color: white;
+			margin: 0;
+			transform: rotate(0deg);
+			svg {
+				width: 16px;
+				height: 16px;
+			}
+			&.active {
+				transform: rotate(90deg);
+			}
+		}
+		.backdrop_menu-expand-info {
+			overflow: hidden;
+			li {
+				margin: 0;
+				padding: 0.4rem;
+				a {
+					padding: 0.6rem;
+				}
+			}
+		}
+	}
+}
