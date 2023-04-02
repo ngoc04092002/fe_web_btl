@@ -31,3 +31,5 @@ export interface IFeedback {
 	type: string;
 	feedback: string;
 }
+
+export type IStatusToast = 'warn' | 'success' | 'error' | 'network bad';

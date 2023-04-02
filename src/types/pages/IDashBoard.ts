@@ -31,6 +31,7 @@ export interface IFromEditProfile {
 }
 
 export interface IFormEditPassword {
+	oldPassword?: string;
 	password?: string;
 	verifyPassword?: string;
 }

@@ -1,6 +1,6 @@
 import { toast, ToastOptions } from 'react-toastify';
 
-import { IToastify } from '@/types/pages/types';
+import { IStatusToast, IToastify } from '@/types/pages/types';
 
 const dispayForm: ToastOptions<IToastify> = {
 	position: 'top-right',
@@ -12,7 +12,7 @@ const dispayForm: ToastOptions<IToastify> = {
 	progress: undefined,
 	theme: 'light',
 };
-export function getToast(name: string, status: string) {
+export function getToast(name: string, status: IStatusToast) {
 	switch (status) {
 		case 'warn':
 			toast.warn(name, dispayForm);

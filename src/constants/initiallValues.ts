@@ -27,6 +27,7 @@ export const initialFormEditProfile: IFromEditProfile = {
 };
 
 export const initialFormEditPassword: IFormEditPassword = {
+	oldPassword: '',
 	password: '',
 	verifyPassword: '',
 };

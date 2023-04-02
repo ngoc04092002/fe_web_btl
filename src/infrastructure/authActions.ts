@@ -32,3 +32,19 @@ export const getUserInfo: (payload: string) => Promise<AxiosResponse<IUserLogged
 		params: { access: payload },
 	});
 };
+
+export const sendMail: (payload: string) => Promise<AxiosResponse<string, any>> = (
+	payload: string,
+) => {
+	return http.get<string>('forgot-password', {
+		params: { email: payload },
+	});
+};
+
+export const resetPassword: (payload: string) => Promise<AxiosResponse<string, any>> = (
+	payload: string,
+) => {
+	return http.get<string>('reset-password', {
+		params: { e: payload },
+	});
+};

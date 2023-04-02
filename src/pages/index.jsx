@@ -9,6 +9,7 @@ import Home from './Home';
 import News from './News';
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
+import ResetPassword from './ResetPassword';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
@@ -46,6 +47,10 @@ export const routes = createBrowserRouter([
 			{
 				path: '/forgot-password',
 				element: <ForgotPassword />,
+			},
+			{
+				path: '/reset-password/:e',
+				element: <ResetPassword />,
 			},
 			{
 				path: 'news',

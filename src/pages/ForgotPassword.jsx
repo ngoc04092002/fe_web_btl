@@ -1,8 +1,11 @@
 import { ArrowRightOutlined, MailOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { useMutation } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import Loading from '@/components/Loading/Loading';
 import HeadTitle from '@/hooks/Head';
+import { sendMail } from '@/infrastructure/authActions';
 import { getToast } from '@/utils/CustomToast';
 
 const regex = new RegExp('[a-z0-9]+@[a-z]+\\.[a-z]{2,3}'); // validate email
@@ -11,6 +14,13 @@ const ForgotPassword = () => {
 	HeadTitle('Forgot Password');
 	const [acceptCond, setAcceptCond] = useState(false);
 	const [email, setEmail] = useState('');
+
+	const { mutate, isLoading } = useMutation({
+		mutationFn: (email) => {
+			const res = sendMail(email);
+			return res;
+		},
+	});
 
 	const handleAcceptSend = () => {
 		if (!regex.test(email)) {
@@ -25,7 +35,18 @@ const ForgotPassword = () => {
 	};
 
 	const handleSendEmail = () => {
-		console.log(email);
+		mutate(email, {
+			onError: (res) => {
+				getToast('', 'network bad');
+			},
+			onSuccess: (res) => {
+				if (res.data === 'success') {
+					getToast('Gửi thành công hãy kiểm tra email!!', 'success');
+					setAcceptCond(() => false);
+					setEmail('');
+				}
+			},
+		});
 	};
 
 	return (
@@ -68,9 +89,11 @@ const ForgotPassword = () => {
 				<Link
 					to={acceptCond ? '' : '/sign-in'}
 					onClick={acceptCond && handleSendEmail}
-					className='self-end w-full text-center bg-blue-600 hover:bg-blue-500 text-white cursor-pointer inline-block font-semibold h-10 rounded-lg pt-[6px]'
+					className={`${
+						isLoading ? 'bg-[#ccc] cursor-default' : 'bg-blue-600 hover:bg-blue-500 cursor-pointer'
+					} self-end w-full text-center text-white  inline-block font-semibold h-10 rounded-lg pt-[6px]`}
 				>
-					{acceptCond ? 'Gửi' : 'Đăng nhập'}
+					{acceptCond ? isLoading ? <Loading /> : 'Gửi' : 'Đăng nhập'}
 				</Link>
 			</div>
 		</section>
