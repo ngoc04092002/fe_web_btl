@@ -5,6 +5,9 @@ import BodyNews from '@/components/News/BodyNews';
 import FooterNews from '@/components/News/FooterNews';
 import HeaderNews from '@/components/News/HeaderNews';
 import Goup from '@/components/helpers/Goup';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 type Props = {};
 const isLg = window.innerWidth >= 1024;

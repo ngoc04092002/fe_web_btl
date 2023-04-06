@@ -17,6 +17,8 @@ const ResetPassword = () => {
 	const { data, isLoading, isError, error, isSuccess } = useQuery({
 		queryKey: ['reset-password', e],
 		queryFn: () => resetPassword(e),
+		staleTime: 10 * 60 * 1000,
+		cacheTime: 20 * 60 * 1000,
 	});
 
 	if (isError) {
@@ -25,10 +27,9 @@ const ResetPassword = () => {
 			return;
 		}
 		getToast('', 'network bad');
-		return;
 	}
 
-	if (isLoading) {
+	if (isLoading && !isError) {
 		return <Loading />;
 	}
 

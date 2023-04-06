@@ -1,0 +1,34 @@
+.swiper-button-prev {
+	left: auto !important;
+	right: 46px !important;
+	top: unset !important;
+	height: 26px !important;
+	border: 1px solid #ccc;
+	margin-top: unset !important;
+}
+
+.swiper-button-prev::after {
+	font-size: 12px !important;
+	color: #ccc;
+}
+
+.swiper-button-next {
+	top: unset !important;
+	height: 26px !important;
+	border: 1px solid #ccc;
+	margin-top: unset !important;
+}
+
+.swiper-button-next::after {
+	font-size: 12px !important;
+	color: #ccc;
+}
+
+.swiper-wrapper {
+	width: 456px !important;
+	overflow: hidden;
+}
+
+.swiper-slide {
+	line-height: 2 !important;
+}

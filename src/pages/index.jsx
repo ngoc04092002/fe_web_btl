@@ -53,7 +53,7 @@ export const routes = createBrowserRouter([
 				element: <ResetPassword />,
 			},
 			{
-				path: 'news',
+				path: 'news/:topic?/:category?',
 				element: <News />,
 			},
 			{
