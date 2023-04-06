@@ -14,12 +14,13 @@ const cx = classNames.bind(styles);
 type Props = {
 	hanleShowSearch: React.MouseEventHandler<HTMLElement>;
 	hanleShowMenu: React.MouseEventHandler<HTMLElement>;
+	showSearch: boolean;
+	setShowSearch: (value: boolean) => void;
 };
 const isLg = window.innerWidth >= 1024;
 
-const HeaderNews: FC<Props> = ({ hanleShowSearch, hanleShowMenu }) => {
+const HeaderNews: FC<Props> = ({ setShowSearch, showSearch, hanleShowSearch, hanleShowMenu }) => {
 	const [selectTopic, setSelectTopic] = useState('');
-	const [showSearch, setShowSearch] = useState(false);
 
 	const handleSearchNews = () => {
 		setShowSearch(!showSearch);
@@ -38,6 +39,7 @@ const HeaderNews: FC<Props> = ({ hanleShowSearch, hanleShowMenu }) => {
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [showSearch]);
 
 	const listSearchData: IListSearchData[] = Array(6).fill({

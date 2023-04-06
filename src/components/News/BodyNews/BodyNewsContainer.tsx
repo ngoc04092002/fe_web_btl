@@ -6,7 +6,7 @@ type Props = {};
 
 const BodyNewsContainer: FC<Props> = () => {
 	return (
-		<div className='py-8 px-16'>
+		<div className='py-8 px-2 md:px-8 lg:px-16'>
 			<BodyNews />
 		</div>
 	);

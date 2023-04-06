@@ -26,10 +26,10 @@ const Goup: FC<Props> = () => {
 	return (
 		<div
 			id='scrollToTop'
-			className='fixed bottom-12 right-12 shadow-md rounded-[100%] w-[60px] h-[60px] flex items-center justify-center transition-all cursor-pointer bg-white '
+			className='fixed bottom-12 right-12 shadow-md rounded-[100%] w-[60px] h-[60px] flex items-center justify-center transition-all cursor-pointer bg-[#01adba]'
 			onClick={handleClickGoUp}
 		>
-			<span className='text-[26px]'>
+			<span className='text-[26px] leading-[1] text-white'>
 				<ArrowUpOutlined />
 			</span>
 		</div>
