@@ -62,13 +62,13 @@ const BackdropNewsSearch: FC<Props> = ({ hanleShowSearch }) => {
 							</li>
 						))}
 				</ul>
-				<Link
-					to=''
+				<a
+					href='http://localhost:2002/news/search?s='
 					className='bg-white opacity-80 uppercase text-lg text-center w-full leading-[50px] mt-6'
 					style={{ boxShadow: '0 0 8px rgba(0, 0, 0, 0.36)' }}
 				>
 					Xem tất cả các kết quả
-				</Link>
+				</a>
 			</div>
 		</div>
 	);

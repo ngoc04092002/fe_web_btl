@@ -3,6 +3,7 @@ import { Autoplay, Navigation, EffectCreative } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import './body-news.css';
+import NewsHomeHot from '../components/NewsHomeHot/NewsHomeHot';
 
 type Props = {};
 
@@ -54,53 +55,36 @@ const HeadBodyNews: FC<Props> = () => {
 					</SwiperSlide>
 				</Swiper>
 			</div>
-			<div className='grid grid-rows-2 sm:grid-cols-2 sm:grid-rows-none gap-1 mt-10 h-[64vh]'>
-				<div className='bg-shadow-news bg-[url("https://cdnnews.mogi.vn/news/wp-content/uploads/2022/11/23091700/cat-toc-ngay-nao-tot-696x392.jpg")] relative'>
-					<a
-						href='/news'
-						className=' text-white absolute inset-0 z-10'
-					>
-						<span className='absolute bottom-6 left-4 uppercase text-xl font-bold'>
-							Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn
-						</span>
-						<small className='absolute bottom-2 left-4'>06/04/2023</small>
-					</a>
-				</div>
+			<div className='grid grid-rows-2 sm:grid-cols-2 sm:grid-rows-none gap-1 mt-10 h-[80vh]'>
+				<NewsHomeHot
+					href='/news'
+					src='https://cdnnews.mogi.vn/news/wp-content/uploads/2022/11/23091700/cat-toc-ngay-nao-tot-696x392.jpg'
+					title='Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn'
+					dateTime='06/04/2023'
+				/>
 				<div className='grid grid-rows-2 sm:grid-rows-3 gap-1'>
-					<div className='sm:row-span-2 row-span-1 bg-shadow-news bg-[url("https://cdnnews.mogi.vn/news/wp-content/uploads/2022/01/06113016/sao-thai-tue-696x379.jpeg")] relative'>
-						<a
-							href='/news'
-							className=' text-white absolute inset-0 z-10'
-						>
-							<span className='absolute bottom-6 left-4 uppercase text-lg font-bold'>
-								Sao Thái Tuế Là Gì? Ý Nghĩa, Các Tuổi Phạm Thái Tuế Trong Năm 2023
-							</span>
-							<small className='absolute bottom-2 left-4'>06/04/2023</small>
-						</a>
-					</div>
+					<NewsHomeHot
+						styles='sm:row-span-2 row-span-1'
+						href='/news'
+						src='https://cdnnews.mogi.vn/news/wp-content/uploads/2022/01/06113016/sao-thai-tue-696x379.jpeg'
+						title='Sao Thái Tuế Là Gì? Ý Nghĩa, Các Tuổi Phạm Thái Tuế Trong Năm 2023'
+						dateTime='06/04/2023'
+					/>
 					<div className='row-span-1 grid grid-cols-2 gap-1'>
-						<div className='bg-shadow-news bg-[url("https://cdnnews.mogi.vn/news/wp-content/uploads/2022/11/23091700/cat-toc-ngay-nao-tot-696x392.jpg")] relative'>
-							<a
-								href='/news'
-								className=' text-white absolute inset-0 z-10'
-							>
-								<span className='absolute bottom-6 left-4 uppercase text-sm font-semibold'>
-									Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn
-								</span>
-								<small className='absolute bottom-2 left-4'>06/04/2023</small>
-							</a>
-						</div>
-						<div className='bg-shadow-news bg-[url("https://cdnnews.mogi.vn/news/wp-content/uploads/2023/04/06111134/sao-tu-vi-17-696x392.jpg")] relative'>
-							<a
-								href='/news'
-								className=' text-white absolute inset-0 z-10'
-							>
-								<span className='absolute bottom-6 left-4 uppercase text-sm font-semibold'>
-									Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn
-								</span>
-								<small className='absolute bottom-2 left-4'>06/04/2023</small>
-							</a>
-						</div>
+						<NewsHomeHot
+							href='/news'
+							src='https://cdnnews.mogi.vn/news/wp-content/uploads/2022/11/23091700/cat-toc-ngay-nao-tot-696x392.jpg'
+							title='Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn'
+							dateTime='06/04/2023'
+							styleTitle='text-sm'
+						/>
+						<NewsHomeHot
+							href='/news'
+							src='https://cdnnews.mogi.vn/news/wp-content/uploads/2023/04/06111134/sao-tu-vi-17-696x392.jpg'
+							title='Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn'
+							dateTime='06/04/2023'
+							styleTitle='text-sm'
+						/>
 					</div>
 				</div>
 			</div>

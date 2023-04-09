@@ -1,7 +1,5 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
-import Profile from '../components/DashBoardComponents/Profile';
-
 import DashBoard from './Dashboard';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
@@ -13,13 +11,15 @@ import ResetPassword from './ResetPassword';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-import CalendarContainer from '@/components/Calendar';
-import DashBoardMain from '@/components/DashBoardComponents/DashBoardMain';
-import EditPassword from '@/components/DashBoardComponents/Profile/EditPassword';
-import EditProfile from '@/components/DashBoardComponents/Profile/EditProfile';
-import WrapperElm from '@/components/WrapperElm';
-import AuthProvider from '@/context/AuthProvider';
-import ContextWrapper from '@/context/ContextWrapper';
+import {
+	CalendarContainer,
+	DashBoardMain,
+	EditPassword,
+	EditProfile,
+	Profile,
+	WrapperElm,
+} from '@/components';
+import { AuthProvider, ContextWrapper } from '@/context';
 
 const AuthLayout = () => {
 	return (

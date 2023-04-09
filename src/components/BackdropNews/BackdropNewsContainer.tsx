@@ -19,10 +19,12 @@ const BackdropNewsSearchContainer: FC<Props> = ({
 	return (
 		<div className='fixed scroll-none py-4 px-8 flex-col items-center bg-backdrop-md will-change-contents inset-0 z-[9999] flex'>
 			{showSearch && <BackdropNewsSearch hanleShowSearch={hanleShowSearch} />}
-			<BackdropNewsMenu
-				hanleShowMenu={hanleShowMenu}
-				showMenu={showMenu}
-			/>
+			{showMenu && (
+				<BackdropNewsMenu
+					hanleShowMenu={hanleShowMenu}
+					showMenu={showMenu}
+				/>
+			)}
 		</div>
 	);
 };

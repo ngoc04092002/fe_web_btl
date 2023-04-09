@@ -10,7 +10,7 @@ type Props = {
 const HeaderNewsContainer: FC<Props> = ({ hanleShowSearch, hanleShowMenu }) => {
 	const [showSearch, setShowSearch] = useState(false);
 	return (
-		<div className={`drop-shadow-lg bg-white relative ${showSearch ? 'z-10' : '-z-10'}`}>
+		<div className='drop-shadow-lg bg-white relative z-20'>
 			<HeaderNews
 				hanleShowSearch={hanleShowSearch}
 				hanleShowMenu={hanleShowMenu}

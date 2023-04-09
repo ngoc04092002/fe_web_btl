@@ -34,7 +34,9 @@ const News: FC<Props> = () => {
 	return (
 		<>
 			<section
-				className={`${conditionShow ? 'scale-95' : 'scale-100'} duration-500 relative`}
+				className={`${
+					conditionShow ? 'scale-x-95 scale-y-[0.98]' : 'scale-100'
+				} duration-500 relative`}
 				style={{ boxShadow: `${conditionShow ? '0 0 46px' : ' none'}` }}
 			>
 				<HeaderNews
@@ -43,8 +45,8 @@ const News: FC<Props> = () => {
 				/>
 				<BodyNews />
 				<FooterNews />
-				<Goup />
 			</section>
+			<Goup />
 			{!isLg && conditionShow && (
 				<BackdropNews
 					hanleShowSearch={hanleShowSearch}

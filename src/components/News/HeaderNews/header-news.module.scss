@@ -28,7 +28,7 @@
 			}
 		}
 		&.active {
-			&:after {
+			&::after {
 				width: 100%;
 			}
 		}
