@@ -1,15 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC } from 'react';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form } from 'react-router-dom';
+import { v4 } from 'uuid';
 
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
 import Button from '@/components/helpers/ButtonWrapper';
 import { schemaFormEditProfie } from '@/constants/SchemaYups';
 import { dataFormGroupEditProfile, dataFormGroupTextEditProfile } from '@/constants/SignUpConstant';
 import { initialFormEditProfile } from '@/constants/initiallValues';
+import { storage } from '@/pages/firebase';
 import { DashBoardFormIdEditProfile, IFromEditProfile } from '@/types/pages/IDashBoard';
 import { getImage } from '@/utils/CustomImagePath';
+import { getToast } from '@/utils/CustomToast';
 
 type Props = {};
 
@@ -25,10 +29,57 @@ const EditProfile: FC<Props> = () => {
 		resolver: yupResolver(schemaFormEditProfie),
 	});
 
-	const onSubmit: (value: IFromEditProfile) => void = (data) => {
-		console.log(data);
-		reset();
+	const [avatar, setAvatar] = useState<{ url: string; file: File | null }>({
+		url: '',
+		file: null,
+	});
+
+	const handlePreviewAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!e.target.files?.length) {
+			return;
+		}
+
+		const file: string = URL.createObjectURL(e.target.files[0]);
+		setAvatar({ url: file, file: e.target.files[0] as unknown as File });
 	};
+
+	const onSubmit: (value: IFromEditProfile) => void = (data) => {
+		const imageRef = ref(storage, `/images/${avatar.file?.name + v4()}`);
+		uploadBytes(imageRef, avatar.file as File)
+			.then((d) => {
+				getDownloadURL(d.ref)
+					.then((url) => {
+						console.log(url);
+						reset();
+					})
+					.catch((err) => {
+						getToast('Lỗi khi upload hình ảnh', 'warn');
+					});
+			})
+			.catch((err) => {
+				getToast('Lỗi khi upload hình ảnh', 'warn');
+			});
+	};
+
+	useEffect(() => {
+		return () => {
+			avatar && URL.revokeObjectURL(avatar.url);
+		};
+	}, [avatar]);
+	// const handleDelete: () => void = () => {
+	// 	const desertRef = ref(storage, 'images/3.jpgfcf1b798-838a-421a-835a-dc5c1ec133a1');
+
+	// 	// Delete the file
+	// 	deleteObject(desertRef)
+	// 		.then(() => {
+	// 			// File deleted successfully
+	// 			console.log(1);
+	// 		})
+	// 		.catch((error) => {
+	// 			// Uh-oh, an error occurred!
+	// 			console.log(error);
+	// 		});
+	// };
 	return (
 		<Form
 			onSubmit={handleSubmit(onSubmit)}
@@ -38,12 +89,26 @@ const EditProfile: FC<Props> = () => {
 			<div className='flex flex-col items-center mx-auto mb-8'>
 				<div>
 					<img
-						src={getImage('user.png')}
+						src={avatar.url || getImage('user.png')}
 						alt='user'
-						className='w-60 h-60 object-cover object-center mb-6'
+						className='w-60 h-60 object-cover object-center mb-6 rounded-full'
 					/>
 				</div>
-				<Button>Thay đổi</Button>
+				<label
+					htmlFor='upload'
+					className='cursor-pointer'
+				>
+					<Button styles='overflow-hidden relative'>
+						Thay đổi{' '}
+						<input
+							type='file'
+							accept='video/*,image/*'
+							id='upload'
+							className='absolute left-0 cursor-pointer top-0 h-full opacity-0'
+							onChange={handlePreviewAvatar}
+						/>
+					</Button>
+				</label>
 			</div>
 			<div className='mx-auto sm:w-[66%] w-full flex flex-col'>
 				{!!dataFormGroupTextEditProfile &&
