@@ -37,7 +37,11 @@ const ForgotPassword = () => {
 	const handleSendEmail = () => {
 		mutate(email, {
 			onError: (res) => {
-				getToast('', 'network bad');
+				if (res?.response?.data) {
+					getToast(res.response.data, 'error');
+				} else {
+					getToast('', 'network bad');
+				}
 			},
 			onSuccess: (res) => {
 				if (res.data === 'success') {
