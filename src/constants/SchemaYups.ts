@@ -24,14 +24,20 @@ export const schemaSignup = yup
 			.required('Trường này bắt buộc')
 			.trim()
 			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
-			.min(8, 'Mật khẩu ít nhất phải 8 ký tự'),
+			.matches(
+				/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/gim,
+				'Cần có ký tự đặc biệt,chữ,số',
+			),
 		password2: yup
 			.string()
 			.trim()
 			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
 			.oneOf([yup.ref('password1')], 'Mật khẩu không khớp')
 			.required('Trường này bắt buộc')
-			.min(8, 'Mật khẩu ít nhất phải 8 ký tự'),
+			.matches(
+				/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/gim,
+				'Cần có ký tự đặc biệt,chữ,số',
+			),
 	})
 	.required();
 
@@ -48,7 +54,10 @@ export const schemaSignin = yup
 			.trim()
 			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
 			.required('Trường này bắt buộc')
-			.min(8, 'Mật khẩu ít nhất phải 8 ký tự'),
+			.matches(
+				/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/gim,
+				'Cần có ký tự đặc biệt,chữ,số',
+			),
 	})
 	.required();
 
@@ -75,13 +84,19 @@ export const schemaFormEditPassword = yup
 			.trim()
 			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
 			.required('Trường này bắt buộc')
-			.min(8, 'Mật khẩu ít nhất phải 8 ký tự'),
+			.matches(
+				/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/gim,
+				'Cần có ký tự đặc biệt,chữ,số',
+			),
 		verifyPassword: yup
 			.string()
 			.trim()
 			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
 			.oneOf([yup.ref('password')], 'Mật khẩu không khớp')
 			.required('Trường này bắt buộc')
-			.min(8, 'Mật khẩu ít nhất phải 8 ký tự'),
+			.matches(
+				/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/gim,
+				'Cần có ký tự đặc biệt,chữ,số',
+			),
 	})
 	.required();
