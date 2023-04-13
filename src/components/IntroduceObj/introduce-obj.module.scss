@@ -1,15 +1,50 @@
 .intro-web {
-	background: url('https://static.vecteezy.com/system/resources/previews/015/393/167/non_2x/car-insurance-policy-form-with-shield-umbrella-insurance-agent-or-salesman-providing-security-document-people-buying-auto-leasing-protection-warranty-of-vehicle-from-accident-damage-or-collision-vector.jpg')
-		no-repeat center center/cover;
-	height: 26rem;
+	background: url('https://mogi.vn/content/images/home/home-bg-d.jpg') no-repeat center center/cover;
+	height: 28rem;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+	.search-title {
+		width: 100%;
+		li {
+			width: fit-content;
+			font-size: 1.2rem;
+			cursor: pointer;
+			&.active {
+				border-bottom: 3px solid #01adba;
+			}
+		}
+	}
+	li {
+		color: white;
+	}
+	input{
+		line-height: 2;
+	}
+	.type_intro{
+		width: 100%;
+		li{
+			position: relative;
+			p{
+				margin-right: 4px;
+			}
+			span{
+				color: #01adba;
+			}
+			font-size: 14px;
+			cursor: pointer;
+			display:flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
 	.container-bg {
 		padding-left: 4rem;
 		p {
 			font-family: 'emoji';
-			color: black;
+			color: white;
 			animation: typing 10s steps(54) infinite, bblink 1s infinite;
 			overflow: hidden;
 			display: -webkit-box;
@@ -32,7 +67,7 @@
 					border-right: 10px solid transparent;
 				}
 				50% {
-					border-right: 10px solid #96ee1c;
+					border-right: 10px solid #01adba;
 				}
 			}
 		}

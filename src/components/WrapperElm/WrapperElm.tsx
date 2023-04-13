@@ -13,11 +13,25 @@ const WrapperElm: FC<Props> = () => {
 			<DailyNews />
 			<HotNews title='Dự án nổi bật' />
 			<Link to='vourcher'>
-				<img
-					className='mt-12 w-full object-center object-fill h-48'
-					src='https://cdn.mogi.vn/banner/2023/6_10913aaf-a15b-4cc0-a1b4-10e86ac87010.png'
-					alt='vourcher'
-				/>
+				<picture>
+					<source
+						media='(min-width: 992px)'
+						srcSet='https://cdn.mogi.vn/banner/2023/6_9fb051d4-9ddb-4d54-a730-8bc2d79bd33e.png'
+					/>
+					<source
+						media='(min-width: 767px)'
+						srcSet='https://cdn.mogi.vn/banner/2023/6_9fb051d4-9ddb-4d54-a730-8bc2d79bd33e.png'
+					/>
+					<source
+						media='(min-width: 320px)'
+						srcSet='https://cdn.mogi.vn/banner/2023/6_9fb051d4-9ddb-4d54-a730-8bc2d79bd33e.png'
+					/>
+					<img
+						src='https://cdn.mogi.vn/banner/2023/6_9fb051d4-9ddb-4d54-a730-8bc2d79bd33e.png'
+						alt='Flowers'
+						style={{ height: 'auto', marginTop: '2rem'}}
+					/>
+				</picture>
 			</Link>
 			<HotNews
 				title='Bất động sản cho thuê'

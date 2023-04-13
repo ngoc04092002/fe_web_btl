@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import DashBoard from './Dashboard';
@@ -19,9 +20,25 @@ import {
 	Profile,
 	WrapperElm,
 } from '@/components';
+import Loading from '@/components/Loading/Loading';
 import { AuthProvider, ContextWrapper } from '@/context';
 
 const AuthLayout = () => {
+	const [load, setLoad] = useState(true);
+
+	useEffect(() => {
+		function isLoaded() {
+			setLoad(false);
+		}
+		window.addEventListener('load', isLoaded);
+		return () => {
+			window.removeEventListener('load', isLoaded);
+		};
+	}, []);
+
+	if (load) {
+		return <Loading />;
+	}
 	return (
 		<AuthProvider>
 			<ContextWrapper>
