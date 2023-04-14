@@ -29,7 +29,7 @@ const WrapperElm: FC<Props> = () => {
 					<img
 						src='https://cdn.mogi.vn/banner/2023/6_9fb051d4-9ddb-4d54-a730-8bc2d79bd33e.png'
 						alt='Flowers'
-						style={{ height: 'auto', marginTop: '2rem'}}
+						style={{ height: 'auto', marginTop: '2rem' }}
 					/>
 				</picture>
 			</Link>

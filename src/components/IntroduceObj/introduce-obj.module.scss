@@ -26,6 +26,11 @@
 	.type_intro{
 		width: 100%;
 		li{
+			font-size: 14px;
+			cursor: pointer;
+			display:flex;
+			align-items: center;
+			justify-content: space-between;
 			position: relative;
 			p{
 				margin-right: 4px;
@@ -33,22 +38,25 @@
 			span{
 				color: #01adba;
 			}
-			font-size: 14px;
-			cursor: pointer;
-			display:flex;
-			align-items: center;
-			justify-content: space-between;
+
+			ul{
+				background-color: white;
+				li{
+					color: black;
+				}
+			}
+			
 		}
 	}
 	.container-bg {
 		padding-left: 4rem;
 		p {
-			font-family: 'emoji';
+			font-weight: bold;
 			color: white;
 			animation: typing 10s steps(54) infinite, bblink 1s infinite;
 			overflow: hidden;
 			display: -webkit-box;
-			-webkit-line-clamp: 2;
+			-webkit-line-clamp: 1;
 			-webkit-box-orient: vertical;
 			@keyframes typing {
 				0%,
@@ -64,10 +72,10 @@
 			@keyframes bblink {
 				0%,
 				100% {
-					border-right: 10px solid transparent;
+					border-right: 6px solid transparent;
 				}
 				50% {
-					border-right: 10px solid #01adba;
+					border-right: 6px solid #01adba;
 				}
 			}
 		}

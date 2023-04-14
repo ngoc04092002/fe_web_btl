@@ -18,7 +18,7 @@ const IntroduceObj: FC<Props> = () => {
 				<ul className={`${cx('search-title')} flex items-center justify-evenly mb-4`}>
 					<li className={`${cx('active')}`}>Thuê</li>
 					<li>
-						<a href='/'>Giá thuê</a>
+						<a href='/'>Tham khảo bảng giá</a>
 					</li>
 				</ul>
 				<div className='flex items-center w-full rounded overflow-hidden'>
@@ -38,7 +38,7 @@ const IntroduceObj: FC<Props> = () => {
 					<li>
 						<p>Toàn quốc</p>
 						<DownOutlined />
-						<ul className='absolute left-0 top-0'>
+						<ul className='absolute left-0 top-7 z-[1]'>
 							<li>a</li>
 							<li>a</li>
 							<li>a</li>
