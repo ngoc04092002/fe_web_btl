@@ -43,9 +43,25 @@
 				background-color: white;
 				li{
 					color: black;
+					padding: 8px 12px;
+					&:hover{
+						background-color: #d9d9d945;
+					}
 				}
 			}
 			
+		}
+		.tippy_intro{
+			max-height: 210px;
+			overflow-y: scroll;
+			box-shadow: 0 6px 12px rgba(0,0,0,.175);
+			&::-webkit-scrollbar {
+				width: 0.4rem;
+			}
+	
+			&::-webkit-scrollbar-thumb {
+				background: #ccc;
+			}
 		}
 	}
 	.container-bg {

@@ -1,12 +1,21 @@
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
+import { DownCircleOutlined, DownOutlined, SearchOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import styles from './introduce-obj.module.scss';
 const cx = classNames.bind(styles);
 type Props = {};
 
 const IntroduceObj: FC<Props> = () => {
+	const [click, setClick] = useState(0);
+	const handleChooseType: (value: number) => void = (value: number) => {
+		setClick((prev) => {
+			if (prev === value) {
+				return 0;
+			}
+			return value;
+		});
+	};
 	return (
 		<section className={`${cx('intro-web')}`}>
 			<div className={`${cx('container-bg')}`}>
@@ -36,20 +45,25 @@ const IntroduceObj: FC<Props> = () => {
 				</div>
 				<ul className={`${cx('type_intro')} flex items-center justify-evenly mt-3`}>
 					<li>
-						<p>Toàn quốc</p>
+						<p onClick={() => handleChooseType(1)}>Toàn quốc</p>
 						<DownOutlined />
-						<ul className='absolute left-0 top-7 z-[1]'>
-							<li>a</li>
-							<li>a</li>
-							<li>a</li>
-							<li>a</li>
-							<li>a</li>
-							<li>a</li>
-							<li>a</li>
-							<li>a</li>
-							<li>a</li>
-							<li>a</li>
-						</ul>
+						{click === 1 && (
+							<ul className={`${cx('tippy_intro')} absolute left-0 top-7 z-[1] w-48`}>
+								<li>
+									<p className='color-main'>a</p>
+									<DownCircleOutlined />
+								</li>
+								<li>a</li>
+								<li>a</li>
+								<li>a</li>
+								<li>a</li>
+								<li>a</li>
+								<li>a</li>
+								<li>a</li>
+								<li>a</li>
+								<li>a</li>
+							</ul>
+						)}
 					</li>
 					<li>
 						<p>Loại bất động sản</p>
