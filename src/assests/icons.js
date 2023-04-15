@@ -150,13 +150,13 @@ export const LineIcon = ({ classSvg = '' }) => {
 		</svg>
 	);
 };
-export const FacebookIcon = () => {
+export const FacebookIcon = ({ size = '32px' }) => {
 	return (
 		<svg
 			xmlns='http://www.w3.org/2000/svg'
 			viewBox='0 0 48 48'
-			width='32px'
-			height='32px'
+			width={size}
+			height={size}
 		>
 			<linearGradient
 				id='awSgIinfw5_FS5MLHI~A9a'

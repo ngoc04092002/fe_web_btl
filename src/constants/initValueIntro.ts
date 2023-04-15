@@ -63,17 +63,21 @@ const provinces: string[] = [
 	'Cà Mau',
 ];
 
-export const typeIntroes: { title: string; child: string[] | [] }[] = [
+const properties: string[] = ['Nhà', 'Căn hộ', 'Đất', 'Mặt bằng'];
+
+const prices: string[] = ['<2 triệu', '2 triệu - 6 triệu', '>6 triệu - 10 triệu', '>10 triệu'];
+
+export const typeIntros: { title: string; child: string[] | [] }[] = [
 	{
 		title: 'Toàn quốc',
 		child: provinces,
 	},
 	{
 		title: 'Loại bất động sản',
-		child: [],
+		child: properties,
 	},
 	{
 		title: 'Giá thuê',
-		child: [],
+		child: prices,
 	},
 ];

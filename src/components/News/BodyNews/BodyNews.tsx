@@ -132,11 +132,7 @@ const BodyNews: FC<Props> = () => {
 									handleSeachNews={handleSeachNews}
 								/>
 							)}
-							{isNewsDetail && (
-								<div className='w-full md:w-3/5'>
-									<NewsDetail />
-								</div>
-							)}
+							{isNewsDetail && <NewsDetail />}
 							<div className='w-full md:w-2/5 ml-12 flex flex-col items-center'>
 								<div className='w-full mb-14'>
 									<a href='http://localhost:2002/news'>

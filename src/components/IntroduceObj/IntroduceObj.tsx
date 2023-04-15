@@ -3,21 +3,51 @@ import classNames from 'classnames/bind';
 import React, { FC, useState } from 'react';
 
 import styles from './introduce-obj.module.scss';
+
+import { typeIntros } from '@/constants/initValueIntro';
 const cx = classNames.bind(styles);
 type Props = {};
 
+interface IChoose {
+	[key: string]: string | number;
+}
+
 const IntroduceObj: FC<Props> = () => {
-	const [click, setClick] = useState(0);
-	const handleChooseType: (value: number) => void = (value: number) => {
+	const [click, setClick] = useState<IChoose>({
+		'chooseTitle': 0,
+		'chooseChild1': '',
+		'chooseChild2': '',
+		'chooseChild3': '',
+	});
+
+	const handleChooseType: (value: IChoose) => void = (value: IChoose) => {
 		setClick((prev) => {
-			if (prev === value) {
-				return 0;
+			if (prev.chooseTitle === value.chooseTitle) {
+				return {
+					...value,
+					chooseTitle: 0,
+				};
 			}
 			return value;
 		});
 	};
+
+	const handleHiddenChooseType = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+		const className = (e.target as HTMLElement).className;
+
+		if (className !== 'choose_type') {
+			setClick((prev) => ({
+				...prev,
+				chooseTitle: 0,
+			}));
+		}
+	};
+
 	return (
-		<section className={`${cx('intro-web')}`}>
+		<section
+			className={`${cx('intro-web')}`}
+			onClick={handleHiddenChooseType}
+		>
 			<div className={`${cx('container-bg')}`}>
 				<p className='lg:text-3xl md:text-2xl text-xl text-white whitespace-nowrap'>
 					An tâm chọn, An tâm thuê, Uy tín tạo lên thương hiệu!
@@ -43,36 +73,38 @@ const IntroduceObj: FC<Props> = () => {
 						<SearchOutlined />
 					</a>
 				</div>
-				<ul className={`${cx('type_intro')} flex items-center justify-evenly mt-3`}>
-					<li>
-						<p onClick={() => handleChooseType(1)}>Toàn quốc</p>
-						<DownOutlined />
-						{click === 1 && (
-							<ul className={`${cx('tippy_intro')} absolute left-0 top-7 z-[1] w-48`}>
-								<li>
-									<p className='color-main'>a</p>
-									<DownCircleOutlined />
-								</li>
-								<li>a</li>
-								<li>a</li>
-								<li>a</li>
-								<li>a</li>
-								<li>a</li>
-								<li>a</li>
-								<li>a</li>
-								<li>a</li>
-								<li>a</li>
-							</ul>
-						)}
-					</li>
-					<li>
-						<p>Loại bất động sản</p>
-						<DownOutlined />
-					</li>
-					<li>
-						<p>Giá thuê</p>
-						<DownOutlined />
-					</li>
+				<ul className={`${cx('type_intro')} flex items-center justify-evenly mt-3 select-none`}>
+					{typeIntros.map(({ title, child }, index) => {
+						const isTitle = click.chooseTitle === index + 1;
+						return (
+							<li key={title}>
+								<p
+									className='choose_type'
+									onClick={() => handleChooseType({ ...click, chooseTitle: index + 1 })}
+								>
+									<span>{click[`chooseChild${index + 1}`] || title}</span>
+									<DownOutlined className='align-baseline' />
+								</p>
+								{isTitle && (
+									<ul className={`${cx('tippy_intro')} absolute left-0 top-7 z-[1] w-48`}>
+										{child.map((c) => (
+											<li
+												key={c}
+												onClick={() =>
+													handleChooseType({ ...click, [`chooseChild${index + 1}`]: c })
+												}
+											>
+												<p className={click[`chooseChild${index + 1}`] === c ? 'color-main' : ''}>
+													{c}
+												</p>
+												{click[`chooseChild${index + 1}`] === c && <DownCircleOutlined />}
+											</li>
+										))}
+									</ul>
+								)}
+							</li>
+						);
+					})}
 				</ul>
 			</div>
 		</section>
