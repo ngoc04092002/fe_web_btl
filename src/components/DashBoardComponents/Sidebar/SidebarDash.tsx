@@ -1,4 +1,4 @@
-import { ContactsOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons';
+import { ContactsOutlined, HomeOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
@@ -24,6 +24,7 @@ const siderbarData: ISidebarRest[] = [
 		),
 		child: [],
 		color: '#c310c3',
+		role: ['user', 'admin'],
 	},
 	{
 		path: '/dash-board/profile',
@@ -39,6 +40,7 @@ const siderbarData: ISidebarRest[] = [
 			{ to: 'profile/edit-password', title: 'Đổi mật khẩu' },
 		],
 		color: '#c3ab00',
+		role: ['user', 'admin'],
 	},
 	{
 		path: '/dash-board/calendar',
@@ -51,9 +53,24 @@ const siderbarData: ISidebarRest[] = [
 		),
 		child: [],
 		color: '#f5365c',
+		role: ['user', 'admin'],
+	},
+	{
+		path: '/dash-board/admin',
+		title: 'Admin',
+		Icon: (props: ISidebarIconProps) => (
+			<LockOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [{ to: 'admin/feedback-forgot-password', title: 'Ý kiến - Quên MK' }],
+		color: '#505050',
+		role: ['admin'],
 	},
 ];
 const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
+	const r = 'admin';
 	return (
 		<nav
 			className={`${cx('sidebar_dash', {
@@ -77,21 +94,27 @@ const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 						)} flex-col items-center cursor-pointer p-3 lg:flex hidden`}
 					/>
 				</div>
-				<ul>
-					{siderbarData.map(({ Icon, ...rest }, index) => (
-						<li
-							key={index}
-							className={rest.path.endsWith('calendar') ? 'sm:block hidden' : ''}
-							onClick={!rest.child.length ? handleToggleShowSidebar : undefined}
-						>
-							<ListSidebarDash
-								Icon={Icon}
-								rest={rest}
-								showSidebar={showSidebar}
-								handleToggleShowSidebar={handleToggleShowSidebar}
-							/>
-						</li>
-					))}
+				<ul className={cx('siderbar_dash-container')}>
+					{siderbarData.map(({ Icon, ...rest }, index) => {
+						const checkRender: boolean = rest.role.includes(r);
+						if (checkRender) {
+							return (
+								<li
+									key={index}
+									className={rest.path.endsWith('calendar') ? 'sm:block hidden' : ''}
+									onClick={!rest.child.length ? handleToggleShowSidebar : undefined}
+								>
+									<ListSidebarDash
+										Icon={Icon}
+										rest={rest}
+										showSidebar={showSidebar}
+										handleToggleShowSidebar={handleToggleShowSidebar}
+									/>
+								</li>
+							);
+						}
+						return null;
+					})}
 				</ul>
 			</div>
 		</nav>

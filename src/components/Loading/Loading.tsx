@@ -1,10 +1,12 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import React from 'react';
-
-const Loading: React.FC = () => {
+type Props = {
+	styles?: string;
+};
+const Loading: React.FC<Props> = ({ styles }) => {
 	return (
-		<div>
-			<LoadingOutlined />
+		<div className='w-full text-center'>
+			<LoadingOutlined className={`${styles} text-4xl text-[#ccc]`} />
 		</div>
 	);
 };

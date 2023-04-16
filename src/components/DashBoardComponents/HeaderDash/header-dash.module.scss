@@ -1,5 +1,8 @@
 .header_dash {
 	background-color: #11cdef;
+	img{
+		max-width: unset !important;
+	}
 	ul {
 		li {
 			padding-left: 1.2rem;

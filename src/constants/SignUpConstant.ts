@@ -22,7 +22,7 @@ export const dataFormGroupText: ISignUpText[] = [
 	{
 		id: 'group_form_address',
 		label: 'address',
-		placeholder: 'ngõ, xóm, phường, thị xã, tỉnh (thành phố)',
+		placeholder: 'Ngõ, xóm, phường, thị xã, tỉnh (thành phố)',
 		styleDiv: '',
 		type: 'text',
 		styleLabel: 'w-36',

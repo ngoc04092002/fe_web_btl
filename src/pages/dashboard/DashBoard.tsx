@@ -1,9 +1,9 @@
+import { StyledEngineProvider } from '@mui/material/styles';
 import React, { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import HeaderDash from '@/components/DashBoardComponents/HeaderDash';
 import { IBar } from '@/types/pages/IDashBoard';
-
 const DashBoard: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 	return (
 		<div
@@ -16,9 +16,11 @@ const DashBoard: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
 				handleToggleShowSidebar={handleToggleShowSidebar}
 				className='flex flex-col items-center cursor-pointer py-3 md:px-3 px-0'
 			/>
-			<div className='absolute mt-6 flex items-center justify-between flex-wrap right-5 left-5'>
-				<Outlet />
-			</div>
+			<StyledEngineProvider injectFirst>
+				<div className='absolute mt-6 flex items-center justify-between flex-wrap right-5 left-5'>
+					<Outlet />
+				</div>
+			</StyledEngineProvider>
 		</div>
 	);
 };

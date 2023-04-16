@@ -53,6 +53,7 @@ export interface ISidebarRest {
 	// eslint-disable-next-line no-undef
 	Icon: (props: ISidebarIconProps) => JSX.Element;
 	child: IChild[];
+	role: string[];
 }
 
 export type IListSidebarDash = {
@@ -60,3 +61,10 @@ export type IListSidebarDash = {
 	Icon: ISidebarRest['Icon'];
 	showSidebar?: boolean;
 };
+
+export type IOrderTableDash = 'asc' | 'desc';
+
+export interface IEWaitingR {
+	id?: string;
+	email: string;
+}

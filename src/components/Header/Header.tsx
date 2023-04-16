@@ -77,8 +77,8 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 							onClick={handleShowNavInfo}
 						>
 							<img
-								className='dynamic w-7 h-7 object-contain'
-								src={getImage('user.png')}
+								className='dynamic w-7 h-7 object-cover rounded-full'
+								src={(Object.keys(user).length && (user as IUser).avatar) || getImage('user.png')}
 								alt='user'
 							/>
 							<span className='dynamic pl-1 font-medium overflow-hidden text-ellipsis whitespace-nowrap max-w-[67px]'>

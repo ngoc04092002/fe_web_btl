@@ -78,9 +78,9 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 			<div className='flex items-center select-none'>
 				<div className='mr-4'>
 					<img
-						src={getImage('user.png')}
+						src={(Object.keys(user).length && (user as IUser).avatar) || getImage('user.png')}
 						alt='user'
-						className='w-9 h-9'
+						className='w-9 h-9 rounded-full object-cover'
 					/>
 				</div>
 				<ul>

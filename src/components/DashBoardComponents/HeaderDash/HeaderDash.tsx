@@ -84,7 +84,7 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 										<img
 											src={getImage('user.png')}
 											alt='user'
-											className='object-contain object-center w-12 h-12 select-none'
+											className='object-cover rounded-full object-center w-11 h-11 select-none'
 										/>
 									</div>
 									<div className='flex flex-col w-full justify-between'>
@@ -105,7 +105,7 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 										<img
 											src={getImage('user.png')}
 											alt='user'
-											className='object-contain object-center w-12 h-12 select-none'
+											className='object-contain object-center w-11 h-11 select-none'
 										/>
 									</div>
 									<div className='flex flex-col w-full justify-between'>
@@ -128,9 +128,9 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 				<div className='flex items-center ml-4'>
 					<p className='mr-2'>
 						<img
-							src={getImage('user.png')}
+							src={(user as IUser).avatar || getImage('user.png')}
 							alt='user'
-							className='object-contain object-center w-9 h-9 select-none'
+							className='object-cover rounded-full object-center w-9 h-9 select-none'
 						/>
 					</p>
 					<p className='text-ellipsis whitespace-nowrap overflow-hidden max-w-[100px]'>

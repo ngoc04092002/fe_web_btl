@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
+import { Admin, FeedBackForgotPassword } from './Admin';
 import DashBoard from './Dashboard';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
@@ -113,6 +114,16 @@ export const routes = createBrowserRouter([
 									{
 										path: 'calendar',
 										element: <CalendarContainer />,
+									},
+									{
+										path: 'admin',
+										element: <Admin />,
+										children: [
+											{
+												path: 'feedback-forgot-password',
+												element: <FeedBackForgotPassword />,
+											},
+										],
 									},
 								],
 							},

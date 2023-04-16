@@ -28,6 +28,7 @@ export interface IToastify {
 }
 
 export interface IFeedback {
+	id?: string;
 	type: string;
 	feedback: string;
 }

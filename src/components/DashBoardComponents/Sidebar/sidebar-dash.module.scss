@@ -78,4 +78,12 @@
 			}
 		}
 	}
+	.siderbar_dash-container{
+		overflow-x: hidden;
+		overflow-y: scroll;
+		height: 80vh;
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+	}
 }

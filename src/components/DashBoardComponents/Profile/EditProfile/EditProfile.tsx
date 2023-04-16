@@ -1,6 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import React, { FC, useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form } from 'react-router-dom';
 import { v4 } from 'uuid';
@@ -10,14 +12,20 @@ import Button from '@/components/helpers/ButtonWrapper';
 import { schemaFormEditProfie } from '@/constants/SchemaYups';
 import { dataFormGroupEditProfile, dataFormGroupTextEditProfile } from '@/constants/SignUpConstant';
 import { initialFormEditProfile } from '@/constants/initiallValues';
+import { AuthContext } from '@/context/AuthProvider';
+import { updateProfile } from '@/infrastructure/dashboardActions';
 import { storage } from '@/pages/firebase';
 import { DashBoardFormIdEditProfile, IFromEditProfile } from '@/types/pages/IDashBoard';
+import { IUser, IUserLogged } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 import { getToast } from '@/utils/CustomToast';
 
 type Props = {};
 
 const EditProfile: FC<Props> = () => {
+	const { user, setUser } = useContext(AuthContext);
+	console.log(user);
+
 	const {
 		handleSubmit,
 		register,
@@ -43,14 +51,57 @@ const EditProfile: FC<Props> = () => {
 		setAvatar({ url: file, file: e.target.files[0] as unknown as File });
 	};
 
+	const { mutate, isLoading } = useMutation<
+		AxiosResponse<IUserLogged, any>,
+		AxiosError,
+		IUserLogged,
+		unknown
+	>({
+		mutationFn: (formData: IUserLogged) => {
+			console.log(formData);
+
+			const res = updateProfile(formData, (user as IUser).email);
+			return res;
+		},
+	});
 	const onSubmit: (value: IFromEditProfile) => void = (data) => {
 		const imageRef = ref(storage, `/images/${avatar.file?.name + v4()}`);
 		uploadBytes(imageRef, avatar.file as File)
 			.then((d) => {
 				getDownloadURL(d.ref)
 					.then((url) => {
-						console.log(url);
-						reset();
+						const oldAvatar = (user as IUser).avatar;
+						if (oldAvatar) {
+							// Delete the old file
+							let ibe = oldAvatar.indexOf('%2F');
+							let ila = oldAvatar.indexOf('?');
+							let res = oldAvatar.slice(ibe + 3, ila);
+							const desertRef = ref(storage, `images/${res}`);
+							deleteObject(desertRef);
+						}
+						const formData = {
+							username: data.username as string,
+							email: data.email as string,
+							address: data.address as string,
+							sdt: data.sdt as string,
+							gender: data.male ? 'male' : 'female',
+							avatar: url as string,
+						};
+						mutate(formData, {
+							onError: (res: AxiosError) => {
+								if (typeof res.response?.data === 'string') {
+									getToast(res.response?.data as string, 'error');
+								}
+								getToast('', 'network bad');
+							},
+							onSuccess: (res) => {
+								getToast('Cập nhật thành công!', 'success');
+								setUser(res.data);
+								console.log(res);
+								reset();
+							},
+						});
+						console.log(url, data);
 					})
 					.catch((err) => {
 						getToast('Lỗi khi upload hình ảnh', 'warn');
@@ -66,20 +117,7 @@ const EditProfile: FC<Props> = () => {
 			avatar && URL.revokeObjectURL(avatar.url);
 		};
 	}, [avatar]);
-	// const handleDelete: () => void = () => {
-	// 	const desertRef = ref(storage, 'images/3.jpgfcf1b798-838a-421a-835a-dc5c1ec133a1');
 
-	// 	// Delete the file
-	// 	deleteObject(desertRef)
-	// 		.then(() => {
-	// 			// File deleted successfully
-	// 			console.log(1);
-	// 		})
-	// 		.catch((error) => {
-	// 			// Uh-oh, an error occurred!
-	// 			console.log(error);
-	// 		});
-	// };
 	return (
 		<Form
 			onSubmit={handleSubmit(onSubmit)}
@@ -98,7 +136,10 @@ const EditProfile: FC<Props> = () => {
 					htmlFor='upload'
 					className='cursor-pointer'
 				>
-					<Button styles='overflow-hidden relative'>
+					<Button
+						styles='overflow-hidden relative'
+						isLoading={isLoading}
+					>
 						Thay đổi{' '}
 						<input
 							type='file'
@@ -169,7 +210,12 @@ const EditProfile: FC<Props> = () => {
 							/>
 						))}
 				</div>
-				<Button styles='mt-4 self-end'>Xác nhận</Button>
+				<Button
+					styles='mt-4 self-end'
+					isLoading={isLoading}
+				>
+					Xác nhận
+				</Button>
 			</div>
 		</Form>
 	);
