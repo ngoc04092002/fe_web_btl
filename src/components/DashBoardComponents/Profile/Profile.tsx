@@ -1,34 +1,37 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
+import { AuthContext } from '@/context/AuthProvider';
+import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 
 type Props = {};
 
 const Profile: FC<Props> = () => {
+	const { user } = useContext(AuthContext);
 	const location = useLocation();
 	const isEdit: boolean = location.pathname.includes('edit');
 
 	const userInfo: { type: string; value: string }[] = [
 		{
 			type: 'Tên đăng nhập',
-			value: 'Vũ Văn Ngọc',
+			value: (user as IUser)?.username,
 		},
 		{
 			type: 'Email',
-			value: 'vungoc23387@gmail.com',
+			value: (user as IUser)?.email,
 		},
 		{
 			type: 'Địa chỉ',
-			value: 'Ngõ 25, số nhà 13, Từ Sơn, Bắc Ninh',
+			value: (user as IUser)?.address || '',
 		},
 		{
 			type: 'Số điện thoại',
-			value: '0338787233',
+			value: (user as IUser)?.sdt || '',
 		},
 		{
 			type: 'Giới tính',
-			value: 'Nam',
+			value: (user as IUser)?.gender === 'male' ? 'Name' : 'Nữ',
 		},
 	];
 	return (
@@ -41,7 +44,7 @@ const Profile: FC<Props> = () => {
 					<div className='mx-auto mb-8'>
 						<div>
 							<img
-								src={getImage('user.png')}
+								src={(user as IUser)?.avatar || getImage('user.png')}
 								alt='user'
 								className='w-60 h-60 object-cover object-center mb-6'
 							/>
