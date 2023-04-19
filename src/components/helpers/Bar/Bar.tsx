@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { LineIcon } from '@/assests/icons';
+import { LineIcon } from '@/assets/icons';
 import { IBar } from '@/types/pages/IDashBoard';
 
 const Bar: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) => {

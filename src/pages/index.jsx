@@ -19,6 +19,7 @@ import {
 	EditPassword,
 	EditProfile,
 	Profile,
+	QuillText,
 	WrapperElm,
 } from '@/components';
 import Loading from '@/components/Loading/Loading';
@@ -75,20 +76,20 @@ export const routes = createBrowserRouter([
 				element: <News />,
 			},
 			{
-				element: <ProtectedRoute />,
+				path: '/',
+				element: <Home />,
 				children: [
 					{
 						path: '/',
-						element: <Home />,
+						element: <WrapperElm />,
+					},
+					{
+						path: 'feedback',
+						element: <FeedBack />,
+					},
+					{
+						element: <ProtectedRoute />,
 						children: [
-							{
-								path: '/',
-								element: <WrapperElm />,
-							},
-							{
-								path: 'feedback',
-								element: <FeedBack />,
-							},
 							{
 								path: 'dash-board',
 								element: <DashBoard />,
@@ -122,6 +123,10 @@ export const routes = createBrowserRouter([
 											{
 												path: 'feedback-forgot-password',
 												element: <FeedBackForgotPassword />,
+											},
+											{
+												path: 'add-news',
+												element: <QuillText />,
 											},
 										],
 									},

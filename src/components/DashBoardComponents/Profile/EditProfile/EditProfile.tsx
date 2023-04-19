@@ -24,7 +24,6 @@ type Props = {};
 
 const EditProfile: FC<Props> = () => {
 	const { user, setUser } = useContext(AuthContext);
-	console.log(user);
 
 	const {
 		handleSubmit,
@@ -58,8 +57,6 @@ const EditProfile: FC<Props> = () => {
 		unknown
 	>({
 		mutationFn: (formData: IUserLogged) => {
-			console.log(formData);
-
 			const res = updateProfile(formData, (user as IUser).email);
 			return res;
 		},
@@ -97,11 +94,9 @@ const EditProfile: FC<Props> = () => {
 							onSuccess: (res) => {
 								getToast('Cập nhật thành công!', 'success');
 								setUser(res.data);
-								console.log(res);
 								reset();
 							},
 						});
-						console.log(url, data);
 					})
 					.catch((err) => {
 						getToast('Lỗi khi upload hình ảnh', 'warn');

@@ -33,6 +33,9 @@ const BodyNews: FC<Props> = () => {
 		if (category && category in topicNewsDatai18) {
 			html += ` > ${topicNewsDatai18[category]}`;
 		}
+		if (isNewsDetail) {
+			html += ` > ${topic}`;
+		}
 		return { __html: html };
 	}
 

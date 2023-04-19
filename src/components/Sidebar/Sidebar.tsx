@@ -12,7 +12,7 @@ import { getAuth, signOut } from 'firebase/auth';
 import React, { FC, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { BuildingIcon, CallIcon, HomeIcon, QAIcon, ZaloIcon } from '../../assests/icons';
+import { BuildingIcon, CallIcon, HomeIcon, QAIcon, ZaloIcon } from '../../assets/icons';
 
 import styles from './sidebar.module.scss';
 

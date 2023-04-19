@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import styles from './header-dash.module.scss';
 
-import { ChartRevenueIcon, HomeIcon, HomeRentIcon, MapIcon } from '@/assests/icons';
+import { ChartRevenueIcon, HomeIcon, HomeRentIcon, MapIcon } from '@/assets/icons';
 import Bar from '@/components/helpers/Bar';
 import { AuthContext } from '@/context/AuthProvider';
 import { IBar, IDataStat } from '@/types/pages/IDashBoard';

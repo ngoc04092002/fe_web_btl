@@ -5,8 +5,7 @@ import { FacebookShareButton } from 'react-share';
 
 import styles from './news-detail.module.scss';
 
-import { FacebookIcon } from '@/assests/icons';
-import QuillText from '@/components/QuillText/QuillText';
+import { FacebookIcon } from '@/assets/icons';
 import Evaluate from '@/components/helpers/Evaluate/Evaluate';
 type Props = {};
 const cx = classNames.bind(styles);
@@ -62,7 +61,6 @@ const NewsDetail: FC<Props> = () => {
 						</div>
 					</div>
 				</div>
-				<QuillText />
 				<Evaluate />
 			</div>
 		</div>

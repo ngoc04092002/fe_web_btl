@@ -39,8 +39,8 @@
 					color: white;
 					margin-right: 8px;
 				}
-				&::after{
-					content: " ";
+				&::after {
+					content: ' ';
 					position: absolute;
 					inset: 0;
 					background-color: transparent;
@@ -107,5 +107,17 @@
 			}
 		}
 		width: fit-content;
+	}
+	.intro_web-buttons {
+		width: 60%;
+		a{
+			font-size: 18px;
+			line-height: 27px;
+			padding: 10px 0;
+			font-weight: 600;
+			border-radius: 8px;
+			width: 100%;
+			text-align: center;
+		}
 	}
 }

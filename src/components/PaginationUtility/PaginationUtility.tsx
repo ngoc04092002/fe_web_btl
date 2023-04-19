@@ -2,7 +2,7 @@ import { AreaChartOutlined } from '@ant-design/icons';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Graduate, List, Worker } from '../../assests/icons';
+import { Graduate, List, Worker } from '../../assets/icons';
 import NewsContainer from '../introNews/NewsContainer';
 
 type Props = {};

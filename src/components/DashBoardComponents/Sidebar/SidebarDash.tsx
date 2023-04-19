@@ -64,7 +64,10 @@ const siderbarData: ISidebarRest[] = [
 				style={{ color: props.color }}
 			/>
 		),
-		child: [{ to: 'admin/feedback-forgot-password', title: 'Ý kiến - Quên MK' }],
+		child: [
+			{ to: 'admin/feedback-forgot-password', title: 'Ý kiến - Quên MK' },
+			{ to: 'admin/add-news', title: 'Tạo tin tức' },
+		],
 		color: '#505050',
 		role: ['admin'],
 	},

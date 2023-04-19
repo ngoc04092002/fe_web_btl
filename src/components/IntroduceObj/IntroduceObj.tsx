@@ -49,7 +49,7 @@ const IntroduceObj: FC<Props> = () => {
 			onClick={handleHiddenChooseType}
 		>
 			<div className={`${cx('container-bg')}`}>
-				<p className='lg:text-3xl md:text-2xl text-xl text-white whitespace-nowrap'>
+				<p className='lg:text-3xl md:text-2xl text-xl text-white'>
 					An tâm chọn, An tâm thuê, Uy tín tạo lên thương hiệu!
 				</p>
 			</div>
@@ -106,6 +106,20 @@ const IntroduceObj: FC<Props> = () => {
 						);
 					})}
 				</ul>
+			</div>
+			<div className={`${cx('intro_web-buttons')} flex flex-col items-center mt-4 lg:hidden`}>
+				<a
+					href='/'
+					className='bg-[#20cecc] text-[#262637] mb-3'
+				>
+					Tìm thuê
+				</a>
+				<a
+					href='/'
+					className='text-white border border-solid border-white bg-[rgba(40,40,46,.5)]'
+				>
+					Tham khảo bảng giá
+				</a>
 			</div>
 		</section>
 	);

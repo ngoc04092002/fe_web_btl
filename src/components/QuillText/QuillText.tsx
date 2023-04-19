@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import ReactQuill from 'react-quill';
+
 import 'react-quill/dist/quill.snow.css';
 type Props = {};
 
@@ -15,17 +16,20 @@ const modules = {
 
 const QuillText: FC<Props> = () => {
 	const [value, setValue] = useState('');
-	console.log(value);
-
+	const handleCom = () => {};
+	const handleDes = () => {};
 	return (
 		<div>
 			<ReactQuill
+				className='bg-white'
 				theme='snow'
 				value={value}
 				onChange={setValue}
 				modules={modules}
 			/>
 			<div dangerouslySetInnerHTML={{ __html: value }} />
+			<button onClick={handleCom}>compression</button>
+			<button onClick={handleDes}>descryption</button>
 		</div>
 	);
 };

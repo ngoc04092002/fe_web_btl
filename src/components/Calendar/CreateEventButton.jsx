@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { PlusCalendar } from '@/assests/icons';
+import { PlusCalendar } from '@/assets/icons';
 import GlobalContext from '@/context/GlobalContext';
 
 export default function CreateEventButton() {
