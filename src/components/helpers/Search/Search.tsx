@@ -1,13 +1,17 @@
 import { SearchOutlined } from '@ant-design/icons';
 import React from 'react';
 
-interface Props {}
+interface Props {
+	styles?: string;
+}
 
-const Search: React.FC<Props> = () => {
+const Search: React.FC<Props> = ({ styles }) => {
 	return (
-		<div className='flex flex-1 items-center border-[1px] border-solid rounded-md border-[#657786] mx-7'>
+		<div
+			className={`flex flex-1 items-center border-[1px] border-solid rounded-md border-[#657786] mx-7 ${styles}`}
+		>
 			<input
-				className='w-full h-9 caret-[#01adba] p-1 rounded-md'
+				className='w-full h-9 caret-[#01adba] p-1 rounded-md input-none'
 				type='text'
 				placeholder='Từ khóa, Đường, Quận, Dự án hoặc địa danh ...'
 			/>

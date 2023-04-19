@@ -10,6 +10,7 @@ import News from './News';
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import ResetPassword from './ResetPassword';
+import SearchDetailRoom from './SearchDetailRoom';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
@@ -86,6 +87,10 @@ export const routes = createBrowserRouter([
 					{
 						path: 'feedback',
 						element: <FeedBack />,
+					},
+					{
+						path: '/search-room',
+						element: <SearchDetailRoom />,
 					},
 					{
 						element: <ProtectedRoute />,

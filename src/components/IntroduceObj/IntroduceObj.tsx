@@ -1,16 +1,15 @@
-import { DownCircleOutlined, DownOutlined, SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import React, { FC, useState } from 'react';
 
+import SelectTypeIntro from '../helpers/SelectTypeIntro/SelectTypeIntro';
+
 import styles from './introduce-obj.module.scss';
 
-import { typeIntros } from '@/constants/initValueIntro';
+import { IChoose } from '@/types/components/IntroObj/intro';
+
 const cx = classNames.bind(styles);
 type Props = {};
-
-interface IChoose {
-	[key: string]: string | number;
-}
 
 const IntroduceObj: FC<Props> = () => {
 	const [click, setClick] = useState<IChoose>({
@@ -57,7 +56,7 @@ const IntroduceObj: FC<Props> = () => {
 				<ul className={`${cx('search-title')} flex items-center justify-evenly mb-4`}>
 					<li className={`${cx('active')}`}>Thuê</li>
 					<li>
-						<a href='/'>Tham khảo bảng giá</a>
+						<a href='/search-room'>Tham khảo bảng giá</a>
 					</li>
 				</ul>
 				<div className='flex items-center w-full rounded overflow-hidden'>
@@ -73,39 +72,10 @@ const IntroduceObj: FC<Props> = () => {
 						<SearchOutlined />
 					</a>
 				</div>
-				<ul className={`${cx('type_intro')} flex items-center justify-evenly mt-3 select-none`}>
-					{typeIntros.map(({ title, child }, index) => {
-						const isTitle = click.chooseTitle === index + 1;
-						return (
-							<li key={title}>
-								<p
-									className='choose_type'
-									onClick={() => handleChooseType({ ...click, chooseTitle: index + 1 })}
-								>
-									<span>{click[`chooseChild${index + 1}`] || title}</span>
-									<DownOutlined className='align-baseline' />
-								</p>
-								{isTitle && (
-									<ul className={`${cx('tippy_intro')} absolute left-0 top-7 z-[1] w-48`}>
-										{child.map((c) => (
-											<li
-												key={c}
-												onClick={() =>
-													handleChooseType({ ...click, [`chooseChild${index + 1}`]: c })
-												}
-											>
-												<p className={click[`chooseChild${index + 1}`] === c ? 'color-main' : ''}>
-													{c}
-												</p>
-												{click[`chooseChild${index + 1}`] === c && <DownCircleOutlined />}
-											</li>
-										))}
-									</ul>
-								)}
-							</li>
-						);
-					})}
-				</ul>
+				<SelectTypeIntro
+					select={click}
+					chooseType={handleChooseType}
+				/>
 			</div>
 			<div className={`${cx('intro_web-buttons')} flex flex-col items-center mt-4 lg:hidden`}>
 				<a
@@ -115,7 +85,7 @@ const IntroduceObj: FC<Props> = () => {
 					Tìm thuê
 				</a>
 				<a
-					href='/'
+					href='/search-room'
 					className='text-white border border-solid border-white bg-[rgba(40,40,46,.5)]'
 				>
 					Tham khảo bảng giá

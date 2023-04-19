@@ -1,0 +1,52 @@
+.type_intro {
+    width: 100%;
+    li {
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        p {
+            margin-right: 4px;
+            position: relative;
+            span:first-child {
+                color: white;
+                margin-right: 8px;
+            }
+            &::after {
+                content: ' ';
+                position: absolute;
+                inset: 0;
+                background-color: transparent;
+            }
+        }
+        span {
+            color: #01adba;
+        }
+
+        ul {
+            background-color: white;
+            li {
+                font-weight: 600;
+                color: black;
+                padding: 8px 12px;
+                &:hover {
+                    background-color: #d9d9d945;
+                }
+            }
+        }
+    }
+    .tippy_intro {
+        max-height: 210px;
+        overflow-y: scroll;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        &::-webkit-scrollbar {
+            width: 0.4rem;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #ccc;
+        }
+    }
+}

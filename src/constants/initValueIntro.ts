@@ -1,4 +1,4 @@
-const provinces: string[] = [
+export const provinces: string[] = [
 	'Hà Nội',
 	'Hà Giang',
 	'Cao Bằng',
@@ -63,21 +63,11 @@ const provinces: string[] = [
 	'Cà Mau',
 ];
 
-const properties: string[] = ['Nhà', 'Căn hộ', 'Đất', 'Mặt bằng'];
+export const properties: string[] = ['Nhà', 'Căn hộ', 'Đất', 'Mặt bằng'];
 
-const prices: string[] = ['<2 triệu', '2 triệu - 6 triệu', '>6 triệu - 10 triệu', '>10 triệu'];
-
-export const typeIntros: { title: string; child: string[] | [] }[] = [
-	{
-		title: 'Toàn quốc',
-		child: provinces,
-	},
-	{
-		title: 'Loại bất động sản',
-		child: properties,
-	},
-	{
-		title: 'Giá thuê',
-		child: prices,
-	},
+export const prices: string[] = [
+	'<2 triệu',
+	'2 triệu - 6 triệu',
+	'>6 triệu - 10 triệu',
+	'>10 triệu',
 ];

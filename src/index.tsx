@@ -9,7 +9,7 @@ import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import Loading from './components/Loading';
-import { routes } from './pages/index';
+import { routes } from './pages';
 import { store } from './store/store';
 import 'react-toastify/dist/ReactToastify.css';
 import '@/pages/firebase';
