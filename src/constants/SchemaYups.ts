@@ -53,11 +53,11 @@ export const schemaSignin = yup
 			.string()
 			.trim()
 			.max(1024, 'Chỉ cho phép giới hạn 1024 ký tự')
-			.required('Trường này bắt buộc')
-			.matches(
-				/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/gim,
-				'Cần có ký tự đặc biệt,chữ,số',
-			),
+			.required('Trường này bắt buộc'),
+		// .matches(
+		// 	/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/gim,
+		// 	'Cần có ký tự đặc biệt,chữ,số',
+		// ),
 	})
 	.required();
 
