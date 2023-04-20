@@ -25,39 +25,39 @@ const userFetch = {
 const accessToken = localStorage.getItem('accessToken') || '';
 
 const AuthProvider: FC<PropsAuth> = ({ children }) => {
-	// const [user, setUser] = useState<{} | IUser>(userFetch);
-	const [user, setUser] = useState<{} | IUser>({});
-	const navigate = useNavigate();
-	const { data, isLoading } = useQuery({
-		queryKey: ['refresh-cookie', accessToken],
-		queryFn: () => refreshToken(accessToken),
-		staleTime: 0,
-		cacheTime: 0,
-	});
-	console.log(data);
-	useEffect(() => {
-		async function getUser() {
-			if (data?.data === 'no') {
-				console.log(data);
+	const [user, setUser] = useState<{} | IUser>(userFetch);
+	// const [user, setUser] = useState<{} | IUser>({});
+	// const navigate = useNavigate();
+	// const { data, isLoading } = useQuery({
+	// 	queryKey: ['refresh-cookie', accessToken],
+	// 	queryFn: () => refreshToken(accessToken),
+	// 	staleTime: 0,
+	// 	cacheTime: 0,
+	// });
+	// console.log(data);
+	// useEffect(() => {
+	// 	async function getUser() {
+	// 		if (data?.data === 'no') {
+	// 			console.log(data);
 
-				localStorage.clear();
-				setUser({});
-				navigate('/sign-in');
-				return;
-			}
+	// 			localStorage.clear();
+	// 			setUser({});
+	// 			navigate('/sign-in');
+	// 			return;
+	// 		}
 
-			if (accessToken && !Object.keys(user).length) {
-				const res = await getUserInfo(accessToken);
-				setUser(res.data);
-			}
-		}
-		getUser();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data]);
+	// 		if (accessToken && !Object.keys(user).length) {
+	// 			const res = await getUserInfo(accessToken);
+	// 			setUser(res.data);
+	// 		}
+	// 	}
+	// 	getUser();
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [data]);
 
-	if (isLoading) {
-		return <Loading />;
-	}
+	// if (isLoading) {
+	// 	return <Loading />;
+	// }
 
 	return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
 };
