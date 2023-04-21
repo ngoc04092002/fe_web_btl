@@ -25,6 +25,9 @@ module.exports = {
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
+			aspectRatio: {
+				'4/3': '4 / 3',
+			},
 			boxShadow: {
 				'3xl': '2px 2px 30px 8px rgb(0 ,0 ,0,0.28)',
 				'sm-cs': '1px 1px 3px 2px #ccc',

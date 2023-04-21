@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
+// import NotFoundItem from '../helpers/NotFoundItem/NotFoundItem';
+
 import styles from './backdrop-news.module.scss';
 
 import { IListSearchData } from '@/types/components/News/types';
@@ -36,6 +38,7 @@ const BackdropNewsSearch: FC<Props> = ({ hanleShowSearch }) => {
 				/>
 			</div>
 			<div className='w-full flex items-center flex-col'>
+				{/* <NotFoundItem styles='text-white' /> */}
 				<ul className='flex items-center flex-col'>
 					{!!listSearchData.length &&
 						listSearchData.map((l, i) => (

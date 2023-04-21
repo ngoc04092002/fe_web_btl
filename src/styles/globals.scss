@@ -67,6 +67,9 @@
 }
 
 @layer utilities {
+	.shadow-026{
+		box-shadow: 0 2px 6px rgba(70,80,110,.3);
+	}
 	.d-rtl {
 		direction: rtl;
 	}

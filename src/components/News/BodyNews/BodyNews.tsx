@@ -4,11 +4,11 @@ import { useParams, useSearchParams } from 'react-router-dom';
 
 import './body-news.css';
 
+import NewsPagination from '../../helpers/Pagination/Pagination';
 import NewsDetail from '../components/NewsDetail/NewsDetail';
 import NewsDetailSearch from '../components/NewsDetailSearch/NewsDetailSearch';
 import NewsHome from '../components/NewsHome/NewsHome';
 import NewsHomeHot from '../components/NewsHomeHot/NewsHomeHot';
-import NewsPagination from '../components/NewsPagination/NewsPagination';
 
 import { NewsCardSingle, NewsCardVertical } from '@/components/helpers/NewsCardTypes';
 import TitleNews from '@/components/helpers/TitleNews/TItleNews';

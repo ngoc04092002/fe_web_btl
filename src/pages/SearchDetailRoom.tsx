@@ -3,17 +3,22 @@ import React, { FC, useContext, useState } from 'react';
 
 import { BackDropContext } from './Home';
 
-import { MarkIcon } from '@/assets/icons';
+import { BookMarkNotStarIcon } from '@/assets/icons';
+import { NewsSearchDetailRoom, SearchDetaiRoomIntroInfo, SearchRoomItem } from '@/components';
+import NewsPagination from '@/components/helpers/Pagination/Pagination';
 import Search from '@/components/helpers/Search/Search';
 import SelectTypeIntro from '@/components/helpers/SelectTypeIntro/SelectTypeIntro';
 import HeadTitle from '@/hooks/Head';
 import { IChoose } from '@/types/components/IntroObj/intro';
 
 type Props = {};
+const PageSize = 1;
 
 const SearchDetailRoom: FC<Props> = () => {
 	HeadTitle('Search Details');
 	const { toggleBackDrop } = useContext(BackDropContext);
+	const [currentPage, setCurrentPage] = useState(1);
+
 	const [click, setClick] = useState<IChoose>({
 		'chooseTitle': 0,
 		'chooseChild1': '',
@@ -65,28 +70,39 @@ const SearchDetailRoom: FC<Props> = () => {
 					<span className='whitespace-nowrap'>Lọc thêm</span>
 				</button>
 			</div>
-			<div className='grid grid-cols-3 gap-2 mt-8'>
+			<div className='grid grid-cols-3 gap-4 mt-8'>
 				<h1 className='col-span-3 font-bold text-[#3c4146] text-lg'>
 					Thuê Nhà Đất Giá Rẻ Tại Việt Nam, Giá Thuê Mới Nhất
 				</h1>
-				<div className='rounded-lg bg-[#f7f8f9] p-3 col-span-2 flex items-center justify-between'>
-					<span className='flex items-center'>
-						<p className='text-[15px] font-bold'>16 - 30</p>
-						<small className='mx-2'>trong</small>
-						<p className='text-[15px] font-bold'>2002</p>
-					</span>
-					<a
-						href='/view-later'
-						rel='noreferrer'
-						className='flex items-center border border-solid border-[#ccc] p-[6px] rounded'
-					>
-						<MarkIcon />
-						<p className='text-sm'>Lưu tìm kiếm</p>
-					</a>
+				<div className='cus-screen:col-span-2 col-span-3'>
+					<div className='rounded-lg bg-[#f7f8f9] p-3 flex items-center justify-between mb-4'>
+						<span className='flex items-center'>
+							<p className='text-[15px] font-bold'>16 - 30</p>
+							<small className='mx-2'>trong</small>
+							<p className='text-[15px] font-bold'>2002</p>
+						</span>
+						<a
+							href='/view-later'
+							rel='noreferrer'
+							className=' flex items-center border border-solid border-[#ccc] p-[6px] rounded'
+						>
+							<BookMarkNotStarIcon className='w-4 h-4 mr-1' />
+							<p className='text-xs select-none hover:opacity-70'>Lưu tìm kiếm</p>
+						</a>
+					</div>
+					<SearchRoomItem />
+					{/* <NotFoundItem /> */}
 				</div>
-				<div className='col-span-2'></div>
-				<div className='col-span-1'></div>
+				<NewsSearchDetailRoom />
 			</div>
+			<NewsPagination
+				className='pagination-bar mt-4'
+				currentPage={currentPage}
+				totalCount={30}
+				pageSize={PageSize}
+				onPageChange={(page: number) => setCurrentPage(page)}
+			/>
+			<SearchDetaiRoomIntroInfo />
 		</div>
 	);
 };

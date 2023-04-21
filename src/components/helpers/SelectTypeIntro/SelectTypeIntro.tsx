@@ -71,7 +71,10 @@ const SelectTypeIntro: FC<Props> = ({
 					>
 						<p
 							className='choose_type w-full'
-							onClick={() => chooseType({ ...select, chooseTitle: index + 1 })}
+							onClick={(e) => {
+								e.stopPropagation();
+								chooseType({ ...select, chooseTitle: index + 1 });
+							}}
 						>
 							{isSeachRoom && Icon('!text-black text-[20px] align-baseline')}
 							<span className={`${styleText}`}>{select[`chooseChild${index + 1}`] || title}</span>

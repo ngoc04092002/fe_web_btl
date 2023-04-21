@@ -19,6 +19,7 @@ export interface INewsCard {
 	styleTitle?: string;
 	src: string;
 	dateTime?: string;
+	styleDivInfo?: string;
 }
 
 export interface INewsHomeHot {

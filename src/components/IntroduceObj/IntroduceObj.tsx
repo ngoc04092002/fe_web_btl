@@ -33,7 +33,6 @@ const IntroduceObj: FC<Props> = () => {
 
 	const handleHiddenChooseType = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
 		const className = (e.target as HTMLElement).className;
-
 		if (className !== 'choose_type') {
 			setClick((prev) => ({
 				...prev,
@@ -56,7 +55,7 @@ const IntroduceObj: FC<Props> = () => {
 				<ul className={`${cx('search-title')} flex items-center justify-evenly mb-4`}>
 					<li className={`${cx('active')}`}>Thuê</li>
 					<li>
-						<a href='/search-room'>Tham khảo bảng giá</a>
+						<a href='/'>Tham khảo bảng giá</a>
 					</li>
 				</ul>
 				<div className='flex items-center w-full rounded overflow-hidden'>
@@ -66,7 +65,7 @@ const IntroduceObj: FC<Props> = () => {
 						className='flex-1'
 					/>
 					<a
-						href='/'
+						href='/search-room'
 						className='bg-main text-white h-full px-4 pt-2'
 					>
 						<SearchOutlined />

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import { NewsCardVertical } from '@/components/helpers/NewsCardTypes';
+// import NotFoundItem from '@/components/helpers/NotFoundItem/NotFoundItem';
 
 type Props = {
 	value: string;
@@ -28,6 +29,7 @@ const NewsDetailSearch: FC<Props> = ({ value, handleSeachNews }) => {
 				</form>
 				<p className='mt-3 text-sm'>Nếu bạn không hài lòng về kết quả này, bạn có thể tìm kiếm.</p>
 				<div className='mt-12'>
+					{/* <NotFoundItem /> */}
 					<NewsCardVertical
 						styles='mb-4'
 						src='https://cdnnews.mogi.vn/news/wp-content/uploads/2023/02/17150756/ty-la-con-gi-696x470.jpg'

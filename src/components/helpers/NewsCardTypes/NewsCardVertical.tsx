@@ -10,6 +10,7 @@ const NewsCardVertical: FC<INewsCard> = ({
 	styleTitle = '',
 	src,
 	dateTime = '',
+	styleDivInfo = '',
 }) => {
 	return (
 		<a
@@ -23,7 +24,7 @@ const NewsCardVertical: FC<INewsCard> = ({
 					className={`object-cover object-center w-[26rem] h-[5rem] ${styleImg}`}
 				/>
 			</div>
-			<div>
+			<div className={styleDivInfo}>
 				<h3 className={`hover:color-main text-sm text-[#111111] font-medium ${styleTitle}`}>
 					{title}
 				</h3>
