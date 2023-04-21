@@ -8,6 +8,7 @@ import Loading from '@/components/Loading';
 import { getUserInfo, refreshToken } from '@/infrastructure/authActions';
 import { IAuthContext, PropsAuth } from '@/types/context/type';
 import { IUser } from '@/types/pages/types';
+import { getToast } from '@/utils/CustomToast';
 
 export const AuthContext = createContext<IAuthContext>({
 	user: {},
@@ -22,24 +23,22 @@ const userFetch = {
 	gender: 'male',
 	avatar: 'https://tse1.explicit.bing.net/th?id=OIP.Xwquh7b39vo0RocyWVTvuQHaHH&pid=Api&P=0',
 };
-const accessToken = localStorage.getItem('accessToken') || '';
 
 const AuthProvider: FC<PropsAuth> = ({ children }) => {
+	const accessToken = localStorage.getItem('accessToken') || '';
 	const [user, setUser] = useState<{} | IUser>(userFetch);
 	// const [user, setUser] = useState<{} | IUser>({});
 	// const navigate = useNavigate();
 	// const { data, isLoading } = useQuery({
 	// 	queryKey: ['refresh-cookie', accessToken],
 	// 	queryFn: () => refreshToken(accessToken),
-	// 	staleTime: 0,
-	// 	cacheTime: 0,
+	// 	staleTime: 10 * 60 * 1000,
+	// 	cacheTime: 20 * 60 * 1000,
 	// });
-	// console.log(data);
-	// useEffect(() => {
-	// 	async function getUser() {
-	// 		if (data?.data === 'no') {
-	// 			console.log(data);
 
+	// useEffect(() => {
+	// 	function getUser() {
+	// 		if (data?.data === 'no') {
 	// 			localStorage.clear();
 	// 			setUser({});
 	// 			navigate('/sign-in');
@@ -47,8 +46,14 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 	// 		}
 
 	// 		if (accessToken && !Object.keys(user).length) {
-	// 			const res = await getUserInfo(accessToken);
-	// 			setUser(res.data);
+	// 			getUserInfo(accessToken)
+	// 				.then((data) => {
+	// 					setUser(data.data);
+	// 				})
+	// 				.catch((e) => {
+	// 					getToast(e?.response?.data, 'error');
+	// 					navigate('/sign-in');
+	// 				});
 	// 		}
 	// 	}
 	// 	getUser();
