@@ -7,12 +7,12 @@ export const topicNewsData: ITopicNewsData[] = [
 		child: [
 			{
 				to: 'thi-truong-nha-dat',
-				title: 'Thị trường nhà đất',
+				type: 'Thị trường nhà đất',
 			},
-			{ to: 'tai-ching-bds', title: 'Tài chính BĐS' },
+			{ to: 'tai-ching-bds', type: 'Tài chính BĐS' },
 			{
 				to: 'phan-tich-va-nhan-dinh',
-				title: 'Phân tích - nhận định',
+				type: 'Phân tích - nhận định',
 			},
 		],
 	},
@@ -20,9 +20,9 @@ export const topicNewsData: ITopicNewsData[] = [
 		to: 'kien-thuc-bds',
 		topic: 'Kiến thức bds',
 		child: [
-			{ to: 'xay-dung', title: 'Xây dựng' },
-			{ to: 'kien-truc', title: 'Kiến trúc' },
-			{ to: 'nha-cua-sao', title: 'Nhà của sao' },
+			{ to: 'xay-dung', type: 'Xây dựng' },
+			{ to: 'kien-truc', type: 'Kiến trúc' },
+			{ to: 'nha-cua-sao', type: 'Nhà của sao' },
 		],
 	},
 	{ to: 'phong-thuy', topic: 'Phong thuỷ', child: [] },
@@ -30,19 +30,19 @@ export const topicNewsData: ITopicNewsData[] = [
 		to: 'loi-khuyen',
 		topic: 'Lời khuyên',
 		child: [
-			{ to: 'goc-dau-tu', title: 'Góc đầu tư' },
-			{ to: 'cho-nguoi-thue', title: 'Cho người thuê' },
+			{ to: 'goc-dau-tu', type: 'Góc đầu tư' },
+			{ to: 'cho-nguoi-thue', type: 'Cho người thuê' },
 		],
 	},
 	{
 		to: 'luat-nha-dat',
 		topic: 'luật nhà đất',
 		child: [
-			{ to: 'quyen-so-huu', title: 'Quyền sở hữu' },
-			{ to: 'tranh-chap', title: 'Tranh chấp' },
+			{ to: 'quyen-so-huu', type: 'Quyền sở hữu' },
+			{ to: 'tranh-chap', type: 'Tranh chấp' },
 			{
 				to: 'nghia-vu-tai-chinh',
-				title: 'Nghĩa vụ tài chính',
+				type: 'Nghĩa vụ tài chính',
 			},
 		],
 	},

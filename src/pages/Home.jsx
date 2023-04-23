@@ -7,6 +7,7 @@ import Sidebar from '@/components/Sidebar';
 
 export const BackDropContext = createContext({
 	toggleBackDrop: () => {},
+	showBackDrop: false,
 });
 
 const Home = () => {
@@ -26,7 +27,7 @@ const Home = () => {
 	const handleClickBackDrop = () => {
 		setActive(false);
 	};
-	if (active) {
+	if (active || showBackDrop) {
 		document.body.style.overflowY = 'hidden';
 	} else {
 		document.body.style.overflowY = 'overlay';
@@ -65,7 +66,9 @@ const Home = () => {
 					isDashBoard ? '100vh' : '65vh'
 				}] bg-white`}
 			>
-				<BackDropContext.Provider value={{ toggleBackDrop: handleToggleBackDrop }}>
+				<BackDropContext.Provider
+					value={{ toggleBackDrop: handleToggleBackDrop, showBackDrop: showBackDrop }}
+				>
 					<Outlet />
 				</BackDropContext.Provider>
 			</div>

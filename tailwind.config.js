@@ -25,6 +25,15 @@ module.exports = {
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
+			keyframes: {
+				wiggle: {
+					'0%': { transform: 'translate(-50%, -120%)' },
+					'100%': { transform: 'translate(-50%, 0)' },
+				},
+			},
+			animation: {
+				wiggle: 'wiggle 0.2s ease-in-out',
+			},
 			aspectRatio: {
 				'4/3': '4 / 3',
 			},

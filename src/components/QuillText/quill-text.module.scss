@@ -1,0 +1,23 @@
+.quill_text-container {
+	.quill_text-view {
+		margin-top: 1rem;
+		img {
+			height: 400px;
+		}
+	}
+	textarea {
+		border: none;
+		overflow: auto;
+		outline: none;
+
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		&:focus {
+			box-shadow: none;
+			order: none;
+			overflow: auto;
+			outline: none;
+		}
+	}
+}

@@ -4,7 +4,12 @@ import React, { FC, useContext, useState } from 'react';
 import { BackDropContext } from './Home';
 
 import { BookMarkNotStarIcon } from '@/assets/icons';
-import { NewsSearchDetailRoom, SearchDetaiRoomIntroInfo, SearchRoomItem } from '@/components';
+import {
+	FilterRoom,
+	NewsSearchDetailRoom,
+	SearchDetaiRoomIntroInfo,
+	SearchRoomItem,
+} from '@/components';
 import NewsPagination from '@/components/helpers/Pagination/Pagination';
 import Search from '@/components/helpers/Search/Search';
 import SelectTypeIntro from '@/components/helpers/SelectTypeIntro/SelectTypeIntro';
@@ -16,7 +21,7 @@ const PageSize = 1;
 
 const SearchDetailRoom: FC<Props> = () => {
 	HeadTitle('Search Details');
-	const { toggleBackDrop } = useContext(BackDropContext);
+	const { toggleBackDrop, showBackDrop } = useContext(BackDropContext);
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const [click, setClick] = useState<IChoose>({
@@ -103,6 +108,9 @@ const SearchDetailRoom: FC<Props> = () => {
 				onPageChange={(page: number) => setCurrentPage(page)}
 			/>
 			<SearchDetaiRoomIntroInfo />
+			{showBackDrop && (
+				<FilterRoom styles='animate-[wiggle_1s_ease-in-out] absolute z-[10000] -translate-x-1/2 w-[414px] top-0 min-h-[400px] left-1/2 bg-white' />
+			)}
 		</div>
 	);
 };

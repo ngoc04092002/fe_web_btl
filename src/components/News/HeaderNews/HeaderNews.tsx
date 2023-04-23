@@ -97,7 +97,7 @@ const HeaderNews: FC<Props> = ({ setShowSearch, showSearch, hanleShowSearch, han
 													to={`/news/${t.to}/${tc.to}`}
 													className='whitespace-nowrap'
 												>
-													{tc.title}
+													{tc.type}
 												</Link>
 											</li>
 										))}

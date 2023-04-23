@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import QuillText from './QuillText';
+import 'react-quill/dist/quill.snow.css';
 
 type Props = {};
 

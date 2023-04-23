@@ -47,7 +47,7 @@ const ListNewsMenu: FC<Props> = ({ t }) => {
 								href={tc.to}
 								rel='noreferrer'
 							>
-								{tc.title}
+								{tc.type}
 							</a>
 						</li>
 					))}
