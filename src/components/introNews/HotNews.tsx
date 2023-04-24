@@ -144,7 +144,7 @@ const HotNews: FC<Props> = ({ title, isRent = false }) => {
 						</Link>
 					))}
 				<div className='absolute -right-[16px] top-1/2 -translate-y-1/2 lg:block hidden'>
-					<a href='/'>
+					<a href='/search-room'>
 						<RightOutlined className='text-[30px] bg-white rounded-full w-[46px] h-[46px] flex items-center justify-center shadow-sm-cs' />
 					</a>
 				</div>

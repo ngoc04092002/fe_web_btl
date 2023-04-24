@@ -21,6 +21,7 @@ import {
 	EditProfile,
 	Profile,
 	QuillText,
+	RoomItem,
 	WrapperElm,
 } from '@/components';
 import Loading from '@/components/Loading/Loading';
@@ -91,6 +92,10 @@ export const routes = createBrowserRouter([
 					{
 						path: '/search-room',
 						element: <SearchDetailRoom />,
+					},
+					{
+						path: '/room-item/:id',
+						element: <RoomItem />,
 					},
 					{
 						element: <ProtectedRoute />,

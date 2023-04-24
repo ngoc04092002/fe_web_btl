@@ -2,14 +2,14 @@ import React, { FC } from 'react';
 import { Autoplay, Navigation, EffectCreative } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import './body-news.css';
+import './body-news.scss';
 import NewsHomeHot from '../components/NewsHomeHot/NewsHomeHot';
 
 type Props = {};
 
 const HeadBodyNews: FC<Props> = () => {
 	return (
-		<div className='w-full'>
+		<div className='body_news-container w-full'>
 			<div className='flex flex-col md:flex-row items-center w-full justify-between select-none'>
 				<h1 className='bg-[#1cbcc7] py-1 px-2 uppercase text-[12px] font-bold text-white whitespace-nowrap mr-4 md:mb-0 mb-3'>
 					tin mới nhất

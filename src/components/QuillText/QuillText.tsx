@@ -1,12 +1,4 @@
-import {
-	Button,
-	FormControl,
-	InputLabel,
-	MenuItem,
-	Select,
-	SelectChangeEvent,
-	TextField,
-} from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import classNames from 'classnames/bind';
 import React, { FC, useEffect, useState } from 'react';
 import ReactQuill from 'react-quill';
@@ -31,15 +23,19 @@ const modules = {
 	],
 };
 
-const sliceSrcImgRegex: RegExp = /src\s*=\s*"(.+?)"/gim;
+// const sliceSrcImgRegex: RegExp = /src\s*=\s*"(.+?)"/gim;
 
 const QuillText: FC<Props> = () => {
-	const [value, setValue] = useState('');
-	const [topic, setTopic] = useState('');
-	const [type, setType] = useState('');
-	const [topicSeleted, setTopicSelected] = useState<ITopicNewsData | null>(null);
-	const [typeSeleted, setTypeSelected] = useState<{ to: string; type: string } | null>(null);
-	// const [listNewsPiece, setListNewsPiece] = useState(null);
+	const [body, setBody] = useState('');
+	const [valueMain, setValueMain] = useState({
+		topic: '',
+		type: '',
+		title: '',
+		des: '',
+		img: '',
+	});
+	const [bodes, setBodes] = useState<string[] | []>([]);
+	const [topicSelected, setTopicSelected] = useState<ITopicNewsData | null>(null);
 
 	const [img, setImg] = useState<{ url: string; file: File | null }>({
 		url: '',
@@ -51,11 +47,12 @@ const QuillText: FC<Props> = () => {
 		file: null,
 	});
 
-	const handleChangeTopic = (e: SelectChangeEvent<string>) => {
-		setTopic(e.target.value);
-	};
-	const handleChangeType = (e: SelectChangeEvent<string>) => {
-		setType(e.target.value);
+	const handleChangeValueMain = (e: any) => {
+		e.stopPropagation();
+		setValueMain((prev) => ({
+			...prev,
+			[e.target.name]: e.target.value,
+		}));
 	};
 
 	const selectTopic = (value: ITopicNewsData) => {
@@ -81,21 +78,28 @@ const QuillText: FC<Props> = () => {
 		reader.readAsDataURL(e.target.files[0]);
 		reader.onloadend = function () {
 			const base64data = reader.result;
-			setValue((prev) => `${prev}${`<img src="${base64data}">`}`);
+			setBody((prev) => `${prev}${`<img src="${base64data}">`}`);
 		};
 	};
 
 	const handleRecordNews = () => {
 		console.log('record');
+		setBodes((prev) => [...prev, body]);
+		setBody('');
 	};
-	console.log(value, img, topic, typeSeleted);
-	console.log('regex=>>', value.replace(sliceSrcImgRegex, "src='ok'"));
+	// console.log(body, img, valueMain, typeSeleted);
+	// console.log('regex=>>', body.replace(sliceSrcImgRegex, "src='ok'"));
+
+	const handleSubmit = () => {
+		console.log(valueMain, bodes);
+	};
 
 	useEffect(() => {
 		return () => {
+			imgMain && URL.revokeObjectURL(imgMain.url);
 			img && URL.revokeObjectURL(img.url);
 		};
-	}, [img]);
+	}, [imgMain, img]);
 
 	return (
 		<div className={`${cx('quill_text-container')} mt-8 mb-20`}>
@@ -119,18 +123,24 @@ const QuillText: FC<Props> = () => {
 				</div>
 				<div>
 					<TextField
+						name='title'
 						id='title'
 						label='TItle'
 						variant='outlined'
 						className='w-full mb-2'
 						multiline
+						onChange={handleChangeValueMain}
+						value={valueMain.title}
 					/>
 					<TextField
+						name='des'
 						id='des'
 						label='Des'
 						variant='outlined'
 						className='w-full mb-2'
 						multiline
+						onChange={handleChangeValueMain}
+						value={valueMain.des}
 					/>
 					<FormControl
 						fullWidth
@@ -138,16 +148,17 @@ const QuillText: FC<Props> = () => {
 					>
 						<InputLabel id='demo-simple-select-label'>Topic</InputLabel>
 						<Select
+							name='topic'
 							labelId='demo-simple-select-label'
 							id='demo-simple-select'
-							value={topic}
+							value={valueMain.topic}
 							label='Topic'
-							onChange={handleChangeTopic}
+							onChange={handleChangeValueMain}
 						>
 							{topicNewsData.map((t) => (
 								<MenuItem
 									key={t.to}
-									value={t.topic}
+									value={t.to}
 									onClick={(e) => {
 										e.stopPropagation();
 										selectTopic(t);
@@ -158,24 +169,21 @@ const QuillText: FC<Props> = () => {
 							))}
 						</Select>
 					</FormControl>
-					{topicSeleted && !!topicSeleted.child.length && (
+					{topicSelected && !!topicSelected.child.length && (
 						<FormControl fullWidth>
 							<InputLabel id='demo-simple-select-label1'>Type</InputLabel>
 							<Select
+								name='type'
 								labelId='demo-simple-select-label1'
 								id='demo-simple-select'
-								value={type}
+								value={valueMain.type}
 								label='Type'
-								onChange={handleChangeType}
+								onChange={handleChangeValueMain}
 							>
-								{topicSeleted.child.map((t) => (
+								{topicSelected.child.map((t) => (
 									<MenuItem
 										key={t.to}
-										onClick={(e) => {
-											e.stopPropagation();
-											setTypeSelected({ to: t.to, type: t.type });
-										}}
-										value={t.type}
+										value={t.to}
 									>
 										{t.type}
 									</MenuItem>
@@ -186,7 +194,7 @@ const QuillText: FC<Props> = () => {
 					<img
 						src={imgMain.url}
 						alt=''
-						className='h-[300px]'
+						className='max-h-[300px] mt-1'
 					/>
 				</div>
 				<div className='w-full mt-8'>
@@ -210,8 +218,8 @@ const QuillText: FC<Props> = () => {
 					<ReactQuill
 						className='bg-white'
 						theme='snow'
-						value={value}
-						onChange={setValue}
+						value={body}
+						onChange={setBody}
 						modules={modules}
 					/>
 					<ButtonWrapper
@@ -224,9 +232,14 @@ const QuillText: FC<Props> = () => {
 			</div>
 			<div
 				className={cx('quill_text-view')}
-				dangerouslySetInnerHTML={{ __html: value }}
+				dangerouslySetInnerHTML={{ __html: body }}
 			/>
-			<ButtonWrapper styles='float-right'>Tạo</ButtonWrapper>
+			<ButtonWrapper
+				onClick={handleSubmit}
+				styles='float-right'
+			>
+				Tạo
+			</ButtonWrapper>
 		</div>
 	);
 };

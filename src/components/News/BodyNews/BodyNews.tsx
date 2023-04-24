@@ -2,7 +2,7 @@ import { DownOutlined } from '@ant-design/icons';
 import React, { FC, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
-import './body-news.css';
+import './body-news.scss';
 
 import NewsPagination from '../../helpers/Pagination/Pagination';
 import NewsDetail from '../components/NewsDetail/NewsDetail';
