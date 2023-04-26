@@ -37,7 +37,7 @@ const ResetPassword = () => {
 		<div className='w-fit mx-auto my-[100px]'>
 			{isSuccess && data.data === 'success' && (
 				<>
-					<h1>Mật khẩu mới của bạn là: 12345678</h1>
+					<h1>Mật khẩu mới của bạn là: 12345678A@</h1>
 					<a
 						href={`${origin}/sign-in`}
 						className='underline text-blue-700 p-4'
