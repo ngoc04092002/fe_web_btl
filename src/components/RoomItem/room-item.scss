@@ -38,28 +38,52 @@
 		}
 	}
 	.room_item-swiper {
-		.swiper-slide{
+		h1 {
+			font-weight: bold;
+			font-size: 20px;
+		}
+		.mySwiper:hover {
+			.swiper-button-next::after,
+			.swiper-button-prev::after {
+				background-color: rgba(12, 11, 11, 0.8);
+			}
+		}
+
+		.swiper-slide {
 			height: 400px;
 			background-color: #f1f4f6;
 			padding: 0 2rem;
-			img{
+			img {
 				height: 100%;
 				width: 100%;
 				object-fit: cover;
 				object-position: center;
 			}
 		}
-		.swiper-pagination{
+		.swiper-pagination {
 			position: absolute;
 			bottom: 4px;
 			z-index: 1;
 			left: 50%;
 			transform: translateX(-50%);
-			background-color: rgba(0,0,0,.5);
+			background-color: rgba(0, 0, 0, 0.5);
 			color: white;
 			font-size: 13px;
 			padding: 2px 5px;
 			border-radius: 4px;
+		}
+		.swiper-button-next,
+		.swiper-button-prev {
+			&::after {
+				padding: 6px 10px;
+				border-radius: 50%;
+				font-size: 24px;
+				background-color: rgba(34, 34, 34, 0.2);
+				color: white;
+			}
+		}
+		ul {
+			list-style: disc;
 		}
 	}
 }
