@@ -3,10 +3,8 @@ import { useParams } from 'react-router-dom';
 import { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-
 import CardUserInfo from '../CardUserInfo';
 import './room-item.scss';
-import GoogleMapRoomItem from '../GoogleMapRoomItem';
 
 type Props = {};
 
@@ -32,27 +30,29 @@ const RoomItem: FC<Props> = () => {
 			</div>
 			<div className='grid grid-cols-3 gap-4 mt-8'>
 				<div className='room_item-swiper cus-screen:col-span-2 col-span-3 relative'>
-					<Swiper
-						pagination={{
-							type: 'fraction',
-						}}
-						navigation={true}
-						modules={[Pagination, Navigation]}
-						className='mySwiper'
-					>
-						<SwiperSlide>
-							<img
-								src='https://cloud.mogi.vn/images/2022/10/24/094/f830ea1cc9f04a47bdcbd5db992cee5c.jpg'
-								alt=''
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
-								alt=''
-							/>
-						</SwiperSlide>
-					</Swiper>
+					<div className='room_item-sw1'>
+						<Swiper
+							pagination={{
+								type: 'fraction',
+							}}
+							navigation={true}
+							modules={[Pagination, Navigation]}
+							className='mySwiper'
+						>
+							<SwiperSlide>
+								<img
+									src='https://cloud.mogi.vn/images/2022/10/24/094/f830ea1cc9f04a47bdcbd5db992cee5c.jpg'
+									alt=''
+								/>
+							</SwiperSlide>
+							<SwiperSlide>
+								<img
+									src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
+									alt=''
+								/>
+							</SwiperSlide>
+						</Swiper>
+					</div>
 					<div className=' mt-4'>
 						<h1>Cho thuê nhà khu biệt thự Làng Hoa Cây Trâm P.9 Gò Vấp 1 lầu</h1>
 						<p className='text-[#3c4146] mt-1 text-base'>Cây Trâm, Phường 9, Quận Gò Vấp, TPHCM</p>
@@ -88,9 +88,51 @@ const RoomItem: FC<Props> = () => {
 						</p>
 					</div>
 					<hr className='h-[1px] bg-[#ccc] mt-8' />
-					<GoogleMapRoomItem />
 				</div>
 				<CardUserInfo />
+				<div className='room_item-sw2 col-span-3 mt-10'>
+					<Swiper
+						slidesPerView={4}
+						spaceBetween={20}
+						pagination={{
+							type: 'fraction',
+						}}
+						navigation={true}
+						modules={[Pagination, Navigation]}
+						className='mySwiper2'
+					>
+						<SwiperSlide>
+							<img
+								src='https://cloud.mogi.vn/images/2022/10/24/094/f830ea1cc9f04a47bdcbd5db992cee5c.jpg'
+								alt=''
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
+								alt=''
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
+								alt=''
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
+								alt=''
+							/>
+						</SwiperSlide>
+						<SwiperSlide>
+							<img
+								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
+								alt=''
+							/>
+						</SwiperSlide>
+					</Swiper>
+				</div>
 			</div>
 		</div>
 	);
