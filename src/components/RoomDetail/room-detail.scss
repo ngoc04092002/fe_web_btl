@@ -37,11 +37,11 @@
 			z-index: 10;
 		}
 	}
+	h1 {
+		font-weight: bold;
+		font-size: 20px;
+	}
 	.room_item-swiper {
-		h1 {
-			font-weight: bold;
-			font-size: 20px;
-		}
 		.room_item-sw1 {
 			.mySwiper:hover {
 				.swiper-button-next::after,
@@ -84,8 +84,17 @@
 				}
 			}
 		}
-		.room_item-sw2{
-			
+		.room_item-sw2 {
+			.swiper-button-next,
+			.swiper-button-prev {
+				&::after {
+					padding: 6px 10px;
+					border-radius: 50%;
+					font-size: 24px;
+					background-color: rgba(34, 34, 34, 0.2);
+					color: white;
+				}
+			}
 		}
 		ul {
 			list-style: disc;

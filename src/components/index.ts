@@ -6,7 +6,7 @@ import EditProfile from './DashBoardComponents/Profile/EditProfile';
 import FilterRoom from './FilterRoom';
 import NewsSearchDetailRoom from './News/components/NewsSearchDetailRoom/NewsSearchDetailRoom';
 import QuillText from './QuillText';
-import RoomItem from './RoomItem';
+import RoomItem from './RoomDetail';
 import SearchDetaiRoomIntroInfo from './SearchDetaiRoomIntroInfo/SearchDetaiRoomIntroInfo';
 import SearchRoomItem from './SearchRoomItem/SearchRoomItem';
 import WrapperElm from './WrapperElm';

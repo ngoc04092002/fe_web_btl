@@ -9,6 +9,7 @@ import Home from './Home';
 import News from './News';
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
+import QA from './QA';
 import ResetPassword from './ResetPassword';
 import SearchDetailRoom from './SearchDetailRoom';
 import SignIn from './SignIn';
@@ -96,6 +97,10 @@ export const routes = createBrowserRouter([
 					{
 						path: '/room-item/:id',
 						element: <RoomItem />,
+					},
+					{
+						path: '/Q-A/:id?',
+						element: <QA />,
 					},
 					{
 						element: <ProtectedRoute />,

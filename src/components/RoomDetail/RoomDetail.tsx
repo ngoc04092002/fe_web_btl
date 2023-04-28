@@ -3,12 +3,17 @@ import { useParams } from 'react-router-dom';
 import { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { CardRoom1 } from '../CardRoom';
 import CardUserInfo from '../CardUserInfo';
-import './room-item.scss';
 
-type Props = {};
+import './room-detail.scss';
+import { IRoomInfo } from '@/types/components/type';
 
-const RoomItem: FC<Props> = () => {
+type Props = {
+	dataHotNewsRent: IRoomInfo[] | [];
+};
+
+const RoomItem: FC<Props> = ({ dataHotNewsRent }) => {
 	const { id } = useParams();
 
 	console.log(id);
@@ -60,22 +65,24 @@ const RoomItem: FC<Props> = () => {
 					</div>
 					<div className='mt-4'>
 						<h1>Thông tin chính</h1>
-						<ul className='grid grid-cols-2 gap-4 pl-7 mt-2'>
-							<li className='text-[#657786]'>
-								<span>Diện tích phòng</span>
-								<span className='float-right mr-10'>
-									104 m<sub className='align-super'>2</sub>
-								</span>
-							</li>
-							<li>
-								<span>Kiểu phòng</span>
-								<span className='float-right mr-10'>Đơn</span>
-							</li>
-							<li>
-								<span>Số điện thoại</span>
-								<span className='float-right mr-10'>0338787233</span>
-							</li>
-						</ul>
+						<div className='p-4 bg-[#e9e9e93d]'>
+							<ul className='grid grid-cols-2 gap-4 pl-7 mt-2'>
+								<li className='text-[#657380]'>
+									<span>Diện tích phòng</span>
+									<span className='float-right mr-10'>
+										104 m<sub className='align-super'>2</sub>
+									</span>
+								</li>
+								<li>
+									<span>Kiểu phòng</span>
+									<span className='float-right mr-10'>Đơn</span>
+								</li>
+								<li>
+									<span>Số điện thoại</span>
+									<span className='float-right mr-10'>0338787233</span>
+								</li>
+							</ul>
+						</div>
 					</div>
 					<div className='mt-10'>
 						<h1>Giới thiệu</h1>
@@ -91,46 +98,23 @@ const RoomItem: FC<Props> = () => {
 				</div>
 				<CardUserInfo />
 				<div className='room_item-sw2 col-span-3 mt-10'>
+					<h1>Hình ảnh liên quan</h1>
 					<Swiper
 						slidesPerView={4}
 						spaceBetween={20}
-						pagination={{
-							type: 'fraction',
-						}}
 						navigation={true}
-						modules={[Pagination, Navigation]}
+						modules={[Navigation]}
 						className='mySwiper2'
 					>
-						<SwiperSlide>
-							<img
-								src='https://cloud.mogi.vn/images/2022/10/24/094/f830ea1cc9f04a47bdcbd5db992cee5c.jpg'
-								alt=''
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
-								alt=''
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
-								alt=''
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
-								alt=''
-							/>
-						</SwiperSlide>
-						<SwiperSlide>
-							<img
-								src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
-								alt=''
-							/>
-						</SwiperSlide>
+						{!!dataHotNewsRent.length &&
+							dataHotNewsRent.map((d, index) => (
+								<SwiperSlide key={index}>
+									<CardRoom1
+										d={d}
+										styleInfo='border border-t-0 border-solid border-[#e6ecf0]'
+									/>
+								</SwiperSlide>
+							))}
 					</Swiper>
 				</div>
 			</div>
