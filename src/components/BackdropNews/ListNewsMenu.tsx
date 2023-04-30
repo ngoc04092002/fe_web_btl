@@ -19,7 +19,7 @@ const ListNewsMenu: FC<Props> = ({ t }) => {
 	return (
 		<>
 			<NavLink
-				to={t.to}
+				to={`/news/${t.to}`}
 				className={({ isActive }) => (isActive ? cx('backdrop_menu-active') : '')}
 				onClick={handleExpandInfo}
 			>
@@ -44,7 +44,7 @@ const ListNewsMenu: FC<Props> = ({ t }) => {
 							className='text-white'
 						>
 							<a
-								href={tc.to}
+								href={`/news/${t.to}/${tc.to}`}
 								rel='noreferrer'
 							>
 								{tc.type}

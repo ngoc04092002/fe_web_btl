@@ -17,11 +17,11 @@ interface Props {
 }
 
 const menuNavBar: IMenuNavBar[] = [
-	{ title: 'Tìm thuê', to: 'rent' },
-	{ title: 'Hỏi đáp', to: 'q-a' },
-	{ title: 'Xem sau', to: 'view-later' },
-	{ title: 'Dự án', to: 'project' },
-	{ title: 'Góp ý kiến', to: 'feedback' },
+	{ title: 'Tìm thuê', to: '/rent' },
+	{ title: 'Hỏi đáp', to: '/q-a' },
+	{ title: 'Xem sau', to: '/view-later' },
+	{ title: 'Dự án', to: '/project' },
+	{ title: 'Góp ý kiến', to: '/feedback' },
 ];
 
 const Header: React.FC<Props> = ({ handleActive }) => {

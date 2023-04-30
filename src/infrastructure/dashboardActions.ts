@@ -1,6 +1,12 @@
 import { AxiosResponse } from 'axios';
 
 import http from '@/config/axiosConfig';
+import {
+	INewsMainData,
+	INewsResponse,
+	IParamsFilterNews,
+	IParamsSearchNews,
+} from '@/types/components/News/types';
 import { IEWaitingR, IFormEditPassword } from '@/types/pages/IDashBoard';
 import { IFeedback, IUser, IUserLogged } from '@/types/pages/types';
 
@@ -32,4 +38,31 @@ export const deleteIds: (path: string, ids: number[]) => Promise<AxiosResponse<b
 	ids: number[],
 ) => {
 	return http.post<boolean>(path, ids);
+};
+
+export const getAllNews: () => Promise<AxiosResponse<INewsResponse[], any>> = () => {
+	return http.get<INewsResponse[]>('getAll-news-post');
+};
+
+export const getNewsById: (id: number) => Promise<AxiosResponse<INewsResponse, any>> = (
+	id: number,
+) => {
+	return http.get<INewsResponse>(`news/${id}`);
+};
+
+export const createNews: (payload: INewsMainData) => Promise<AxiosResponse<boolean, any>> = (
+	payload: INewsMainData,
+) => {
+	return http.post<boolean>('save-news', payload);
+};
+
+export const filterNews: (
+	params: IParamsFilterNews,
+) => Promise<AxiosResponse<INewsResponse[], any>> = (params: IParamsFilterNews) => {
+	return http.get('get-news-post-limit', { params: params });
+};
+export const searchNews: (
+	params: IParamsSearchNews,
+) => Promise<AxiosResponse<INewsResponse[], any>> = (params: IParamsSearchNews) => {
+	return http.get('search-news', { params: params });
 };

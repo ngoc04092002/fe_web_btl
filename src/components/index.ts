@@ -3,6 +3,7 @@ import DashBoardMain from './DashBoardComponents/DashBoardMain';
 import Profile from './DashBoardComponents/Profile';
 import EditPassword from './DashBoardComponents/Profile/EditPassword';
 import EditProfile from './DashBoardComponents/Profile/EditProfile';
+import TableNews from './DashBoardComponents/TableNews';
 import FilterRoom from './FilterRoom';
 import NewsSearchDetailRoom from './News/components/NewsSearchDetailRoom/NewsSearchDetailRoom';
 import QuillText from './QuillText';
@@ -13,6 +14,7 @@ import WrapperElm from './WrapperElm';
 import NotFoundItem from './helpers/NotFoundItem/NotFoundItem';
 
 export {
+	TableNews,
 	FilterRoom,
 	SearchDetaiRoomIntroInfo,
 	NewsSearchDetailRoom,

@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import React, { FC } from 'react';
 import { Autoplay, Navigation, EffectCreative } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -5,11 +7,28 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import './body-news.scss';
 import NewsHomeHot from '../components/NewsHomeHot/NewsHomeHot';
 
+import Loading from '@/components/Loading/Loading';
+import { filterNews } from '@/infrastructure/dashboardActions';
+import { INewsResponse } from '@/types/components/News/types';
+
 type Props = {};
+const dailyNewsDataLimit = 8;
 
 const HeadBodyNews: FC<Props> = () => {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get-news-post-limit', dailyNewsDataLimit],
+		queryFn: () => filterNews({ limit: dailyNewsDataLimit }),
+		staleTime: 10 * 60 * 1000,
+		cacheTime: 20 * 60 * 1000,
+	});
+
+	if (!data || isLoading) {
+		return <Loading />;
+	}
+	const res: INewsResponse[] = data?.data;
+
 	return (
-		<div className='body_news-container w-full'>
+		<div className='w-full'>
 			<div className='flex flex-col md:flex-row items-center w-full justify-between select-none'>
 				<h1 className='bg-[#1cbcc7] py-1 px-2 uppercase text-[12px] font-bold text-white whitespace-nowrap mr-4 md:mb-0 mb-3'>
 					tin mới nhất
@@ -43,48 +62,44 @@ const HeadBodyNews: FC<Props> = () => {
 					modules={[Autoplay, Navigation, EffectCreative]}
 					className='mySwiper'
 				>
-					<SwiperSlide style={{ fontSize: 16 }}>
-						o Thái Tuế Là Gì? Ý Nghĩa, Các Tuổi Phạm Thái Tuế Trong Năm 2023 Sao Tử Vi là gì? Luận
-						giải ý nghĩa sao Tử Vi tại các cung mệnh
-					</SwiperSlide>
-					<SwiperSlide style={{ fontSize: 16 }}>
-						Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn
-					</SwiperSlide>
-					<SwiperSlide style={{ fontSize: 16 }}>
-						Nghĩa, Các Tuổi Phạm Thái Tuế Trong Năm 2023
-					</SwiperSlide>
+					{res &&
+						res.slice(0, 4).map((r) => (
+							<SwiperSlide
+								key={r.id}
+								style={{ fontSize: 16 }}
+							>
+								{r.title}
+							</SwiperSlide>
+						))}
 				</Swiper>
 			</div>
 			<div className='grid grid-rows-2 sm:grid-cols-2 sm:grid-rows-none gap-1 mt-10 h-[80vh]'>
 				<NewsHomeHot
-					href='/news'
-					src='https://cdnnews.mogi.vn/news/wp-content/uploads/2022/11/23091700/cat-toc-ngay-nao-tot-696x392.jpg'
-					title='Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn'
-					dateTime='06/04/2023'
+					href={`/news/${res[4].id}`}
+					src={res[4].img}
+					title={res[4].title}
+					dateTime={dayjs(res[4].createdAt).format('DD/MM/YYYY')}
 				/>
 				<div className='grid grid-rows-2 sm:grid-rows-3 gap-1'>
 					<NewsHomeHot
 						styles='sm:row-span-2 row-span-1'
-						href='/news'
-						src='https://cdnnews.mogi.vn/news/wp-content/uploads/2022/01/06113016/sao-thai-tue-696x379.jpeg'
-						title='Sao Thái Tuế Là Gì? Ý Nghĩa, Các Tuổi Phạm Thái Tuế Trong Năm 2023'
-						dateTime='06/04/2023'
+						href={`/news/${res[5].id}`}
+						src={res[5].img}
+						title={res[5].title}
+						dateTime={dayjs(res[5].createdAt).format('DD/MM/YYYY')}
 					/>
 					<div className='row-span-1 grid grid-cols-2 gap-1'>
-						<NewsHomeHot
-							href='/news'
-							src='https://cdnnews.mogi.vn/news/wp-content/uploads/2022/11/23091700/cat-toc-ngay-nao-tot-696x392.jpg'
-							title='Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn'
-							dateTime='06/04/2023'
-							styleTitle='text-sm'
-						/>
-						<NewsHomeHot
-							href='/news'
-							src='https://cdnnews.mogi.vn/news/wp-content/uploads/2023/04/06111134/sao-tu-vi-17-696x392.jpg'
-							title='Cắt Tóc Ngày Nào Tốt? Lịch Cắt Tóc 2023 Để Gặp Được Nhiều May Mắn'
-							dateTime='06/04/2023'
-							styleTitle='text-sm'
-						/>
+						{res &&
+							res.slice(6).map((r) => (
+								<NewsHomeHot
+									key={r.id}
+									styleTitle='text-sm'
+									href={`/news/${r.id}`}
+									src={r.img}
+									title={r.title}
+									dateTime={dayjs(r.createdAt).format('DD/MM/YYYY')}
+								/>
+							))}
 					</div>
 				</div>
 			</div>

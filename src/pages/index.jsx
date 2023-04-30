@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
-import { Admin, FeedBackForgotPassword } from './Admin';
+import { Admin, FeedBackForgotPassword, ANews } from './Admin';
 import DashBoard from './Dashboard';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
@@ -142,6 +142,10 @@ export const routes = createBrowserRouter([
 											{
 												path: 'add-news',
 												element: <QuillText />,
+											},
+											{
+												path: 'news',
+												element: <ANews />,
 											},
 										],
 									},

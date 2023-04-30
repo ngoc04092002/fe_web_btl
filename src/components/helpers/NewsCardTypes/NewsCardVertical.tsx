@@ -11,13 +11,15 @@ const NewsCardVertical: FC<INewsCard> = ({
 	src,
 	dateTime = '',
 	styleDivInfo = '',
+	styleDivImg = '',
+	href = '/news',
 }) => {
 	return (
 		<a
-			href='/news'
-			className={`flex items-start ${styles}`}
+			href={href}
+			className={`flex items-start ${styles} mb-3`}
 		>
-			<div className='mr-3'>
+			<div className={`mr-3 ${styleDivImg}`}>
 				<img
 					src={src}
 					alt=''

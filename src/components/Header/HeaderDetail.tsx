@@ -63,7 +63,7 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 			text: 'Thông báo',
 		},
 		{
-			path: '/',
+			path: '/feedback',
 			Icon: <QuestionCircleOutlined />,
 			text: 'Góp ý kiến',
 		},

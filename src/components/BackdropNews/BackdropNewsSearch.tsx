@@ -1,14 +1,15 @@
 import { CloseOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 
-// import NotFoundItem from '../helpers/NotFoundItem/NotFoundItem';
+import Loading from '../Loading';
+import NotFoundItem from '../helpers/NotFoundItem';
 
 import styles from './backdrop-news.module.scss';
 
-import { IListSearchData } from '@/types/components/News/types';
+import { FetchApiSearchNews } from '@/hooks/fetchApiNews';
 
 const cx = classNames.bind(styles);
 type Props = {
@@ -16,12 +17,13 @@ type Props = {
 };
 
 const BackdropNewsSearch: FC<Props> = ({ hanleShowSearch }) => {
-	const listSearchData: IListSearchData[] = Array(6).fill({
-		to: '',
-		img: 'https://cdnnews.mogi.vn/news/wp-content/uploads/2022/11/30100256/ong-lam-to-trong-nha-tot-hay-xau-324x400.jpg',
-		des: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio omnis mollitia officia natus sunt assumenda veniam debitis minus hic ipsam ab illo, recusandae voluptatibus earum repellendus impedit aperiam alias id.',
-		createdAt: dayjs().format('DD/MM/YYYY'),
-	});
+	const [search, setSearch] = useState<string>('');
+	const [value] = useDebounce(search, 2500);
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearch(e.target.value);
+	};
+	const { res, isLoading } = FetchApiSearchNews(6, 0, value.trim());
 	return (
 		<div className='flex flex-col items-center w-full'>
 			<div
@@ -35,43 +37,59 @@ const BackdropNewsSearch: FC<Props> = ({ hanleShowSearch }) => {
 				<input
 					type='text'
 					className='w-full text-white text-[26px] font-bold bg-transparent input-none h-[40px] text-center'
+					onChange={handleSearch}
+					value={search}
 				/>
 			</div>
 			<div className='w-full flex items-center flex-col'>
-				{/* <NotFoundItem styles='text-white' /> */}
-				<ul className='flex items-center flex-col'>
-					{!!listSearchData.length &&
-						listSearchData.map((l, i) => (
-							<li
-								key={i}
-								className='mb-8'
-							>
-								<Link
-									to={l.to}
-									className='flex items-center'
+				{isLoading ? (
+					<Loading />
+				) : (
+					<>
+						{res && !!res.length ? (
+							<div className='w-full flex items-center flex-col'>
+								<ul className='flex items-center flex-col'>
+									{res.map((l, i) => (
+										<li
+											key={i}
+											className='mb-8'
+										>
+											<a
+												href={`/news/${l.id}`}
+												className='flex items-center'
+											>
+												<div className='mr-3 w-[35%]'>
+													<img
+														src={l.img}
+														alt=''
+														className='w-[38rem] h-[7rem] object-cover object-center'
+													/>
+												</div>
+												<div className='w-[65%]'>
+													<h3 className='vertical-2 text-white text-[16px] font-semibold'>
+														{l.des}
+													</h3>
+													<p className='text-[#ddd] text-[12px]'>
+														{dayjs(l.createdAt).format('DD/MM/YYYY')}
+													</p>
+												</div>
+											</a>
+										</li>
+									))}
+								</ul>
+								<a
+									href='http://localhost:2002/news/search?s='
+									className='bg-white opacity-80 uppercase text-lg text-center w-full leading-[50px] mt-6'
+									style={{ boxShadow: '0 0 8px rgba(0, 0, 0, 0.36)' }}
 								>
-									<div className='mr-3'>
-										<img
-											src={l.img}
-											alt=''
-											className='w-[38rem] h-[7rem] object-cover object-center'
-										/>
-									</div>
-									<div>
-										<h3 className='vertical-2 text-white text-[16px] font-semibold'>{l.des}</h3>
-										<p className='text-[#ddd] text-[12px]'>{l.createdAt}</p>
-									</div>
-								</Link>
-							</li>
-						))}
-				</ul>
-				<a
-					href='http://localhost:2002/news/search?s='
-					className='bg-white opacity-80 uppercase text-lg text-center w-full leading-[50px] mt-6'
-					style={{ boxShadow: '0 0 8px rgba(0, 0, 0, 0.36)' }}
-				>
-					Xem tất cả các kết quả
-				</a>
+									Xem tất cả các kết quả
+								</a>
+							</div>
+						) : (
+							<NotFoundItem styles='text-center text-white' />
+						)}
+					</>
+				)}
 			</div>
 		</div>
 	);

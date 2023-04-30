@@ -9,10 +9,11 @@ const NewsCardSingle: FC<INewsCard> = ({
 	styleImg = '',
 	styleTitle = '',
 	src,
+	href = '/news',
 }) => {
 	return (
 		<div className={`w-full md:w-2/5 ${styles}`}>
-			<a href='/news'>
+			<a href={href}>
 				<img
 					src={src}
 					alt=''

@@ -1,4 +1,9 @@
-import { ITopicNewsData } from '@/types/components/News/types';
+import {
+	INewsImage,
+	INewsMainData,
+	INewsPieceData,
+	ITopicNewsData,
+} from '@/types/components/News/types';
 
 export const topicNewsData: ITopicNewsData[] = [
 	{
@@ -9,7 +14,7 @@ export const topicNewsData: ITopicNewsData[] = [
 				to: 'thi-truong-nha-dat',
 				type: 'Thị trường nhà đất',
 			},
-			{ to: 'tai-ching-bds', type: 'Tài chính BĐS' },
+			{ to: 'tai-chinh-bds', type: 'Tài chính BĐS' },
 			{
 				to: 'phan-tich-va-nhan-dinh',
 				type: 'Phân tích - nhận định',
@@ -54,7 +59,7 @@ export const topicNewsDatai18: { [key: string]: string } = {
 	'phan-tich-va-nhan-dinh': 'Phân tích - nhận định',
 	'tin-tuc-bds': 'Tin tức bất động sản',
 	'nghia-vu-tai-chinh': 'Nghĩa vụ tài chính',
-	'tai-ching-bds': 'Tài chính bất động sản',
+	'tai-chinh-bds': 'Tài chính bất động sản',
 	'xay-dung': 'Xây dựng',
 	'quyen-so-huu': 'Quyền sở hữu',
 	'tranh-chap': 'Tranh chấp',
@@ -73,7 +78,7 @@ export const desTopicNewsData: { [key: string]: string } = {
 		'Kênh thông tin thị trường bất động sản, mua bán, cho thuê nhà đất, căn hộ chung cư, nhà mặt tiền, nhà mặt ngõ, đất nền, đất chia lô,…',
 	'thi-truong-nha-dat':
 		'Cập nhật thông tin bất động sản thật, thông tin mua bán đất, mua bán nhà uy tín, dự án nổi bật, thông tin quy hoạch mới nhất',
-	'tai-ching-bds':
+	'tai-chinh-bds':
 		'Chính sách ngân hàng, thông tin lãi suất, tài chính bất động sản, mua nhà đất trả góp, vay vốn đầu tư',
 	'phan-tich-va-nhan-dinh':
 		'Báo cáo, phân tích, nhận định minh bạch về thị trường bất động sản toàn quốc, góc nhìn chuyên gia, thông tin chính xác về giá nhà đất, dự án, cho thuê, mua bán nhà đất… ',
@@ -101,4 +106,23 @@ export const desTopicNewsData: { [key: string]: string } = {
 		'Chuyên mục dành cho những lời khuyên thiết thực dành cho người đang có nhu cầu thuê nhà. Tổng hợp lời khuyên từ việc thuê phòng trọ, căn hộ, nhà nguyên căn.',
 	'loi-khuyen':
 		'Chuyên đề kiến thức, lời khuyên, lưu ý, bí kíp bỏ túi về đầu tư, mua bán nhà đất, bất động sản cho thuê',
+};
+
+export const initValueNewsMain: INewsMainData = {
+	topic: '',
+	type: '',
+	title: '',
+	des: '',
+	img: '',
+};
+
+export const initValueNewsPiece: Omit<INewsPieceData, 'img' | 'body'> = {
+	title: '',
+	caption: '',
+	des: '',
+};
+
+export const initValueImg: INewsImage = {
+	url: '',
+	file: null,
 };

@@ -59,7 +59,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 			text: 'Tìm thuê',
 		},
 		{
-			path: '/',
+			path: '/q-a',
 			Icon: <QAIcon />,
 			text: 'Hỏi đáp',
 		},
