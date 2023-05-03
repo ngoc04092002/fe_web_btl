@@ -1,4 +1,10 @@
-import { ContactsOutlined, HomeOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
+import {
+	BookOutlined,
+	ContactsOutlined,
+	HomeOutlined,
+	LockOutlined,
+	UserOutlined,
+} from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
@@ -40,6 +46,19 @@ const siderbarData: ISidebarRest[] = [
 			{ to: 'profile/edit-password', title: 'Đổi mật khẩu' },
 		],
 		color: '#c3ab00',
+		role: ['user', 'admin'],
+	},
+	{
+		path: '/dash-board/post-room',
+		title: 'Quản lý bài đăng phòng',
+		Icon: (props: ISidebarIconProps) => (
+			<BookOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [{ to: 'post-room/add-post-room', title: 'Đăng rao phòng' }],
+		color: '#ff9900',
 		role: ['user', 'admin'],
 	},
 	{

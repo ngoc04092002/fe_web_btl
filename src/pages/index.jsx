@@ -16,10 +16,12 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 import {
+	AddPostRoom,
 	CalendarContainer,
 	DashBoardMain,
 	EditPassword,
 	EditProfile,
+	PostRoom,
 	Profile,
 	QuillText,
 	RoomItem,
@@ -124,6 +126,16 @@ export const routes = createBrowserRouter([
 											{
 												path: 'edit-profile',
 												element: <EditProfile />,
+											},
+										],
+									},
+									{
+										path: 'post-room',
+										element: <PostRoom />,
+										children: [
+											{
+												path: 'add-post-room',
+												element: <AddPostRoom />,
 											},
 										],
 									},

@@ -46,7 +46,7 @@ const Profile: FC<Props> = () => {
 							<img
 								src={(user as IUser)?.avatar || getImage('user.png')}
 								alt='user'
-								className='w-60 h-60 object-cover object-center mb-6'
+								className='w-60 h-60 object-cover object-center mb-6 rounded-full'
 							/>
 						</div>
 					</div>

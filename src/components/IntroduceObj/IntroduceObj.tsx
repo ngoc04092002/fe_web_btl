@@ -18,6 +18,7 @@ const IntroduceObj: FC<Props> = () => {
 		'chooseChild2': '',
 		'chooseChild3': '',
 	});
+	const [value, setValue] = useState('');
 
 	const handleChooseType: (value: IChoose) => void = (value: IChoose) => {
 		setClick((prev) => {
@@ -39,6 +40,10 @@ const IntroduceObj: FC<Props> = () => {
 				chooseTitle: 0,
 			}));
 		}
+	};
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(e.target.value);
 	};
 
 	return (
@@ -63,9 +68,11 @@ const IntroduceObj: FC<Props> = () => {
 						type='text'
 						placeholder='Từ khóa, Đường, Quận, Dự án hoặc địa danh ...'
 						className='flex-1'
+						onChange={handleChange}
+						value={value}
 					/>
 					<a
-						href='/search-room'
+						href={`/search-room?s=${value}&address=${click.chooseChild1}&type=${click.chooseChild2}&price=${click.chooseChild3}`}
 						className='bg-main text-white h-full px-4 pt-2'
 					>
 						<SearchOutlined />

@@ -68,6 +68,6 @@ export const properties: string[] = ['Nhà', 'Căn hộ', 'Đất', 'Mặt bằn
 export const prices: string[] = [
 	'<2 triệu',
 	'2 triệu - 6 triệu',
-	'>6 triệu - 10 triệu',
+	'6 triệu - 10 triệu',
 	'>10 triệu',
 ];

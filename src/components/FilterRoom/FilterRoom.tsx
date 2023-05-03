@@ -1,6 +1,7 @@
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 // import classNames from 'classnames/bind';
 import React, { FC, useContext, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import ButtonWrapper from '../helpers/ButtonWrapper/ButtonWrapper';
 
@@ -19,6 +20,7 @@ const FilterRoom: FC<Props> = () => {
 		action: string;
 		title: string;
 		child: [] | string[];
+		unit: string;
 	} | null>(null);
 	const [filterRoom, setFilterRoom] = useState({
 		acreage: '',
@@ -26,7 +28,14 @@ const FilterRoom: FC<Props> = () => {
 		price: '',
 		timestamp: '',
 	});
-	const chooseDetail = (ifr: { action: string; title: string; child: [] | string[] }) => {
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const chooseDetail = (ifr: {
+		action: string;
+		title: string;
+		child: [] | string[];
+		unit: string;
+	}) => {
 		if (ifr.child.length) {
 			setChild(ifr);
 		} else {
@@ -49,6 +58,15 @@ const FilterRoom: FC<Props> = () => {
 			price: '',
 			timestamp: '',
 		});
+	};
+
+	const handleFlter = () => {
+		searchParams.set('acreage', filterRoom.acreage);
+		searchParams.set('price', filterRoom.price);
+		searchParams.set('numberRoom', filterRoom.roomNumber);
+		searchParams.set('time', filterRoom.timestamp);
+		setSearchParams(searchParams);
+		toggleBackDrop();
 	};
 
 	return (
@@ -115,7 +133,7 @@ const FilterRoom: FC<Props> = () => {
 							key={c}
 							className='font-bold text-base cursor-pointer px-2 py-3 border-0 border-b border-solid border-[#ccc] hover:bg-[#f5f5f5]'
 						>
-							{c}
+							{`${c} ${child.unit}`}{' '}
 						</li>
 					))}
 			</ul>
@@ -127,7 +145,12 @@ const FilterRoom: FC<Props> = () => {
 					>
 						Xóa lọc
 					</ButtonWrapper>
-					<ButtonWrapper styles='!mb-0 mt-3 rounded-lg'>Tìm kiếm</ButtonWrapper>
+					<ButtonWrapper
+						onClick={handleFlter}
+						styles='!mb-0 mt-3 rounded-lg'
+					>
+						Tìm kiếm
+					</ButtonWrapper>
 				</div>
 			)}
 		</div>

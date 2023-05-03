@@ -6,7 +6,7 @@ type Props = {
 const Loading: React.FC<Props> = ({ styles }) => {
 	return (
 		<div className='w-full text-center'>
-			<LoadingOutlined className={`${styles} text-4xl text-[#ccc]`} />
+			<LoadingOutlined className={`${styles} text-4xl text-white`} />
 		</div>
 	);
 };

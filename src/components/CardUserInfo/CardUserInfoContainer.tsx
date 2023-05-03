@@ -4,9 +4,13 @@ import { FacebookIcon } from 'react-share';
 
 import CardUserInfo from './CardUserInfo';
 
-type Props = {};
+import { IUser } from '@/types/pages/types';
 
-const CardUserInfoContainer: FC<Props> = () => {
+type Props = {
+	userData: IUser | undefined;
+};
+
+const CardUserInfoContainer: FC<Props> = ({ userData }) => {
 	const [saveRoom, setSaveRoom] = useState(false);
 
 	const toggleSaveRoom = () => {
@@ -14,7 +18,7 @@ const CardUserInfoContainer: FC<Props> = () => {
 	};
 	return (
 		<div>
-			<CardUserInfo />
+			<CardUserInfo userData={userData} />
 			<div className='flex items-center mt-4'>
 				<div
 					onClick={toggleSaveRoom}

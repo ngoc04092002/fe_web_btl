@@ -2,12 +2,16 @@ import React, { FC } from 'react';
 
 import SearchRoomItem from './SearchRoomItem';
 
-type Props = {};
+import { IPostRoomResponse } from '@/types/pages/IDashBoard';
 
-const SearchRoomItemContainer: FC<Props> = () => {
+type Props = {
+	data: IPostRoomResponse[] | [];
+};
+
+const SearchRoomItemContainer: FC<Props> = ({ data }) => {
 	return (
 		<div>
-			<SearchRoomItem />
+			<SearchRoomItem data={data} />
 		</div>
 	);
 };

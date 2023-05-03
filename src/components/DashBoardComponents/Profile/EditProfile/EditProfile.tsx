@@ -9,6 +9,7 @@ import { v4 } from 'uuid';
 
 import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
 import Button from '@/components/helpers/ButtonWrapper';
+import { initValueImg } from '@/constants/NewsConst';
 import { schemaFormEditProfie } from '@/constants/SchemaYups';
 import { dataFormGroupEditProfile, dataFormGroupTextEditProfile } from '@/constants/SignUpConstant';
 import { initialFormEditProfile } from '@/constants/initiallValues';
@@ -18,6 +19,7 @@ import { storage } from '@/pages/firebase';
 import { DashBoardFormIdEditProfile, IFromEditProfile } from '@/types/pages/IDashBoard';
 import { IUser, IUserLogged } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
+import { getPathNameFirebase } from '@/utils/CustomPathNameFirebase';
 import { getToast } from '@/utils/CustomToast';
 
 type Props = {};
@@ -36,10 +38,7 @@ const EditProfile: FC<Props> = () => {
 		resolver: yupResolver(schemaFormEditProfie),
 	});
 
-	const [avatar, setAvatar] = useState<{ url: string; file: File | null }>({
-		url: '',
-		file: null,
-	});
+	const [avatar, setAvatar] = useState<{ url: string; file: File | null }>(initValueImg);
 
 	const handlePreviewAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.files?.length) {
@@ -68,12 +67,15 @@ const EditProfile: FC<Props> = () => {
 				getDownloadURL(d.ref)
 					.then((url) => {
 						const oldAvatar = (user as IUser).avatar;
-						if (oldAvatar) {
+						if (oldAvatar && !!avatar.file) {
 							// Delete the old file
-							let ibe = oldAvatar.indexOf('%2F');
-							let ila = oldAvatar.indexOf('?');
-							let res = oldAvatar.slice(ibe + 3, ila);
-							const desertRef = ref(storage, `images/${res}`);
+							const pathNameUrl = getPathNameFirebase(oldAvatar);
+							const desertRef = ref(storage, `images/${pathNameUrl}`);
+							deleteObject(desertRef);
+						}
+						if (!avatar.file) {
+							const pathNameUrl = getPathNameFirebase(url);
+							const desertRef = ref(storage, `images/${pathNameUrl}`);
 							deleteObject(desertRef);
 						}
 						const formData = {
@@ -82,7 +84,7 @@ const EditProfile: FC<Props> = () => {
 							address: data.address as string,
 							sdt: data.sdt as string,
 							gender: data.male ? 'male' : 'female',
-							avatar: url as string,
+							avatar: avatar.file ? (url as string) : '',
 						};
 						mutate(formData, {
 							onError: (res: AxiosError) => {
@@ -127,24 +129,32 @@ const EditProfile: FC<Props> = () => {
 						className='w-60 h-60 object-cover object-center mb-6 rounded-full'
 					/>
 				</div>
-				<label
-					htmlFor='upload'
-					className='cursor-pointer'
-				>
+				<div className='flex items-center'>
 					<Button
-						styles='overflow-hidden relative'
-						isLoading={isLoading}
+						styles='mr-2'
+						onClick={() => setAvatar(initValueImg)}
 					>
-						Thay đổi{' '}
-						<input
-							type='file'
-							accept='video/*,image/*'
-							id='upload'
-							className='absolute left-0 cursor-pointer top-0 h-full opacity-0'
-							onChange={handlePreviewAvatar}
-						/>
+						Reset
 					</Button>
-				</label>
+					<label
+						htmlFor='upload'
+						className='cursor-pointer'
+					>
+						<Button
+							styles='overflow-hidden relative'
+							isLoading={isLoading}
+						>
+							Thay đổi{' '}
+							<input
+								type='file'
+								accept='video/*,image/*'
+								id='upload'
+								className='absolute left-0 cursor-pointer top-0 h-full opacity-0'
+								onChange={handlePreviewAvatar}
+							/>
+						</Button>
+					</label>
+				</div>
 			</div>
 			<div className='mx-auto sm:w-[66%] w-full flex flex-col'>
 				{!!dataFormGroupTextEditProfile &&

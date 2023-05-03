@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IUser } from './types';
+
 export interface IBar {
 	handleToggleShowSidebar: React.MouseEventHandler<HTMLElement> | undefined;
 	classSvg?: string;
@@ -67,4 +69,63 @@ export type IOrderTableDash = 'asc' | 'desc';
 export interface IEWaitingR {
 	id?: string;
 	email: string;
+}
+
+export interface IPostRoomSrc {
+	src: string;
+}
+
+export interface IRequestPostRoom {
+	title: string;
+	des: string;
+	address: string;
+	phone: string;
+	price: string;
+	sale: string;
+	bedRoom: string;
+	bathroom: string;
+	acreage: string;
+	limitNumberPeople: number;
+	roomType: string;
+	src?: IPostRoomSrc[];
+	clientEntityPostRoom?: Pick<IUser, 'id'>;
+}
+
+export interface IPostRoomResponse {
+	id: number;
+	title: string;
+	des: string;
+	address: string;
+	phone: string;
+	price: string;
+	sale: string;
+	bedRoom: string;
+	bathroom: string;
+	acreage: string;
+	limitNumberPeople: number;
+	roomType: string;
+	src?: IPostRoomSrc[];
+	clientEntityPostRoom?: IUser;
+	createdAt?: string;
+}
+
+export type keysI18PostRoom =
+	| 'phone'
+	| 'bedRoom'
+	| 'bathroom'
+	| 'acreage'
+	| 'sale'
+	| 'limitNumberPeople'
+	| 'roomType';
+
+export interface IFilterPostRoomParams {
+	limit?: number;
+	offset?: number;
+	s?: string;
+	address?: string;
+	type?: string;
+	price?: string;
+	acreage?: string;
+	numberRoom?: string;
+	time?: string;
 }

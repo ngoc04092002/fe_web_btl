@@ -4,10 +4,16 @@ import { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { CardRoom1 } from '../CardRoom';
+// eslint-disable-next-line import/order
 import CardUserInfo from '../CardUserInfo';
 
 import './room-detail.scss';
+import Loading from '../Loading/Loading';
+
+import { i18PostRoom } from '@/constants/FilterRoom';
+import { FetchApiGetPostRoomById } from '@/hooks/fetchApiPostRoom';
 import { IRoomInfo } from '@/types/components/type';
+import { keysI18PostRoom } from '@/types/pages/IDashBoard';
 
 type Props = {
 	dataHotNewsRent: IRoomInfo[] | [];
@@ -16,7 +22,12 @@ type Props = {
 const RoomItem: FC<Props> = ({ dataHotNewsRent }) => {
 	const { id } = useParams();
 
-	console.log(id);
+	const { res, isLoading } = FetchApiGetPostRoomById(+(id as string));
+	console.log(res, isLoading);
+	if (isLoading || !res) {
+		return <Loading styles='!text-[#ccc]' />;
+	}
+	const keys = Object.keys(res);
 	return (
 		<div className='room_item-container mx-4 lg:px-4 xl:px-24'>
 			<div className='text-end mr-4'>
@@ -44,24 +55,29 @@ const RoomItem: FC<Props> = ({ dataHotNewsRent }) => {
 							modules={[Pagination, Navigation]}
 							className='mySwiper'
 						>
-							<SwiperSlide>
-								<img
-									src='https://cloud.mogi.vn/images/2022/10/24/094/f830ea1cc9f04a47bdcbd5db992cee5c.jpg'
-									alt=''
-								/>
-							</SwiperSlide>
-							<SwiperSlide>
-								<img
-									src='https://marketingaccesspass.com/wp-content/uploads/2015/10/Podcast-Website-Design-Background-Image.jpg'
-									alt=''
-								/>
-							</SwiperSlide>
+							{res &&
+								res.src?.length &&
+								res.src.map((r, index) => (
+									<SwiperSlide key={index}>
+										{r?.src.includes('mp4') ? (
+											<video
+												src={r?.src}
+												controls
+											/>
+										) : (
+											<img
+												src={r?.src}
+												alt=''
+											/>
+										)}
+									</SwiperSlide>
+								))}
 						</Swiper>
 					</div>
 					<div className=' mt-4'>
-						<h1>Cho thuê nhà khu biệt thự Làng Hoa Cây Trâm P.9 Gò Vấp 1 lầu</h1>
-						<p className='text-[#3c4146] mt-1 text-base'>Cây Trâm, Phường 9, Quận Gò Vấp, TPHCM</p>
-						<p className='color-main text-2xl font-bold mt-2'>9 triệu 500 nghìn</p>
+						<h1>{res?.title}</h1>
+						<p className='text-[#3c4146] mt-1 text-base'>{res?.address}</p>
+						<p className='color-main text-2xl font-bold mt-2'>{res?.price}</p>
 					</div>
 					<div className='mt-4'>
 						<h1>Thông tin chính</h1>
@@ -70,33 +86,33 @@ const RoomItem: FC<Props> = ({ dataHotNewsRent }) => {
 								<li className='text-[#657380]'>
 									<span>Diện tích phòng</span>
 									<span className='float-right mr-10'>
-										104 m<sub className='align-super'>2</sub>
+										{res.acreage} m<sub className='align-super'>2</sub>
 									</span>
 								</li>
-								<li>
-									<span>Kiểu phòng</span>
-									<span className='float-right mr-10'>Đơn</span>
-								</li>
-								<li>
-									<span>Số điện thoại</span>
-									<span className='float-right mr-10'>0338787233</span>
-								</li>
+								{keys.map((k) => {
+									if (k in i18PostRoom) {
+										return (
+											<li key={k}>
+												<span>{i18PostRoom[k]}</span>
+												<span className='float-right mr-10'>
+													{res[k as keysI18PostRoom]}
+													{k === 'sale' ? '%' : ''}
+												</span>
+											</li>
+										);
+									}
+									return null;
+								})}
 							</ul>
 						</div>
 					</div>
 					<div className='mt-10'>
 						<h1>Giới thiệu</h1>
-						<p className='text-[#3c4146] text-base mt-4 leading-8'>
-							Cho thuê nhà nguyên căn đường Cây Trâm P.9 Gò Vấp . Vị trí : nhà nằm gần công viên
-							Làng Hoa . Giá : 10 triệu / tháng thương lượng DT: 4x13m . Nhà 1 trệt 1 lầu 2 phòng
-							ngủ , 3 vệ sinh , phòng khách , bếp . Nhà mới sạch sẽ , hẻm xe tải đậu trước nhà , khu
-							biệt thự làng hoa rất rộng rãi và thoáng mát , nhà rất phù hợp khách thuê ở gia đình ,
-							bán hàng online , văn phòng công ty... Liên hệ : Lộc 0377007901
-						</p>
+						<p className='text-[#3c4146] text-base mt-4 leading-8'>{res.des}</p>
 					</div>
 					<hr className='h-[1px] bg-[#ccc] mt-8' />
 				</div>
-				<CardUserInfo />
+				<CardUserInfo userData={res.clientEntityPostRoom} />
 				<div className='room_item-sw2 col-span-3 mt-10'>
 					<h1>Hình ảnh liên quan</h1>
 					<Swiper

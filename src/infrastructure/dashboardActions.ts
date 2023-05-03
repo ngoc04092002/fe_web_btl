@@ -7,7 +7,13 @@ import {
 	IParamsFilterNews,
 	IParamsSearchNews,
 } from '@/types/components/News/types';
-import { IEWaitingR, IFormEditPassword } from '@/types/pages/IDashBoard';
+import {
+	IEWaitingR,
+	IFilterPostRoomParams,
+	IFormEditPassword,
+	IPostRoomResponse,
+	IRequestPostRoom,
+} from '@/types/pages/IDashBoard';
 import { IFeedback, IUser, IUserLogged } from '@/types/pages/types';
 
 export const updatePassword: (
@@ -65,4 +71,20 @@ export const searchNews: (
 	params: IParamsSearchNews,
 ) => Promise<AxiosResponse<INewsResponse[], any>> = (params: IParamsSearchNews) => {
 	return http.get('search-news', { params: params });
+};
+
+export const createPostRoom: (payload: IRequestPostRoom) => Promise<AxiosResponse<boolean, any>> = (
+	payload: IRequestPostRoom,
+) => {
+	return http.post<boolean>('save-post-room', payload);
+};
+export const filterPostRoom: (
+	params: IFilterPostRoomParams,
+) => Promise<AxiosResponse<IPostRoomResponse[], any>> = (params: IFilterPostRoomParams) => {
+	return http.get('filter-post-room', { params: params });
+};
+export const getPostRoomById: (id: number) => Promise<AxiosResponse<IPostRoomResponse, any>> = (
+	id: number,
+) => {
+	return http.get<IPostRoomResponse>(`room-item/${id}`);
 };

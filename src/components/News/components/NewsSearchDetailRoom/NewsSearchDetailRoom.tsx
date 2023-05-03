@@ -7,7 +7,7 @@ type Props = {};
 
 const NewsSearchDetailRoom: FC<Props> = (props: Props) => {
 	return (
-		<div className='shadow-026 p-3 rounded-xl cus-screen:col-span-1 cus-screen:block hidden'>
+		<div className='h-fit shadow-026 p-3 rounded-xl cus-screen:col-span-1 cus-screen:block hidden'>
 			<div className='flex items-center justify-between mb-3'>
 				<h1 className='text-[#262637] text-sm font-bold'>Tin tức hàng ngày</h1>
 				<a

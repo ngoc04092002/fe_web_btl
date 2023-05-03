@@ -1,19 +1,26 @@
 import { MailOutlined, PhoneOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
 import React, { FC, useContext, useState } from 'react';
 
 import ButtonWrapper from '../helpers/ButtonWrapper/ButtonWrapper';
 
 import HeadTitle from '@/hooks/Head';
 import { BackDropContext } from '@/pages/Home';
+import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 import { formatPhoneNumber } from '@/utils/FormatPhoneNumber';
 
-type Props = {};
+type Props = {
+	userData: IUser | undefined;
+};
 
-const CardUserInfo: FC<Props> = () => {
+const CardUserInfo: FC<Props> = ({ userData }) => {
 	HeadTitle('Room Item');
 	const { toggleBackDrop } = useContext(BackDropContext);
 	const [showPhoneNumber, setShowPhoneNumber] = useState(false);
+	const day = dayjs(userData?.created_at as unknown as string).day();
+	const month = dayjs(userData?.created_at as unknown as string).month();
+	const year = dayjs(userData?.created_at as unknown as string).year();
 
 	const handleShowPhoneNumber = (e: any) => {
 		e.stopPropagation();
@@ -27,14 +34,16 @@ const CardUserInfo: FC<Props> = () => {
 			<div className='flex items-center p-4 border-0 border-b border-solid border-[#ccc]'>
 				<div>
 					<img
-						src={getImage('user.png')}
+						src={userData?.avatar || getImage('user.png')}
 						alt='user'
-						className='w-[48px] h-[48px] mr-4'
+						className='w-[48px] h-[48px] mr-4 rounded-full'
 					/>
 				</div>
 				<div>
-					<h1 className='text-[#3c4146] font-bold text-lg'>Ngọc Văn</h1>
-					<p className='text-[#657786] text-sm'>Đã tham gia: 1 tháng 13 ngày</p>
+					<h1 className='text-[#3c4146] font-bold text-lg'>{userData?.username}</h1>
+					<p className='text-[#657786] text-sm'>
+						{`Đã tham gia: ngày ${day} tháng ${month} năm ${year}`}
+					</p>
 				</div>
 			</div>
 			<div className='flex flex-col'>
@@ -43,7 +52,7 @@ const CardUserInfo: FC<Props> = () => {
 						<p className='w-fit'>
 							<PhoneOutlined className='rotate-90 text-[#01adba] align-baseline' />
 							<span className='text-[#222] hover:text-[#01adba] font-medium'>
-								{formatPhoneNumber('0338787233', showPhoneNumber)}
+								{formatPhoneNumber(userData?.sdt || '0338787233', showPhoneNumber)}
 							</span>
 						</p>
 						<p

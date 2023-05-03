@@ -1,5 +1,7 @@
 import { AppstoreOutlined } from '@ant-design/icons';
 import React, { FC, useContext, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useDebounce } from 'use-debounce';
 
 import { BackDropContext } from './Home';
 
@@ -7,22 +9,34 @@ import { BookMarkNotStarIcon } from '@/assets/icons';
 import {
 	FilterRoom,
 	NewsSearchDetailRoom,
+	NotFoundItem,
 	SearchDetaiRoomIntroInfo,
 	SearchRoomItem,
 } from '@/components';
+import Loading from '@/components/Loading';
 import NewsPagination from '@/components/helpers/Pagination/Pagination';
 import Search from '@/components/helpers/Search/Search';
 import SelectTypeIntro from '@/components/helpers/SelectTypeIntro/SelectTypeIntro';
 import HeadTitle from '@/hooks/Head';
+import { FetchApiFilterPostRoom } from '@/hooks/fetchApiPostRoom';
 import { IChoose } from '@/types/components/IntroObj/intro';
 
 type Props = {};
-const PageSize = 1;
+const PageSize = 10;
 
 const SearchDetailRoom: FC<Props> = () => {
 	HeadTitle('Search Details');
 	const { toggleBackDrop, showBackDrop } = useContext(BackDropContext);
 	const [currentPage, setCurrentPage] = useState(1);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const s = searchParams.get('s') || '';
+	const address = searchParams.get('address') || '';
+	const type = searchParams.get('type') || '';
+	const price = searchParams.get('price') || '';
+	const acreage = searchParams.get('acreage') || '';
+	const numberRoom = searchParams.get('numberRoom') || '';
+	const time = searchParams.get('time') || '';
+	const [value] = useDebounce(s, 2500);
 
 	const [click, setClick] = useState<IChoose>({
 		'chooseTitle': 0,
@@ -30,6 +44,23 @@ const SearchDetailRoom: FC<Props> = () => {
 		'chooseChild2': '',
 		'chooseChild3': '',
 	});
+
+	const { res, isLoading } = FetchApiFilterPostRoom({
+		limit: 0,
+		offset: 0,
+		s: value,
+		address,
+		type,
+		price,
+		acreage,
+		numberRoom,
+		time,
+	});
+
+	const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		searchParams.set('s', e.target.value);
+		setSearchParams(searchParams);
+	};
 
 	const handleChooseType: (value: IChoose) => void = (value: IChoose) => {
 		setClick((prev) => {
@@ -53,13 +84,17 @@ const SearchDetailRoom: FC<Props> = () => {
 			}));
 		}
 	};
+
 	return (
 		<div
 			onClick={handleHiddenChooseType}
 			className='py-4 mx-4 lg:px-4 xl:px-24'
 		>
 			<div className='flex items-baseline'>
-				<Search styles='!mx-0 cus-screen:!flex !hidden' />
+				<Search
+					styles='!mx-0 cus-screen:!flex !hidden'
+					handleChange={handleChangeSearch}
+				/>
 				<SelectTypeIntro
 					select={click}
 					chooseType={handleChooseType}
@@ -82,7 +117,10 @@ const SearchDetailRoom: FC<Props> = () => {
 				<div className='cus-screen:col-span-2 col-span-3'>
 					<div className='rounded-lg bg-[#f7f8f9] p-3 flex items-center justify-between mb-4'>
 						<span className='flex items-center'>
-							<p className='text-[15px] font-bold'>16 - 30</p>
+							<p className='text-[15px] font-bold'>
+								{currentPage * PageSize > res.length ? res.length : currentPage * PageSize} -{' '}
+								{res.length}
+							</p>
 							<small className='mx-2'>trong</small>
 							<p className='text-[15px] font-bold'>2002</p>
 						</span>
@@ -95,15 +133,14 @@ const SearchDetailRoom: FC<Props> = () => {
 							<p className='text-xs select-none hover:opacity-70'>Lưu tìm kiếm</p>
 						</a>
 					</div>
-					<SearchRoomItem />
-					{/* <NotFoundItem /> */}
+					{isLoading ? <Loading /> : res.length ? <SearchRoomItem data={res} /> : <NotFoundItem />}
 				</div>
 				<NewsSearchDetailRoom />
 			</div>
 			<NewsPagination
 				className='pagination-bar mt-4'
 				currentPage={currentPage}
-				totalCount={30}
+				totalCount={res.length}
 				pageSize={PageSize}
 				onPageChange={(page: number) => setCurrentPage(page)}
 			/>
