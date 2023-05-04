@@ -13,7 +13,7 @@ const QALeft: FC<Props> = () => {
 						to='/q-a'
 					>
 						<img
-							src='	https://mogi.vn/hoi-dap/icons/news-feed.svg'
+							src='https://mogi.vn/hoi-dap/icons/news-feed.svg'
 							alt=''
 							className='mr-2'
 						/>

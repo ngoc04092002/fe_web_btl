@@ -8,6 +8,7 @@ import EditProfile from './DashBoardComponents/Profile/EditProfile';
 import TableNews from './DashBoardComponents/TableNews';
 import FilterRoom from './FilterRoom';
 import NewsSearchDetailRoom from './News/components/NewsSearchDetailRoom';
+import { DialogCard } from './QA';
 import QuillText from './QuillText';
 import RoomItem from './RoomDetail';
 import SearchDetaiRoomIntroInfo from './SearchDetaiRoomIntroInfo';
@@ -16,6 +17,7 @@ import WrapperElm from './WrapperElm';
 import NotFoundItem from './helpers/NotFoundItem';
 
 export {
+	DialogCard,
 	AddPostRoom,
 	PostRoom,
 	TableNews,

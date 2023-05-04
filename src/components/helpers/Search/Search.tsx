@@ -4,9 +4,10 @@ import React from 'react';
 interface Props {
 	styles?: string;
 	handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	handleClick?: () => void;
 }
 
-const Search: React.FC<Props> = ({ styles, handleChange }) => {
+const Search: React.FC<Props> = ({ styles, handleChange, handleClick }) => {
 	return (
 		<div
 			className={`flex flex-1 items-center border-[1px] border-solid rounded-md border-[#657786] mx-7 ${styles}`}
@@ -17,7 +18,10 @@ const Search: React.FC<Props> = ({ styles, handleChange }) => {
 				placeholder='Từ khóa, Đường, Quận, Dự án hoặc địa danh ...'
 				onChange={(e) => handleChange?.(e)}
 			/>
-			<SearchOutlined className='text-lg p-1 text-[#657786] cus-shadow' />
+			<SearchOutlined
+				onClick={handleClick}
+				className='text-lg p-1 text-[#657786] cus-shadow'
+			/>
 		</div>
 	);
 };

@@ -85,6 +85,14 @@ const SearchDetailRoom: FC<Props> = () => {
 		}
 	};
 
+	const handleClickSearch = () => {
+		// eslint-disable-next-line no-restricted-globals
+		const { origin } = location;
+		window.location.replace(
+			`${origin}/search-room?s=${s}&address=${click.chooseChild1}&type=${click.chooseChild2}&price=${click.chooseChild3}`,
+		);
+	};
+
 	return (
 		<div
 			onClick={handleHiddenChooseType}
@@ -94,6 +102,7 @@ const SearchDetailRoom: FC<Props> = () => {
 				<Search
 					styles='!mx-0 cus-screen:!flex !hidden'
 					handleChange={handleChangeSearch}
+					handleClick={handleClickSearch}
 				/>
 				<SelectTypeIntro
 					select={click}
