@@ -13,7 +13,7 @@ const QAPosts = (props: Props) => {
 			<QAPost />
 			<QAPost />
 			<div className='text-center w-full'>
-				<ButtonWrapper styles='shadow-md !text-[#657786] w-1/3 !bg-white font-bold rounded mt-12'>
+				<ButtonWrapper styles='shadow-md !text-[#657786] w-1/3 !bg-white font-bold rounded mt-12 hover:!color-main'>
 					Xem thêm
 				</ButtonWrapper>
 			</div>

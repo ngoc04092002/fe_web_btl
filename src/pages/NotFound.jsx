@@ -23,9 +23,7 @@ const NotFound = () => {
 			<p>NotFound</p>
 			<Link
 				className='underline decoration-cyan-400 font-bold hover:text-gray-500'
-				onClick={() => {
-					navigate(-1);
-				}}
+				onClick={() => navigate(-1)}
 			>
 				Return
 			</Link>

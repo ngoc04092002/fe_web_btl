@@ -4,6 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import { BackDropContext } from './Home';
 
 import { DialogCard, QALeft, QAMiddle, QARight } from '@/components/QA';
+import Goup from '@/components/helpers/Goup';
+import HeadTitle from '@/hooks/Head';
 
 type Props = {};
 
@@ -19,6 +21,7 @@ const topicQA: { title: string; to: string }[] = [
 ];
 
 const QA: FC<Props> = () => {
+	HeadTitle('Questions & Answers');
 	const { showBackDrop } = useContext(BackDropContext);
 	const { id } = useParams();
 	const isStatistical = id === 'statistical';
@@ -52,6 +55,7 @@ const QA: FC<Props> = () => {
 				</div>
 			</section>
 			{showBackDrop && <DialogCard />}
+			<Goup />
 		</>
 	);
 };

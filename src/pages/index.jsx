@@ -6,6 +6,7 @@ import DashBoard from './Dashboard';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
+import LaterView from './LaterView';
 import News from './News';
 import NotFound from './NotFound';
 import ProtectedRoute from './ProtectedRoute';
@@ -93,15 +94,19 @@ export const routes = createBrowserRouter([
 						element: <FeedBack />,
 					},
 					{
-						path: '/search-room',
+						path: 'view-later',
+						element: <LaterView />,
+					},
+					{
+						path: 'search-room',
 						element: <SearchDetailRoom />,
 					},
 					{
-						path: '/room-item/:id',
+						path: 'room-item/:id',
 						element: <RoomItem />,
 					},
 					{
-						path: '/Q-A/:id?',
+						path: 'Q-A/:id?',
 						element: <QA />,
 					},
 					{

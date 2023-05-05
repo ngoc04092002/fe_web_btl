@@ -3,10 +3,12 @@ import { useMutation } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react';
 
 import Loading from '@/components/Loading';
+import HeadTitle from '@/hooks/Head';
 import { sendFeedback } from '@/infrastructure/feedbackAction';
 import { getToast } from '@/utils/CustomToast';
 
 const FeedBack = () => {
+	HeadTitle('Feedback');
 	const [selectFeedback, setSelectFeedback] = useState('');
 	const refTextarea = useRef('');
 

@@ -1,7 +1,7 @@
-import { EllipsisOutlined } from '@ant-design/icons';
 import React from 'react';
 
-import { CommentIcon, LikeIcon } from '@/assets/icons';
+import CommentActions from '../CommentActions';
+
 import { getImage } from '@/utils/CustomImagePath';
 
 type Props = {};
@@ -38,24 +38,7 @@ const QAPost = (props: Props) => {
 					className='w-full h-[300px] mt-2'
 				/>
 			</div>
-			<div className='flex items-center justify-between text-[#657786] font-medium pt-4'>
-				<div className='flex items-center'>
-					<div className='text-center py-2 px-4 flex items-center cursor-pointer hover:bg-[#f7f8f9] hover:rounded-lg'>
-						<LikeIcon />
-						<p>Thích</p>
-					</div>
-					<div className='text-center py-2 px-4 flex items-center cursor-pointer hover:bg-[#f7f8f9] hover:rounded-lg'>
-						<CommentIcon />
-						<p>Bình luận</p>
-					</div>
-				</div>
-				<div className='flex items-center'>
-					<span className='p-2 cursor-pointer hover:bg-[#f7f8f9] hover:rounded-full'>
-						<LikeIcon />
-					</span>
-					<EllipsisOutlined className='ml-4 text-3xl cursor-pointer hover:bg-[#f7f8f9] hover:rounded-full' />
-				</div>
-			</div>
+			<CommentActions />
 		</div>
 	);
 };
