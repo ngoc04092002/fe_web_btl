@@ -10,7 +10,6 @@ import TableRow from '@mui/material/TableRow';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import classNames from 'classnames/bind';
 import dayjs from 'dayjs';
-import { deleteObject, ref } from 'firebase/storage';
 import React, { useCallback, useMemo, useState } from 'react';
 
 import EnhancedTableHead from './EnhancedTableHead';
@@ -19,8 +18,8 @@ import styles from './table-news.module.scss';
 
 import Loading from '@/components/Loading';
 import { deleteIds } from '@/infrastructure/dashboardActions';
-import { storage } from '@/pages/firebase';
 import { getToast } from '@/utils/CustomToast';
+import { deleteFirebaseImgPath } from '@/utils/DeleteFirebaseImgPath';
 
 const cx = classNames.bind(styles);
 
@@ -152,11 +151,7 @@ const TableNews = ({ rows, pathDelete, pathGet }) => {
 					filterImgs.forEach((d) => {
 						if (d.startsWith('https://firebasestorage.googleapis.com')) {
 							// Delete the old file
-							let ibe = d.indexOf('%2F');
-							let ila = d.indexOf('?');
-							let res = d.slice(ibe + 3, ila);
-							const desertRef = ref(storage, `images/${res}`);
-							deleteObject(desertRef);
+							deleteFirebaseImgPath(d);
 						}
 					});
 					setSelected([]);

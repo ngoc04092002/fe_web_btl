@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form } from 'react-router-dom';
@@ -19,8 +19,8 @@ import { storage } from '@/pages/firebase';
 import { DashBoardFormIdEditProfile, IFromEditProfile } from '@/types/pages/IDashBoard';
 import { IUser, IUserLogged } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
-import { getPathNameFirebase } from '@/utils/CustomPathNameFirebase';
 import { getToast } from '@/utils/CustomToast';
+import { deleteFirebaseImgPath } from '@/utils/DeleteFirebaseImgPath';
 
 type Props = {};
 
@@ -69,14 +69,10 @@ const EditProfile: FC<Props> = () => {
 						const oldAvatar = (user as IUser).avatar;
 						if (oldAvatar && !!avatar.file) {
 							// Delete the old file
-							const pathNameUrl = getPathNameFirebase(oldAvatar);
-							const desertRef = ref(storage, `images/${pathNameUrl}`);
-							deleteObject(desertRef);
+							deleteFirebaseImgPath(oldAvatar);
 						}
 						if (!avatar.file) {
-							const pathNameUrl = getPathNameFirebase(url);
-							const desertRef = ref(storage, `images/${pathNameUrl}`);
-							deleteObject(desertRef);
+							deleteFirebaseImgPath(url);
 						}
 						const formData = {
 							username: data.username as string,
