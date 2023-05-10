@@ -20,7 +20,7 @@ const menuNavBar: IMenuNavBar[] = [
 	{ title: 'Tìm thuê', to: '/search-room?s=' },
 	{ title: 'Hỏi đáp', to: '/q-a' },
 	{ title: 'Xem sau', to: '/view-later' },
-	{ title: 'Dự án', to: '/project' },
+	{ title: 'Tin tức', to: '/news' },
 	{ title: 'Góp ý kiến', to: '/feedback' },
 ];
 

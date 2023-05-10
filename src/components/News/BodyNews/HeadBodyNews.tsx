@@ -27,6 +27,10 @@ const HeadBodyNews: FC<Props> = () => {
 	}
 	const res: INewsResponse[] = data?.data;
 
+	if (!res) {
+		return <></>;
+	}
+
 	return (
 		<div className='w-full'>
 			<div className='flex flex-col md:flex-row items-center w-full justify-between select-none'>

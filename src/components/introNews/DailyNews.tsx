@@ -27,6 +27,9 @@ const DailyNews: FC<Props> = () => {
 
 	const res: INewsResponse[] = data?.data;
 
+	if (!res) {
+		return <></>;
+	}
 	return (
 		<NewsContainer title='Tin tức nhà trọ'>
 			<div className='grid grid-cols-2 cus-screen:grid-cols-3 gap-3'>

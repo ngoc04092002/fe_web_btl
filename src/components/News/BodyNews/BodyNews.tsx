@@ -60,7 +60,7 @@ const BodyNews: FC<Props> = () => {
 					{(isSearch || isNewsDetail) && (
 						<div className='flex flex-col md:flex-row items-start mt-10 w-full '>
 							{isSearch && <NewsDetailSearch />}
-							{isNewsDetail && (isLoading || !res) ? <Loading /> : <NewsDetail res={res} />}
+							{isNewsDetail && (isLoading || !res ? <Loading /> : <NewsDetail res={res} />)}
 							<NewsRelated />
 						</div>
 					)}

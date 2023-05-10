@@ -54,7 +54,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 
 	const dataUtiliity = [
 		{
-			path: '/',
+			path: '/search-room?s=',
 			Icon: <HomeIcon />,
 			text: 'Tìm thuê',
 		},
@@ -64,12 +64,12 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 			text: 'Hỏi đáp',
 		},
 		{
-			path: '/',
+			path: '/news',
 			Icon: <BuildingIcon />,
-			text: 'Dự án',
+			text: 'Tin tức',
 		},
 		{
-			path: '/',
+			path: '/view-later',
 			Icon: <DatabaseOutlined className={cx('building_icon')} />,
 			text: 'Xem sau',
 		},
@@ -77,7 +77,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 
 	const dataManager = [
 		{
-			path: '/',
+			path: '/dash-board',
 			Icon: <HomeOutlined />,
 			text: 'Quản lý thông tin',
 		},

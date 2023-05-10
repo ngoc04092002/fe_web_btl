@@ -39,7 +39,7 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 			timestamp: 'Kể từ tháng trước',
 		},
 		{
-			title: splitPathname.at(-1) === 'admin' ? 'Phản hồi' : 'Còn trống',
+			title: splitPathname.includes('admin') ? 'Phản hồi' : 'Còn trống',
 			sales: '100,000',
 			icon: <HomeIcon className='fill-white' />,
 			developSpeed: '100',
