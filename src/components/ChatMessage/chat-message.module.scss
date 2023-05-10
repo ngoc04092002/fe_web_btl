@@ -1,2 +1,17 @@
-.chat_msg_body{
+.chat_msg_body {
+	height: 340px;
+	overflow-y: overlay;
+	overflow-x: hidden;
+	&::-webkit-scrollbar {
+		width: 0.6rem;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #ccc;
+		border-radius: 3rem;
+	}
 }

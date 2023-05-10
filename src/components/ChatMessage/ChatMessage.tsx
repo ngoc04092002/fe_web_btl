@@ -2,6 +2,7 @@ import { CloseOutlined, MessageFilled, SendOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import React, { useState } from 'react';
 
+import Messages from './Messages';
 import styles from './chat-message.module.scss';
 
 import { getImage } from '@/utils/CustomImagePath';
@@ -36,7 +37,7 @@ const ChatMessage = (props: Props) => {
 							<img
 								src={getImage('user.png')}
 								alt=''
-								className='w-10 h-10'
+								className='w-10 h-10 select-none'
 							/>
 						</div>
 						<ul className='text-white'>
@@ -48,16 +49,18 @@ const ChatMessage = (props: Props) => {
 							className='justify-items-end block ml-auto text-white cursor-pointer text-xl font-bold'
 						/>
 					</div>
-					<div className={cx('chat_msg_body')}></div>
-					<div className='flex items-center px-2 mb-2'>
+					<div className={`${cx('chat_msg_body')} px-3`}>
+						<Messages />
+					</div>
+					<div className='flex h-fit items-center px-2 mb-2 pt-2'>
 						<textarea
 							rows={1}
 							onInput={resizeTextArea}
-							className='border border-solid !border-[#01adba] input-none flex-1 bg-[#ccc] rounded-lg resize-none'
+							className='border max-h-[80px] border-solid h-[40px] min-h-[40px] !border-[#01adba] input-none flex-1 duration-[0s] bg-[#dbdbdb9e] rounded-lg resize-none'
 							name='content'
 							placeholder='Aa'
 						/>
-						<SendOutlined className='ml-2'/>
+						<SendOutlined className='ml-2 p-3 cursor-pointer hover:bg-[#dbdbdb9e] rounded-[50%]' />
 					</div>
 				</div>
 			)}

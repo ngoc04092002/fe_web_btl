@@ -15,12 +15,19 @@
 		transition: all 0.15s linear;
 		font-family: 'Roboto', sans-serif;
 	}
+	textarea {
+		overflow-y: overlay;
+		overflow-x: hidden;
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+	}
 	body {
 		position: relative;
 		font-size: 100%;
 		background-color: rgb(247, 247, 247);
-		overflow-y: overlay;
 		overflow-x: hidden;
+		overflow-y: overlay;
 		&::-webkit-scrollbar {
 			width: 0.6rem;
 		}
@@ -67,18 +74,18 @@
 }
 
 @layer utilities {
-	.overflow-hidden-scroll{
+	.overflow-hidden-scroll {
 		overflow-y: overlay;
 		overflow-x: hidden;
 		&::-webkit-scrollbar {
 			width: 0;
 		}
 	}
-	.shadow-026{
-		box-shadow: 0 2px 6px rgba(70,80,110,.3);
+	.shadow-026 {
+		box-shadow: 0 2px 6px rgba(70, 80, 110, 0.3);
 	}
-	.shadow-0416{
-		box-shadow: 0px 4px 16px rgba(60,91,104,0.3);
+	.shadow-0416 {
+		box-shadow: 0px 4px 16px rgba(60, 91, 104, 0.3);
 	}
 	.d-rtl {
 		direction: rtl;
@@ -86,9 +93,9 @@
 	.shadow-006 {
 		box-shadow: 0px 0px 6px #ccc;
 	}
-	.bg-main{
-        background-color: #01adba;
-    }
+	.bg-main {
+		background-color: #01adba;
+	}
 	.color-main {
 		color: #01adba;
 	}
