@@ -22,12 +22,13 @@ export interface Ilikes {
 }
 
 export interface IComments {
-	id: number;
+	id?: number;
 	content: string;
-	clientEntityComment: Omit<IUser, 'token'>;
+	clientComment: Omit<IUser, 'token'>;
+	qaEntity: Omit<IQAResponse, 'clientEntityQa'>;
 }
 
-export interface IQAReponse {
+export interface IQAResponse {
 	id: number;
 	img: string;
 	content: string;

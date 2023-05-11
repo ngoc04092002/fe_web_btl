@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { filterQA } from '@/infrastructure/qaActions';
-import { IQAReponse, iFilterQA } from '@/types/pages/IQA';
+import { IQAResponse, iFilterQA } from '@/types/pages/IQA';
 
 export function FetchApiFilterQA(params: iFilterQA) {
 	const { data, isLoading } = useQuery({
@@ -11,7 +11,7 @@ export function FetchApiFilterQA(params: iFilterQA) {
 		cacheTime: 2 * 60 * 1000,
 	});
 
-	const res: IQAReponse[] | undefined = data?.data;
+	const res: IQAResponse[] | undefined = data?.data;
 
 	return {
 		res,

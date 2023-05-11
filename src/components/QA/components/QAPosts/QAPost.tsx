@@ -3,10 +3,10 @@ import React, { FC } from 'react';
 
 import CommentActions from '../CommentActions';
 
-import { IQAReponse } from '@/types/pages/IQA';
+import { IQAResponse } from '@/types/pages/IQA';
 import { getImage } from '@/utils/CustomImagePath';
 
-type Props = { data: IQAReponse };
+type Props = { data: IQAResponse };
 
 const QAPost: FC<Props> = ({ data }) => {
 	return (

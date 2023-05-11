@@ -1,18 +1,25 @@
 import { EllipsisOutlined } from '@ant-design/icons';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
+import dayjs from 'dayjs';
 import React, { FC, useState } from 'react';
 
 import Comments from '../Comments';
 import TextFieldComment from '../TextFieldComment';
 
 import { CommentIcon, LikeIcon } from '@/assets/icons';
+import SkeletonTypography from '@/components/helpers/SkeletonTypography';
 import { reportList } from '@/constants/initialValueQA';
-import { IQAReponse } from '@/types/pages/IQA';
+import { createComment } from '@/infrastructure/qaActions';
+import { IComments, IQAResponse } from '@/types/pages/IQA';
+import { getToast } from '@/utils/CustomToast';
 
 type Props = {
-	data?: IQAReponse;
+	data?: IQAResponse;
 };
 
 const CommentActions: FC<Props> = ({ data }) => {
+	const queryClient = useQueryClient();
 	const [showComment, setShowComment] = useState(false);
 	const [like, setLike] = useState(false);
 	const [comment, setComment] = useState('');
@@ -34,8 +41,39 @@ const CommentActions: FC<Props> = ({ data }) => {
 		setComment(e.target.value);
 	};
 
+	const { mutate, isLoading } = useMutation<
+		AxiosResponse<boolean, any>,
+		AxiosError,
+		IComments,
+		unknown
+	>({
+		mutationFn: (formData: IComments) => {
+			const res = createComment(formData);
+			return res;
+		},
+	});
+	console.log(data);
+	console.log(dayjs);
 	const handleSend = () => {
-		console.log(comment, data);
+		const { clientEntityQa, ...rest } = data as IQAResponse;
+		const formData: Omit<IComments, 'id'> = {
+			content: comment,
+			qaEntity: rest,
+			clientComment: clientEntityQa,
+		};
+		mutate(formData, {
+			onError: (res: AxiosError) => {
+				getToast('', 'network bad');
+			},
+			onSuccess: (res) => {
+				if (!res.data) {
+					getToast('', 'network bad');
+					return;
+				}
+				queryClient.invalidateQueries({ queryKey: ['filter-qa'] });
+				setComment('');
+			},
+		});
 	};
 
 	return (
@@ -84,6 +122,7 @@ const CommentActions: FC<Props> = ({ data }) => {
 						handleSend={handleSend}
 					/>
 				)}
+				{isLoading && <SkeletonTypography loading />}
 			</div>
 			{showComment && <Comments />}
 		</>
