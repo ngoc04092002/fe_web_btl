@@ -27,7 +27,7 @@ const LineChart = () => {
 	const data1 = isAdmin ? months.map((m) => (smiles.get(m) ? smiles.get(m) : 0)) : [];
 	const data2 = isAdmin ? months.map((m) => (meh.get(m) ? meh.get(m) : 0)) : [];
 	const data3 = isAdmin ? months.map((m) => (frown.get(m) ? frown.get(m) : 0)) : [];
-	
+
 	const config = {
 		data: {
 			labels: months,

@@ -17,7 +17,7 @@ const BackdropNewsSearchContainer: FC<Props> = ({
 	showMenu,
 }) => {
 	return (
-		<div className='fixed scroll-none py-4 px-8 flex-col items-center bg-backdrop-md will-change-contents inset-0 z-[9999] flex'>
+		<div className='fixed scroll-none py-4 px-8 flex-col items-center bg-backdrop-md will-change-contents inset-0 z-[9997] flex'>
 			{showSearch && <BackdropNewsSearch hanleShowSearch={hanleShowSearch} />}
 			{showMenu && (
 				<BackdropNewsMenu

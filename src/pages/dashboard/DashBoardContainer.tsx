@@ -28,7 +28,7 @@ const DashBoardContainer: FC<Props> = () => {
 					handleToggleShowSidebar={handleToggleShowSidebar}
 				/>
 				<div
-					className={`fixed inset-0 z-[9999] lg:hidden ${!showSidebar ? 'block' : 'hidden'}`}
+					className={`fixed inset-0 z-[9997] lg:hidden ${!showSidebar ? 'block' : 'hidden'}`}
 					onClick={handleToggleShowSidebar as React.MouseEventHandler<HTMLDivElement>}
 				></div>
 			</div>

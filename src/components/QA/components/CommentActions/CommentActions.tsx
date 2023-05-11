@@ -6,12 +6,16 @@ import TextFieldComment from '../TextFieldComment';
 
 import { CommentIcon, LikeIcon } from '@/assets/icons';
 import { reportList } from '@/constants/initialValueQA';
+import { IQAReponse } from '@/types/pages/IQA';
 
-type Props = {};
+type Props = {
+	data?: IQAReponse;
+};
 
-const CommentActions: FC<Props> = () => {
+const CommentActions: FC<Props> = ({ data }) => {
 	const [showComment, setShowComment] = useState(false);
 	const [like, setLike] = useState(false);
+	const [comment, setComment] = useState('');
 	const [showReport, setShowReport] = useState(false);
 
 	const handleShowComment = () => {
@@ -24,6 +28,14 @@ const CommentActions: FC<Props> = () => {
 
 	const handleShowReport = () => {
 		setShowReport(!showReport);
+	};
+
+	const handleChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setComment(e.target.value);
+	};
+
+	const handleSend = () => {
+		console.log(comment, data);
 	};
 
 	return (
@@ -65,7 +77,13 @@ const CommentActions: FC<Props> = () => {
 						)}
 					</div>
 				</div>
-				{showComment && <TextFieldComment />}
+				{showComment && (
+					<TextFieldComment
+						value={comment}
+						handleChange={handleChangeValue}
+						handleSend={handleSend}
+					/>
+				)}
 			</div>
 			{showComment && <Comments />}
 		</>

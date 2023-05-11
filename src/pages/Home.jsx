@@ -75,14 +75,14 @@ const Home = () => {
 			{!isDashBoard && <Footer />}
 			{/* for mb */}
 			<div
-				className={`fixed bg-backdrop inset-0 z-[9999] cus-screen:hidden ${
+				className={`fixed bg-backdrop inset-0 z-[9997] cus-screen:hidden ${
 					active ? 'block' : 'hidden'
 				}`}
 				onClick={handleClickBackDrop}
 			></div>
 			{/* for web */}
 			<div
-				className={`fixed bg-backdrop inset-0 z-[9999] ${showBackDrop ? 'block' : 'hidden'}`}
+				className={`fixed bg-backdrop inset-0 z-[9997] ${showBackDrop ? 'block' : 'hidden'}`}
 				onClick={handleToggleBackDrop}
 			></div>
 		</section>

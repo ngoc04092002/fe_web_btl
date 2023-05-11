@@ -1,13 +1,16 @@
 import { SendOutlined } from '@ant-design/icons';
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 
+import { ITextFieldComment } from '@/types/pages/IQA';
 import { getImage } from '@/utils/CustomImagePath';
-type Props = {
-	styles?: string;
-	isChild?: boolean;
-};
 
-const TextFieldComment: FC<Props> = ({ styles, isChild = false }) => {
+const TextFieldComment: FC<ITextFieldComment> = ({
+	value,
+	handleChange,
+	styles,
+	isChild = false,
+	handleSend,
+}) => {
 	const resizeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		e.target.style.height = '40px';
 		e.target.style.height = e.target.scrollHeight + 'px';
@@ -23,14 +26,19 @@ const TextFieldComment: FC<Props> = ({ styles, isChild = false }) => {
 					/>
 				</div>
 				<textarea
+					value={value}
+					onChange={handleChange}
 					onInput={resizeTextArea}
 					className='text-[15px] flex-1 mx-2 resize-none bg-[#f7f8f9] h-[40px] min-h-[40px] rounded-2xl input-none overflow-hidden duration-[0s]'
 					placeholder='Nhập bình luận...'
 				/>
-				<SendOutlined className='cursor-pointer p-3 hover:bg-[#f7f8f9] rounded-full' />
+				<SendOutlined
+					onClick={handleSend}
+					className='cursor-pointer p-3 hover:bg-[#f7f8f9] rounded-full'
+				/>
 			</div>
 		</div>
 	);
 };
 
-export default TextFieldComment;
+export default memo(TextFieldComment);

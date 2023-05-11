@@ -28,7 +28,7 @@ const QA: FC<Props> = () => {
 
 	return (
 		<>
-			<ul className='cus-screen:hidden grid grid-cols-2 fixed w-full bg-[#f7f8f9] z-[9999]'>
+			<ul className='cus-screen:hidden grid grid-cols-2 fixed w-full bg-[#f7f8f9] z-[9997]'>
 				{topicQA.map((t, index) => (
 					<Link
 						to={t.to}

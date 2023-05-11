@@ -4,16 +4,27 @@ import QAPosts from '../components/QAPosts/QAPosts';
 
 import { BackDropContext } from '@/pages/Home';
 import { getImage } from '@/utils/CustomImagePath';
+import { getToast } from '@/utils/CustomToast';
 
 type Props = {};
 
 const QAMiddle: FC<Props> = () => {
 	const { toggleBackDrop } = useContext(BackDropContext);
+	const accessToken = localStorage.getItem('accessToken') || '';
+
+	const handleClick = () => {
+		if (!accessToken) {
+			getToast('Bạn phải đăng nhập!', 'warn');
+			return;
+		}
+		toggleBackDrop();
+	};
+
 	return (
 		<div>
 			<div
 				className='bg-white flex items-center p-3 cursor-pointer rounded-lg'
-				onClick={toggleBackDrop}
+				onClick={handleClick}
 			>
 				<img
 					src={getImage('user.png')}
