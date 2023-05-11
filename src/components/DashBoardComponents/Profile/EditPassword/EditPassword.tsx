@@ -2,7 +2,7 @@ import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useContext, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form } from 'react-router-dom';
 
@@ -10,14 +10,17 @@ import FormGroup from '@/components/AuthLayoutWrapper/FormGroup';
 import Button from '@/components/helpers/ButtonWrapper';
 import { schemaFormEditPassword } from '@/constants/SchemaYups';
 import { initialFormEditPassword } from '@/constants/initiallValues';
+import { AuthContext } from '@/context/AuthProvider';
 import { updatePassword } from '@/infrastructure/dashboardActions';
 import { DashBoardFormIdEditPassword, IFormEditPassword } from '@/types/pages/IDashBoard';
 import { ISignUpPassword } from '@/types/pages/ISignUp';
+import { IUser } from '@/types/pages/types';
 import { getToast } from '@/utils/CustomToast';
 
 type Props = {};
 
 const EditPassword: FC<Props> = () => {
+	const { user } = useContext(AuthContext);
 	const [visiblePassword, setVisiblePassword] = useState<{ [key: string]: boolean }>({
 		'oldPassword': false,
 		'password': false,
@@ -32,7 +35,7 @@ const EditPassword: FC<Props> = () => {
 	>({
 		mutationFn: (formData: IFormEditPassword) => {
 			const res = updatePassword({
-				email: 'aa@gmail.com', //fix
+				email: (user as IUser)?.email, //fix
 				oldPassword: formData.oldPassword,
 				password: formData.password,
 			});

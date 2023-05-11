@@ -1,8 +1,7 @@
 import { EllipsisOutlined } from '@ant-design/icons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import dayjs from 'dayjs';
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 
 import Comments from '../Comments';
 import TextFieldComment from '../TextFieldComment';
@@ -10,8 +9,10 @@ import TextFieldComment from '../TextFieldComment';
 import { CommentIcon, LikeIcon } from '@/assets/icons';
 import SkeletonTypography from '@/components/helpers/SkeletonTypography';
 import { reportList } from '@/constants/initialValueQA';
-import { createComment } from '@/infrastructure/qaActions';
-import { IComments, IQAResponse } from '@/types/pages/IQA';
+import { AuthContext } from '@/context/AuthProvider';
+import { createComment, toggleLike } from '@/infrastructure/qaActions';
+import { IComments, IQAResponse, IToggleLike } from '@/types/pages/IQA';
+import { IUser } from '@/types/pages/types';
 import { getToast } from '@/utils/CustomToast';
 
 type Props = {
@@ -20,8 +21,12 @@ type Props = {
 
 const CommentActions: FC<Props> = ({ data }) => {
 	const queryClient = useQueryClient();
+	const { user } = useContext(AuthContext);
 	const [showComment, setShowComment] = useState(false);
-	const [like, setLike] = useState(false);
+	const [like, setLike] = useState(() => {
+		return !!data?.likes?.find((l) => l.clientLikeEntities.id === (user as IUser)?.id);
+	});
+	const [amount, setAmount] = useState(data?.likes?.length || 0);
 	const [comment, setComment] = useState('');
 	const [showReport, setShowReport] = useState(false);
 
@@ -29,8 +34,37 @@ const CommentActions: FC<Props> = ({ data }) => {
 		setShowComment(!showComment);
 	};
 
+	const { mutate: mutateLike } = useMutation<
+		AxiosResponse<number, any>,
+		AxiosError,
+		IToggleLike,
+		unknown
+	>({
+		mutationFn: (formData: IToggleLike) => {
+			const res = toggleLike(formData);
+			return res;
+		},
+	});
+
 	const handleClickLike = () => {
 		setLike(!like);
+		const formData = {
+			clientLikeEntities: {
+				id: (user as IUser)?.id as number,
+			},
+			qaEntity: {
+				id: data?.id as number,
+			},
+		};
+		mutateLike(formData, {
+			onError: (res: AxiosError) => {
+				getToast('', 'network bad');
+			},
+			onSuccess: (res) => {
+				queryClient.invalidateQueries({ queryKey: ['filter-qa'] });
+				setAmount(res.data);
+			},
+		});
 	};
 
 	const handleShowReport = () => {
@@ -40,6 +74,8 @@ const CommentActions: FC<Props> = ({ data }) => {
 	const handleChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setComment(e.target.value);
 	};
+
+	console.log(amount);
 
 	const { mutate, isLoading } = useMutation<
 		AxiosResponse<boolean, any>,
@@ -52,14 +88,16 @@ const CommentActions: FC<Props> = ({ data }) => {
 			return res;
 		},
 	});
+
 	console.log(data);
-	console.log(dayjs);
+
 	const handleSend = () => {
 		const { clientEntityQa, ...rest } = data as IQAResponse;
-		const formData: Omit<IComments, 'id'> = {
+		const { token, ...fileds } = user as IUser;
+		const formData: Omit<IComments, 'id' | 'commentChildren'> = {
 			content: comment,
 			qaEntity: rest,
-			clientComment: clientEntityQa,
+			clientComment: fileds,
 		};
 		mutate(formData, {
 			onError: (res: AxiosError) => {
@@ -124,7 +162,7 @@ const CommentActions: FC<Props> = ({ data }) => {
 				)}
 				{isLoading && <SkeletonTypography loading />}
 			</div>
-			{showComment && <Comments />}
+			{showComment && <Comments comments={data?.commentsEntities || []} />}
 		</>
 	);
 };

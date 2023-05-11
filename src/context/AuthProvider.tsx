@@ -38,12 +38,12 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 
 	useEffect(() => {
 		function getUser() {
-			// if (data?.data === 'no') {
-			// 	localStorage.clear();
-			// 	setUser({});
-			// 	navigate('/sign-in');
-			// 	return;
-			// }
+			if (data?.data === 'no') {
+				localStorage.clear();
+				setUser({});
+				// 	navigate('/sign-in');
+				return;
+			}
 
 			if (accessToken && !Object.keys(user).length) {
 				getUserInfo(accessToken)
@@ -51,6 +51,7 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 						setUser(data.data);
 					})
 					.catch((e) => {
+						console.log(e);
 						getToast(e?.response?.data, 'error');
 						navigate('/sign-in');
 					});

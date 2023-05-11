@@ -1,23 +1,32 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 
+import { AuthContext } from '@/context/AuthProvider';
+import { IComments, ICommentChild } from '@/types/pages/IQA';
+import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
+import { getTimeAgo } from '@/utils/FormatTime';
 
 type Props = {
 	child?: boolean;
+	comment?: IComments | ICommentChild;
 };
 
-const CommentResponse: FC<Props> = ({ child = false }) => {
-	const isOwner = false;
+const CommentResponse: FC<Props> = ({ comment, child = false }) => {
+	const { user } = useContext(AuthContext);
+	const isOwner = (user as IUser)?.id === comment?.clientComment.id;
+	if (!comment) {
+		return <></>;
+	}
 	return (
 		<div>
 			<div>
 				<div className='flex items-start'>
 					<img
-						src={getImage('user.png')}
+						src={comment?.clientComment?.avatar || getImage('user.png')}
 						alt=''
 						className={`${
 							child ? 'h-7 w-7' : 'h-8 w-8'
-						} select-none mr-2 object-cover object-center`}
+						} select-none mr-2 rounded-[50%] object-cover object-center`}
 					/>
 					<div
 						className={`${
@@ -25,14 +34,10 @@ const CommentResponse: FC<Props> = ({ child = false }) => {
 						} rounded-xl cursor-default p-2`}
 					>
 						<h1 className={`font-bold ${child ? 'text-[12px]' : 'text-sm'}`}>
-							<span className='mr-3'>Ngọc văn</span>
-							<span>1 phút trước</span>
+							<span className='mr-3'>{comment?.clientComment.username}</span>
+							<span>{getTimeAgo(comment?.createdAt || '')}</span>
 						</h1>
-						<p className={`${child ? 'text-[12px]' : 'text-[15px]'}`}>
-							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maiores commodi
-							reprehenderit cumque perferendis alias tenetur? Alias dolores exercitationem eos
-							facere rerum ipsam, distinctio tenetur neque, quo est laboriosam sequi cumque?
-						</p>
+						<p className={`${child ? 'text-[12px]' : 'text-[15px]'}`}>{comment?.content}</p>
 					</div>
 				</div>
 			</div>

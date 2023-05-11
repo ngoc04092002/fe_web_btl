@@ -1,7 +1,14 @@
 import { AxiosResponse } from 'axios';
 
 import http from '@/config/axiosConfig';
-import { IComments, IQAResponse, IRequestBodyQA, iFilterQA } from '@/types/pages/IQA';
+import {
+	ICommentChild,
+	IComments,
+	IQAResponse,
+	IRequestBodyQA,
+	IToggleLike,
+	iFilterQA,
+} from '@/types/pages/IQA';
 
 export const createQA: (body: IRequestBodyQA) => Promise<AxiosResponse<boolean, any>> = (
 	body: IRequestBodyQA,
@@ -19,4 +26,16 @@ export const createComment: (
 	body: Omit<IComments, 'id'>,
 ) => Promise<AxiosResponse<boolean, any>> = (body: Omit<IComments, 'id'>) => {
 	return http.post('save-comment', body);
+};
+
+export const createCommentChild: (
+	body: Omit<ICommentChild, 'id'>,
+) => Promise<AxiosResponse<ICommentChild, any>> = (body: Omit<ICommentChild, 'id'>) => {
+	return http.post('save-comment-child', body);
+};
+
+export const toggleLike: (body: IToggleLike) => Promise<AxiosResponse<number, any>> = (
+	body: IToggleLike,
+) => {
+	return http.post('toggle-like', body);
 };

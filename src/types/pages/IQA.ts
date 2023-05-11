@@ -15,9 +15,9 @@ export interface iFilterQA {
 }
 
 export interface Ilikes {
-	like_id: number;
-	client_id: number;
-	post_id: number;
+	id: number;
+	clientLikeEntities: Omit<IUser, 'token'>;
+	qaEntity: any;
 	createdAt: string;
 }
 
@@ -26,6 +26,17 @@ export interface IComments {
 	content: string;
 	clientComment: Omit<IUser, 'token'>;
 	qaEntity: Omit<IQAResponse, 'clientEntityQa'>;
+	commentChildren?: ICommentChild[] | [];
+	createdAt?: string;
+	likes?: Ilikes[] | [];
+}
+
+export interface ICommentChild {
+	id?: number;
+	content: string;
+	clientComment: Omit<IUser, 'token'>;
+	createdAt?: string;
+	commentsEntity: IComments;
 }
 
 export interface IQAResponse {
@@ -44,4 +55,9 @@ export interface ITextFieldComment {
 	value?: string;
 	handleChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void | undefined;
 	handleSend?: () => void;
+}
+
+export interface IToggleLike {
+	clientLikeEntities: Pick<IUser, 'id'>;
+	qaEntity: Pick<IQAResponse, 'id'>;
 }

@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Comment from './Comment';
 
-type Props = {};
+import { IComments } from '@/types/pages/IQA';
 
-const Comments = (props: Props) => {
+type Props = {
+	comments: IComments[] | [];
+};
+
+const Comments: FC<Props> = ({ comments }) => {
+	console.log(comments);
+
 	return (
 		<div className='mt-2'>
-			<Comment />
-			<Comment />
+			{comments &&
+				!!comments.length &&
+				comments.map((c) => (
+					<Comment
+						key={c.id}
+						comment={c}
+					/>
+				))}
 		</div>
 	);
 };

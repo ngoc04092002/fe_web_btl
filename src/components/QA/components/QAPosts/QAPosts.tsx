@@ -30,7 +30,6 @@ const QAPosts = (props: Props) => {
 	if (isLoading) {
 		return <Loading />;
 	}
-
 	return (
 		<div>
 			{!!res &&

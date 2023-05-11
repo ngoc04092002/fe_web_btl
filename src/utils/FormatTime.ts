@@ -7,11 +7,22 @@ dayjs.extend(relativeTime); // Sử dụng plugin relativeTime để sử dụng
 
 export function getTimeAgo(createdAt: string) {
 	const date = dayjs(createdAt);
-	const day = date.diff(dayjs(), 'day', true); // Tính số ngày chênh lệch giữa hai ngày
-	const month = date.diff(dayjs(), 'month', true); // Tính số ngày chênh lệch giữa hai ngày
-	const year = date.diff(dayjs(), 'year', true); // Tính số ngày chênh lệch giữa hai ngày
-	const hour = date.diff(dayjs(), 'hour', true); // Tính số ngày chênh lệch giữa hai ngày
-	const minute = date.diff(dayjs(), 'minute', true); // Tính số ngày chênh lệch giữa hai ngày
-
-	console.log(date.fromNow(true), day, month, year, hour, minute); // Kết quả: "trong 1 năm"
+	const day = Math.ceil(dayjs().diff(date, 'day', true)); // Tính số ngày chênh lệch giữa hai ngày
+	const month = Math.ceil(dayjs().diff(date, 'month', true)); // Tính số ngày chênh lệch giữa hai ngày
+	const year = Math.ceil(dayjs().diff(date, 'year', true)); // Tính số ngày chênh lệch giữa hai ngày
+	const hour = Math.ceil(dayjs().diff(date, 'hour', true)); // Tính số ngày chênh lệch giữa hai ngày
+	const minute = Math.ceil(dayjs().diff(date, 'minute', true)); // Tính số ngày chênh lệch giữa hai ngày
+	if (minute <= 60) {
+		return `${minute} phút trước`;
+	}
+	if (hour <= 24) {
+		return `${hour} giờ trước`;
+	}
+	if (day <= 31) {
+		return `${day} ngày trước`;
+	}
+	if (month <= 12) {
+		return `${month} tháng trước`;
+	}
+	return `${year} năm trước`;
 }

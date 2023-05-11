@@ -22,7 +22,7 @@ const TextFieldComment: FC<ITextFieldComment> = ({
 					<img
 						src={getImage('user.png')}
 						alt=''
-						className={`${isChild ? 'w-8 h-8' : 'w-10 h-10'}  rounded-full`}
+						className={`${isChild ? 'w-8 h-8' : 'w-10 h-10'}  rounded-[50%]`}
 					/>
 				</div>
 				<textarea
