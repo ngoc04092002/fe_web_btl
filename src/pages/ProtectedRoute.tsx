@@ -1,16 +1,19 @@
-// import React, { useLayoutEffect } from 'react';
-// import { Outlet, useNavigate } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
+import React, { useContext, useLayoutEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+
+import { AuthContext } from '@/context/AuthProvider';
 
 const ProtectedRoute = () => {
-	// const navigation = useNavigate();
-
-	// useLayoutEffect(() => {
-	// 	if (!localStorage.getItem('accessToken')) {
-	// 		navigation('/sign-in');
-	// 	}
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, []);
+	const navigation = useNavigate();
+	const { setUser } = useContext(AuthContext);
+	useLayoutEffect(() => {
+		if (!localStorage.getItem('accessToken')) {
+			localStorage.clear();
+			setUser({});
+			navigation('/sign-in');
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 	return <Outlet />;
 };
 

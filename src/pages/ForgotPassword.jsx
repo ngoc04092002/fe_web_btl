@@ -95,7 +95,7 @@ const ForgotPassword = () => {
 					onClick={acceptCond && handleSendEmail}
 					className={`${
 						isLoading ? 'bg-[#ccc] cursor-default' : 'bg-blue-600 hover:bg-blue-500 cursor-pointer'
-					} self-end w-full text-center text-white  inline-block font-semibold h-10 rounded-lg pt-[6px]`}
+					} self-end w-full text-center justify-center text-white  inline-block font-semibold h-10 rounded-lg pt-[6px]`}
 				>
 					{acceptCond ? isLoading ? <Loading /> : 'Gửi' : 'Đăng nhập'}
 				</Link>

@@ -48,3 +48,10 @@ export const resetPassword: (payload: string) => Promise<AxiosResponse<string, a
 		params: { e: payload },
 	});
 };
+
+export const accessReset: (requestBody: {
+	email: string;
+	password: string;
+}) => Promise<AxiosResponse<boolean, any>> = (requestBody: { email: string; password: string }) => {
+	return http.post('access-reset', requestBody);
+};

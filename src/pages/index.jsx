@@ -66,16 +66,16 @@ export const routes = createBrowserRouter([
 				element: <SignUp />,
 			},
 			{
+				path: '/reset-password/:e',
+				element: <ResetPassword />,
+			},
+			{
 				path: '/sign-in',
 				element: <SignIn />,
 			},
 			{
 				path: '/forgot-password',
 				element: <ForgotPassword />,
-			},
-			{
-				path: '/reset-password/:e',
-				element: <ResetPassword />,
 			},
 			{
 				path: 'news/:topic?/:category?',

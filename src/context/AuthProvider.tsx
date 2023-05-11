@@ -38,12 +38,12 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 
 	useEffect(() => {
 		function getUser() {
-			if (data?.data === 'no') {
-				localStorage.clear();
-				setUser({});
-				navigate('/sign-in');
-				return;
-			}
+			// if (data?.data === 'no') {
+			// 	localStorage.clear();
+			// 	setUser({});
+			// 	navigate('/sign-in');
+			// 	return;
+			// }
 
 			if (accessToken && !Object.keys(user).length) {
 				getUserInfo(accessToken)
