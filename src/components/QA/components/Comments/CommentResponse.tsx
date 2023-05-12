@@ -18,27 +18,23 @@ const CommentResponse: FC<Props> = ({ comment, child = false }) => {
 		return <></>;
 	}
 	return (
-		<div>
-			<div>
-				<div className='flex items-start'>
-					<img
-						src={comment?.clientComment?.avatar || getImage('user.png')}
-						alt=''
-						className={`${
-							child ? 'h-7 w-7' : 'h-8 w-8'
-						} select-none mr-2 rounded-[50%] object-cover object-center`}
-					/>
-					<div
-						className={`${
-							isOwner ? 'bg-[#2faff942]' : 'bg-[#f0f2f5]'
-						} rounded-xl cursor-default p-2`}
-					>
-						<h1 className={`font-bold ${child ? 'text-[12px]' : 'text-sm'}`}>
-							<span className='mr-3'>{comment?.clientComment.username}</span>
-							<span>{getTimeAgo(comment?.createdAt || '')}</span>
-						</h1>
-						<p className={`${child ? 'text-[12px]' : 'text-[15px]'}`}>{comment?.content}</p>
-					</div>
+		<div className='mb-3'>
+			<div className='flex items-start'>
+				<img
+					src={comment?.clientComment?.avatar || getImage('user.png')}
+					alt=''
+					className={`${
+						child ? 'h-7 w-7' : 'h-8 w-8'
+					} select-none mr-2 rounded-[50%] object-cover object-center`}
+				/>
+				<div
+					className={`${isOwner ? 'bg-[#2faff942]' : 'bg-[#f0f2f5]'} rounded-xl cursor-default p-2`}
+				>
+					<h1 className={`font-bold ${child ? 'text-[12px]' : 'text-sm'}`}>
+						<span className='mr-3'>{comment?.clientComment.username}</span>
+						<span>{getTimeAgo(comment?.createdAt || '')}</span>
+					</h1>
+					<p className={`${child ? 'text-[12px]' : 'text-[15px]'}`}>{comment?.content}</p>
 				</div>
 			</div>
 		</div>

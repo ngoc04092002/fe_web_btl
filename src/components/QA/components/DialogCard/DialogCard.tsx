@@ -14,6 +14,7 @@ import { storage } from '@/pages/firebase';
 import { IRequestBodyQA } from '@/types/pages/IQA';
 import { IUser } from '@/types/pages/types';
 import { getToast } from '@/utils/CustomToast';
+import { deleteFirebaseImgPath } from '@/utils/DeleteFirebaseImgPath';
 
 type Props = {};
 
@@ -58,8 +59,11 @@ const DialogCard = (props: Props) => {
 				getDownloadURL(d.ref)
 					.then((url) => {
 						const { token, ...rest } = user as IUser;
+						if (!img.file) {
+							deleteFirebaseImgPath(url);
+						}
 						const formData = {
-							img: url,
+							img: img.file ? url : '',
 							content: text,
 							clientEntityQa: rest as IUser,
 						};

@@ -29,7 +29,6 @@ const CommentActions: FC<Props> = ({ data }) => {
 	const [amount, setAmount] = useState(data?.likes?.length || 0);
 	const [comment, setComment] = useState('');
 	const [showReport, setShowReport] = useState(false);
-
 	const handleShowComment = () => {
 		setShowComment(!showComment);
 	};
@@ -75,8 +74,6 @@ const CommentActions: FC<Props> = ({ data }) => {
 		setComment(e.target.value);
 	};
 
-	console.log(amount);
-
 	const { mutate, isLoading } = useMutation<
 		AxiosResponse<boolean, any>,
 		AxiosError,
@@ -93,11 +90,11 @@ const CommentActions: FC<Props> = ({ data }) => {
 
 	const handleSend = () => {
 		const { clientEntityQa, ...rest } = data as IQAResponse;
-		const { token, ...fileds } = user as IUser;
+		const { token, ...fields } = user as IUser;
 		const formData: Omit<IComments, 'id' | 'commentChildren'> = {
 			content: comment,
 			qaEntity: rest,
-			clientComment: fileds,
+			clientComment: fields,
 		};
 		mutate(formData, {
 			onError: (res: AxiosError) => {
@@ -124,7 +121,8 @@ const CommentActions: FC<Props> = ({ data }) => {
 							className='text-center py-2 px-4 flex items-center cursor-pointer hover:bg-[#f7f8f9] hover:rounded-lg'
 						>
 							<LikeIcon className={`${like ? 'fill-[#01adba]' : ''}`} />
-							<p>Thích</p>
+							<span className='mr-[4px]'>Thích</span>
+							{amount > 0 && <span>· {amount > 100 ? '100+' : amount}</span>}
 						</div>
 						<div
 							onClick={handleShowComment}

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import React, { FC, useContext, useState } from 'react';
 
@@ -18,9 +18,14 @@ type Props = {
 };
 
 const Comment: FC<Props> = ({ comment }) => {
-	const queryClient = useQueryClient();
 	const { user } = useContext(AuthContext);
 	const [showChildComments, setShowChildComments] = useState(false);
+	const [childCommentDatas, setChildCommentDatas] = useState<ICommentChild[] | []>(() => {
+		if (comment?.commentChildren) {
+			return comment?.commentChildren;
+		}
+		return [];
+	});
 	const [showAnswers, setShowAnswers] = useState(false);
 	const [text, setText] = useState('');
 
@@ -49,18 +54,20 @@ const Comment: FC<Props> = ({ comment }) => {
 	});
 
 	const handleSend = () => {
-		const { token, ...fileds } = user as IUser;
+		const { token, ...fields } = user as IUser;
 		const formData: ICommentChild = {
 			content: text,
 			commentsEntity: comment,
-			clientComment: fileds,
+			clientComment: fields,
 		};
 		mutate(formData, {
 			onError: (res: AxiosError) => {
 				getToast('', 'network bad');
 			},
 			onSuccess: (res) => {
-				queryClient.invalidateQueries({ queryKey: ['filter-qa'] });
+				console.log(res.data);
+
+				setChildCommentDatas((prev) => [...prev, res.data]);
 				setText('');
 			},
 		});
@@ -95,8 +102,8 @@ const Comment: FC<Props> = ({ comment }) => {
 			{isLoading && <SkeletonTypography loading />}
 			{showChildComments && (
 				<div className='pl-3 mt-3 border-0 border-l-2 border-solid border-[#e6ecf0]'>
-					{!!comment?.commentChildren?.length &&
-						comment.commentChildren.map((c) => (
+					{!!childCommentDatas?.length &&
+						childCommentDatas.map((c) => (
 							<CommentResponse
 								key={c.id}
 								comment={c}

@@ -31,11 +31,13 @@ const QAPost: FC<Props> = ({ data }) => {
 			</div>
 			<div className='mt-3'>
 				<p className='leading-[1.5] text-[#3C4146]'>{data.content}</p>
-				<img
-					src={data.img}
-					alt=''
-					className='w-full h-[300px] mt-2'
-				/>
+				{data?.img && (
+					<img
+						src={data.img}
+						alt=''
+						className='w-full h-[300px] mt-2'
+					/>
+				)}
 			</div>
 			<CommentActions data={data} />
 		</div>
