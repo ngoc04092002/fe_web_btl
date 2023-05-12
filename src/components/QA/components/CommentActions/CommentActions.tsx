@@ -113,6 +113,12 @@ const CommentActions: FC<Props> = ({ data }) => {
 		});
 	};
 
+	const handleClickReport = (r: string) => {
+		if (data) {
+			console.log(data.id, r);
+		}
+	};
+
 	return (
 		<>
 			<div className='flex justify-between text-[#657786] font-medium pt-4 flex-col'>
@@ -145,6 +151,7 @@ const CommentActions: FC<Props> = ({ data }) => {
 									<li
 										key={index}
 										className='whitespace-nowrap hover:bg-[#f7f8f9] p-2 cursor-pointer'
+										onClick={() => handleClickReport(r)}
 									>
 										{r}
 									</li>

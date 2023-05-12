@@ -31,7 +31,7 @@ const ChatMessage = (props: Props) => {
 				</div>
 			)}
 			{showBoxChat && (
-				<div className='bg-white flex justify-between flex-col h-[400px] w-[340px] rounded-tl-md shadow-006 rounded-tr-md overflow-hidden'>
+				<div className='bg-white flex justify-between flex-col h-[400px] w-[370px] rounded-tl-md shadow-006 rounded-tr-md overflow-hidden'>
 					<div className='flex items-center bg-main px-3 py-2 shadow-026'>
 						<div className='mr-2'>
 							<img
@@ -49,7 +49,7 @@ const ChatMessage = (props: Props) => {
 							className='justify-items-end block ml-auto text-white cursor-pointer text-xl font-bold'
 						/>
 					</div>
-					<div className={`${cx('chat_msg_body')} px-3`}>
+					<div className={`${cx('chat_msg_body')} pl-3 pr-5`}>
 						<Messages />
 					</div>
 					<div className='flex h-fit items-center px-2 mb-2 pt-2'>
