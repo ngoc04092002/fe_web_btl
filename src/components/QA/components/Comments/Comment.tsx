@@ -65,8 +65,6 @@ const Comment: FC<Props> = ({ comment }) => {
 				getToast('', 'network bad');
 			},
 			onSuccess: (res) => {
-				console.log(res.data);
-
 				setChildCommentDatas((prev) => [...prev, res.data]);
 				setText('');
 			},

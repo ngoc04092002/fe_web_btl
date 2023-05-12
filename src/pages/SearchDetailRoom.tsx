@@ -93,6 +93,8 @@ const SearchDetailRoom: FC<Props> = () => {
 		);
 	};
 
+	console.log(click);
+
 	return (
 		<div
 			onClick={handleHiddenChooseType}

@@ -22,6 +22,12 @@ type Props = {
 const CommentActions: FC<Props> = ({ data }) => {
 	const queryClient = useQueryClient();
 	const { user } = useContext(AuthContext);
+	const [commentDatas, setCommentDatas] = useState(() => {
+		if (data?.commentsEntities) {
+			return data?.commentsEntities;
+		}
+		return [];
+	});
 	const [showComment, setShowComment] = useState(false);
 	const [like, setLike] = useState(() => {
 		return !!data?.likes?.find((l) => l.clientLikeEntities.id === (user as IUser)?.id);
@@ -75,7 +81,7 @@ const CommentActions: FC<Props> = ({ data }) => {
 	};
 
 	const { mutate, isLoading } = useMutation<
-		AxiosResponse<boolean, any>,
+		AxiosResponse<IComments, any>,
 		AxiosError,
 		IComments,
 		unknown
@@ -101,11 +107,7 @@ const CommentActions: FC<Props> = ({ data }) => {
 				getToast('', 'network bad');
 			},
 			onSuccess: (res) => {
-				if (!res.data) {
-					getToast('', 'network bad');
-					return;
-				}
-				queryClient.invalidateQueries({ queryKey: ['filter-qa'] });
+				setCommentDatas((prev) => [...prev, res.data]);
 				setComment('');
 			},
 		});
@@ -160,7 +162,7 @@ const CommentActions: FC<Props> = ({ data }) => {
 				)}
 				{isLoading && <SkeletonTypography loading />}
 			</div>
-			{showComment && <Comments comments={data?.commentsEntities || []} />}
+			{showComment && <Comments comments={commentDatas} />}
 		</>
 	);
 };

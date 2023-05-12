@@ -24,7 +24,7 @@ export const filterQA: (params: iFilterQA) => Promise<AxiosResponse<IQAResponse[
 
 export const createComment: (
 	body: Omit<IComments, 'id'>,
-) => Promise<AxiosResponse<boolean, any>> = (body: Omit<IComments, 'id'>) => {
+) => Promise<AxiosResponse<IComments, any>> = (body: Omit<IComments, 'id'>) => {
 	return http.post('save-comment', body);
 };
 

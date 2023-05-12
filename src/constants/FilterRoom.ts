@@ -61,7 +61,7 @@ export const initialTextFiledPostRoom: {
 	{
 		id: 'sale',
 		label: 'Sale',
-		unit: '$',
+		unit: '%',
 	},
 	{
 		id: 'bedRoom',
