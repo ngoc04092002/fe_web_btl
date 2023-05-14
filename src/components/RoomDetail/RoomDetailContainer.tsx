@@ -1,11 +1,16 @@
 import React, { FC, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 
 import PopupSendMail from '../CardUserInfo/PopupSendMail';
+import ChatMessage from '../ChatMessage';
 
 import RoomDetail from './RoomDetail';
 
+import { AuthContext } from '@/context/AuthProvider';
+import { FetchApiGetPostRoomById } from '@/hooks/fetchApiPostRoom';
 import { BackDropContext } from '@/pages/Home';
 import { IRoomInfo } from '@/types/components/type';
+import { IUser } from '@/types/pages/types';
 
 type Props = {};
 
@@ -53,15 +58,30 @@ const dataHotNewsRent: IRoomInfo[] = [
 ];
 
 const RoomDetailContainer: FC<Props> = () => {
+	const { user } = useContext(AuthContext);
+	const { id } = useParams();
 	const { showBackDrop } = useContext(BackDropContext);
 
+	const { res, isLoading } = FetchApiGetPostRoomById(+(id as string));
+
 	return (
-		<div className='py-8'>
-			<RoomDetail dataHotNewsRent={dataHotNewsRent} />
-			{showBackDrop && (
-				<PopupSendMail styles='animate-[wiggle_1s_ease-in-out] absolute z-[10000] -translate-x-1/2 w-[414px] top-0 min-h-[360px] left-1/2 bg-white p-3' />
-			)}
-		</div>
+		<>
+			<div className='py-8'>
+				<RoomDetail
+					dataHotNewsRent={dataHotNewsRent}
+					res={res}
+					isLoading={isLoading}
+				/>
+				{showBackDrop && (
+					<PopupSendMail styles='animate-[wiggle_1s_ease-in-out] absolute z-[10000] -translate-x-1/2 w-[414px] top-0 min-h-[360px] left-1/2 bg-white p-3' />
+				)}
+			</div>
+			{!isLoading &&
+				!!Object.keys(user).length &&
+				res?.clientEntityPostRoom?.id !== (user as IUser).id && (
+					<ChatMessage postUser={res?.clientEntityPostRoom} />
+				)}
+		</>
 	);
 };
 

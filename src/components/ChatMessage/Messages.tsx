@@ -1,11 +1,14 @@
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { FC } from 'react';
 
 import Message from './Message';
 
-type Props = {};
+import { MessageResponse } from '@/types/components/ChatMessage/type';
 
-const Messages = (props: Props) => {
+type Props = { data: MessageResponse[] };
+
+const Messages: FC<Props> = ({ data }) => {
+	console.log(data);
 	return (
 		<div>
 			<div className='mt-3 mb-10'>

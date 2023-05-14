@@ -1,17 +1,35 @@
 import { CloseOutlined, MessageFilled, SendOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import React, { useState } from 'react';
+import dayjs from 'dayjs';
+import React, { FC, useContext, useEffect, useState } from 'react';
+
+import Loading from '../Loading';
 
 import Messages from './Messages';
 import styles from './chat-message.module.scss';
 
+import socketClient from '@/config/SocketClient';
+import { AuthContext } from '@/context/AuthProvider';
+import { FetchApiGetRidMessages } from '@/hooks/fetchApiChatMessage';
+import chatMessageClient from '@/infrastructure/chatMessageWebsocketActions';
+import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
+import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
+import { formatRoomId } from '@/utils/FormatIds';
 
-type Props = {};
+type Props = {
+	postUser?: IUser;
+};
 const cx = classNames.bind(styles);
 
-const ChatMessage = (props: Props) => {
+const ChatMessage: FC<Props> = ({ postUser }) => {
+	const { user } = useContext(AuthContext);
 	const [showBoxChat, setShowBoxChat] = useState(false);
+	const [msg, setMsg] = useState('');
+	const rid = formatRoomId(`${(user as IUser)?.id}`, `${postUser?.id}`);
+
+	const { res, isLoading } = FetchApiGetRidMessages(rid);
+	const [msgData, setMsgData] = useState(() => res);
 
 	const handleShowBoxChat = () => {
 		setShowBoxChat(!showBoxChat);
@@ -20,6 +38,45 @@ const ChatMessage = (props: Props) => {
 		e.target.style.height = '40px';
 		e.target.style.height = e.target.scrollHeight + 'px';
 	};
+
+	// websocket
+	useEffect(() => {
+		const stompClient = socketClient.getClient();
+		stompClient.connect(
+			{},
+			() => {
+				stompClient.subscribe('/receive/message', (response) => {
+					const resData: CreateMessageRequest = JSON.parse(response.body);
+					console.log(resData);
+					if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
+						setMsgData((prev) => [...prev, resData]);
+					}
+				});
+			},
+			onError,
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	const onError = (err: any) => {
+		console.log(err);
+	};
+
+	const handleChangeMsg = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		setMsg(e.target.value);
+	};
+
+	const handleSendMessage = () => {
+		chatMessageClient.postMessage({
+			rid,
+			from: (user as IUser)?.username,
+			to: postUser?.username || '',
+			msg: msg,
+			createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+		});
+		setMsg('');
+	};
+	console.log(res, msgData);
 	return (
 		<div className={`fixed z-[10000] ${showBoxChat ? 'bottom-0' : 'bottom-8'} right-8`}>
 			{!showBoxChat && (
@@ -35,14 +92,14 @@ const ChatMessage = (props: Props) => {
 					<div className='flex items-center bg-main px-3 py-2 shadow-026'>
 						<div className='mr-2'>
 							<img
-								src={getImage('user.png')}
+								src={postUser?.avatar || getImage('user.png')}
 								alt=''
-								className='w-10 h-10 select-none'
+								className='w-10 h-10 select-none rounded-[50%] object-cover'
 							/>
 						</div>
 						<ul className='text-white'>
-							<li className='text-sm font-semibold'>Ngọc Vũ Văn</li>
-							<li className='text-sm'>0123456789</li>
+							<li className='text-sm font-semibold'>{postUser?.username}</li>
+							<li className='text-sm'>{postUser?.sdt}</li>
 						</ul>
 						<CloseOutlined
 							onClick={handleShowBoxChat}
@@ -50,7 +107,7 @@ const ChatMessage = (props: Props) => {
 						/>
 					</div>
 					<div className={`${cx('chat_msg_body')} pl-3 pr-5`}>
-						<Messages />
+						{isLoading ? <Loading /> : <Messages data={msgData} />}
 					</div>
 					<div className='flex h-fit items-center px-2 mb-2 pt-2'>
 						<textarea
@@ -59,8 +116,13 @@ const ChatMessage = (props: Props) => {
 							className='border max-h-[80px] border-solid h-[40px] min-h-[40px] !border-[#01adba] input-none flex-1 duration-[0s] bg-[#dbdbdb9e] rounded-lg resize-none'
 							name='content'
 							placeholder='Aa'
+							onChange={handleChangeMsg}
+							value={msg}
 						/>
-						<SendOutlined className='ml-2 p-3 cursor-pointer hover:bg-[#dbdbdb9e] rounded-[50%]' />
+						<SendOutlined
+							onClick={handleSendMessage}
+							className='ml-2 p-3 cursor-pointer hover:bg-[#dbdbdb9e] rounded-[50%]'
+						/>
 					</div>
 				</div>
 			)}

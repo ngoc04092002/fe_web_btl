@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { useParams } from 'react-router-dom';
 import { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -11,19 +10,16 @@ import './room-detail.scss';
 import Loading from '../Loading/Loading';
 
 import { i18PostRoom } from '@/constants/FilterRoom';
-import { FetchApiGetPostRoomById } from '@/hooks/fetchApiPostRoom';
 import { IRoomInfo } from '@/types/components/type';
-import { keysI18PostRoom } from '@/types/pages/IDashBoard';
+import { IPostRoomResponse, keysI18PostRoom } from '@/types/pages/IDashBoard';
 
 type Props = {
 	dataHotNewsRent: IRoomInfo[] | [];
+	res: IPostRoomResponse | undefined;
+	isLoading: boolean;
 };
 
-const RoomItem: FC<Props> = ({ dataHotNewsRent }) => {
-	const { id } = useParams();
-
-	const { res, isLoading } = FetchApiGetPostRoomById(+(id as string));
-	console.log(res, isLoading);
+const RoomItem: FC<Props> = ({ dataHotNewsRent, res, isLoading }) => {
 	if (isLoading || !res) {
 		return <Loading styles='!text-[#ccc]' />;
 	}

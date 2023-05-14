@@ -45,7 +45,7 @@ const AuthLayout = () => {
 	}, []);
 
 	if (load) {
-		return <Loading />;
+		return <Loading styles='!color-main' />;
 	}
 	return (
 		<AuthProvider>
