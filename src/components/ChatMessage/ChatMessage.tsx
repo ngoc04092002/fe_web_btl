@@ -1,6 +1,6 @@
 import { CloseOutlined, MessageFilled, SendOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
 import Loading from '../Loading';
@@ -12,7 +12,7 @@ import socketClient from '@/config/SocketClient';
 import { AuthContext } from '@/context/AuthProvider';
 import { FetchApiGetRidMessages } from '@/hooks/fetchApiChatMessage';
 import chatMessageClient from '@/infrastructure/chatMessageWebsocketActions';
-import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
+import { CreateMessageRequest, MessageResponse } from '@/types/components/ChatMessage/type';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 import { formatRoomId } from '@/utils/FormatIds';
@@ -29,7 +29,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 	const rid = formatRoomId(`${(user as IUser)?.id}`, `${postUser?.id}`);
 
 	const { res, isLoading } = FetchApiGetRidMessages(rid);
-	const [msgData, setMsgData] = useState(() => res);
+	const [msgData, setMsgData] = useState<MessageResponse[] | []>([]);
 
 	const handleShowBoxChat = () => {
 		setShowBoxChat(!showBoxChat);
@@ -45,7 +45,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 		stompClient.connect(
 			{},
 			() => {
-				stompClient.subscribe('/receive/message', (response) => {
+				stompClient.subscribe('/receive/message', (response: any) => {
 					const resData: CreateMessageRequest = JSON.parse(response.body);
 					console.log(resData);
 					if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
@@ -72,11 +72,14 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 			from: (user as IUser)?.username,
 			to: postUser?.username || '',
 			msg: msg,
-			createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+			// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
 		});
 		setMsg('');
 	};
-	console.log(res, msgData);
+
+	const newMsgData = [...res, ...msgData];
+
+	console.log(newMsgData);
 	return (
 		<div className={`fixed z-[10000] ${showBoxChat ? 'bottom-0' : 'bottom-8'} right-8`}>
 			{!showBoxChat && (
@@ -107,7 +110,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 						/>
 					</div>
 					<div className={`${cx('chat_msg_body')} pl-3 pr-5`}>
-						{isLoading ? <Loading /> : <Messages data={msgData} />}
+						{isLoading ? <Loading /> : <Messages data={newMsgData} />}
 					</div>
 					<div className='flex h-fit items-center px-2 mb-2 pt-2'>
 						<textarea

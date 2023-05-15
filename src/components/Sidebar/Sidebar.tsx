@@ -212,11 +212,17 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 								</Link>
 							</li>
 						))}
-					<li onClick={handleActive}>
+					<li
+						onClick={handleActive}
+						className='relative'
+					>
 						<Link to={'/dash-board'}>
 							<BellOutlined />
 							<span>Thông báo</span>
 						</Link>
+						<span className='absolute bg-red-600 left-[-3px] top-[6px] w-4 h-4 rounded-[50%] flex items-center justify-center text-white'>
+							!
+						</span>
 					</li>
 				</ul>
 				<span

@@ -132,11 +132,17 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 							</Link>
 						</li>
 					))}
-				<li onClick={handleUnShow}>
+				<li
+					onClick={handleUnShow}
+					className='relative'
+				>
 					<Link to={'/dash-board'}>
 						<BellOutlined />
 						<span>Thông báo</span>
 					</Link>
+					<span className='absolute bg-red-600 left-[-3px] top-[6px] w-4 h-4 rounded-[50%] flex items-center justify-center text-white'>
+						!
+					</span>
 				</li>
 			</ul>
 			<span
