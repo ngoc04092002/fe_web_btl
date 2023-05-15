@@ -27,6 +27,7 @@ const menuNavBar: IMenuNavBar[] = [
 const Header: React.FC<Props> = ({ handleActive }) => {
 	const { user } = useContext<IAuthContext>(AuthContext);
 	const [show, setShow] = useState<boolean>(false);
+	const [search, setSearch] = useState<string>('');
 
 	const handleShowNavInfo = (e: React.MouseEvent<HTMLElement>) => {
 		const class_name = (e.target as HTMLElement).className;
@@ -40,6 +41,16 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 		setShow(false);
 	};
 
+	const handleClickSearch = () => {
+		// eslint-disable-next-line no-restricted-globals
+		const { origin } = location;
+		window.location.replace(`${origin}/search-room?s=${search}`);
+	};
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearch(e.target.value);
+	};
+
 	return (
 		<section className='header bg-white fixed z-[1000] h-14 left-0 top-0 right-0 drop-shadow-lg px-10 md:px-[7rem] w-full select-none'>
 			<div className='header-container h-full flex items-center'>
@@ -51,7 +62,10 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 						/>
 					</Link>
 				</div>
-				<Search />
+				<Search
+					handleChange={handleChange}
+					handleClick={handleClickSearch}
+				/>
 
 				<MenuOutlined
 					onClick={handleActive}
