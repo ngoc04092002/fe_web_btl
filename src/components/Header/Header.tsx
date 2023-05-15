@@ -1,6 +1,7 @@
 import { MenuOutlined } from '@ant-design/icons';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDebounce } from 'use-debounce';
 
 import Search from '../helpers/Search';
 
@@ -28,6 +29,7 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 	const { user } = useContext<IAuthContext>(AuthContext);
 	const [show, setShow] = useState<boolean>(false);
 	const [search, setSearch] = useState<string>('');
+	const [searchValue] = useDebounce(search, 2500);
 
 	const handleShowNavInfo = (e: React.MouseEvent<HTMLElement>) => {
 		const class_name = (e.target as HTMLElement).className;
@@ -65,6 +67,8 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 				<Search
 					handleChange={handleChange}
 					handleClick={handleClickSearch}
+					searchValue={searchValue}
+					isTippy
 				/>
 
 				<MenuOutlined

@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { Admin, FeedBackForgotPassword, ANews } from './Admin';
 import DashBoard from './Dashboard';
+import ClientFeedback from './Dashboard/ClientFeedback';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
@@ -147,6 +148,10 @@ export const routes = createBrowserRouter([
 									{
 										path: 'calendar',
 										element: <CalendarContainer />,
+									},
+									{
+										path: 'comments',
+										element: <ClientFeedback />,
 									},
 									{
 										path: 'admin',

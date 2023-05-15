@@ -70,7 +70,7 @@ const CardUserInfo: FC<Props> = ({ userData }) => {
 				>
 					<div>
 						<MailOutlined className='text-[#01adba] align-baseline mr-2' />
-						<span className='text-base text-[#222] font-medium'>Gửi tin nhắn</span>
+						<span className='text-base text-[#222] font-medium'>Góp ý</span>
 					</div>
 				</ButtonWrapper>
 			</div>

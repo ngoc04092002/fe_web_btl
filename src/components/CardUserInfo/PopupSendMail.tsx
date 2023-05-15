@@ -17,7 +17,7 @@ const PopupSendMail: FC<Props> = ({ styles }) => {
 	return (
 		<div className={styles}>
 			<div className='flex items-center justify-between pb-3 border-b border-solid border-[#ccc] border-0 mb-2'>
-				<p className='text-[#262637]'>Gửi tin nhắn</p>
+				<p className='text-[#262637]'>Góp ý</p>
 				<CloseOutlined
 					onClick={toggleBackDrop}
 					className='cursor-pointer'
@@ -44,7 +44,7 @@ const PopupSendMail: FC<Props> = ({ styles }) => {
 				/>
 				<TextField
 					id='content'
-					label='Nột dung'
+					label='Nội dung'
 					variant='outlined'
 					className='w-full !mb-2'
 					multiline

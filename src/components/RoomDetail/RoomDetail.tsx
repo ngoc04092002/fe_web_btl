@@ -24,6 +24,7 @@ const RoomItem: FC<Props> = ({ dataHotNewsRent, res, isLoading }) => {
 		return <Loading styles='!text-[#ccc]' />;
 	}
 	const keys = Object.keys(res);
+
 	return (
 		<div className='room_item-container mx-4 lg:px-4 xl:px-24'>
 			<div className='text-end mr-4'>
@@ -108,7 +109,10 @@ const RoomItem: FC<Props> = ({ dataHotNewsRent, res, isLoading }) => {
 					</div>
 					<hr className='h-[1px] bg-[#ccc] mt-8' />
 				</div>
-				<CardUserInfo userData={res.clientEntityPostRoom} />
+				<CardUserInfo
+					userData={res.clientEntityPostRoom}
+					roomData={res}
+				/>
 				<div className='room_item-sw2 col-span-3 mt-10'>
 					<h1>Hình ảnh liên quan</h1>
 					<Swiper

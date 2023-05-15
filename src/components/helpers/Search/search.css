@@ -1,0 +1,6 @@
+.tippy {
+	display: block;
+}
+input:focus + div {
+	display: none !important;
+}
