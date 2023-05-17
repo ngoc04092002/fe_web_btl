@@ -14,9 +14,9 @@ import {
 	SearchRoomItem,
 } from '@/components';
 import Loading from '@/components/Loading';
-import NewsPagination from '@/components/helpers/Pagination/Pagination';
-import Search from '@/components/helpers/Search/Search';
-import SelectTypeIntro from '@/components/helpers/SelectTypeIntro/SelectTypeIntro';
+import NewsPagination from '@/components/helpers/Pagination';
+import Search from '@/components/helpers/Search';
+import SelectTypeIntro from '@/components/helpers/SelectTypeIntro';
 import HeadTitle from '@/hooks/Head';
 import { FetchApiFilterPostRoom } from '@/hooks/fetchApiPostRoom';
 import { IChoose } from '@/types/components/IntroObj/intro';

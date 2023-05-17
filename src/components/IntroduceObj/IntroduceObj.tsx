@@ -85,7 +85,7 @@ const IntroduceObj: FC<Props> = () => {
 			</div>
 			<div className={`${cx('intro_web-buttons')} flex flex-col items-center mt-4 lg:hidden`}>
 				<a
-					href='/'
+					href='/search-room?s='
 					className='bg-[#20cecc] text-[#262637] mb-3'
 				>
 					Tìm thuê

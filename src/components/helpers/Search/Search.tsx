@@ -1,16 +1,36 @@
 import { SearchOutlined } from '@ant-design/icons';
-import React from 'react';
+import React, { useEffect } from 'react';
 
-interface Props {
-	styles?: string;
-	handleChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-	handleClick?: () => void;
-}
+import Tippy from '../Tippy';
 
-const Search: React.FC<Props> = ({ styles, handleChange, handleClick }) => {
+import { ISearch } from '@/types/components/helpers/searchType';
+import './search.css';
+
+const Search: React.FC<ISearch> = ({
+	isTippy = false,
+	searchValue = '',
+	styles,
+	handleChange,
+	handleClick,
+}) => {
+	useEffect(() => {
+		const div: HTMLDivElement | null = document.querySelector('.tippy');
+		if (!div) {
+			return;
+		}
+		const input: HTMLInputElement = document.querySelector('input') as HTMLInputElement;
+
+		input.addEventListener('focus', () => {
+			div.style.display = 'block';
+		});
+
+		input.addEventListener('blur', () => {
+			div.style.display = 'none';
+		});
+	}, []);
 	return (
-		<div
-			className={`flex flex-1 items-center border-[1px] border-solid rounded-md border-[#657786] mx-7 ${styles}`}
+		<form
+			className={`search-container flex flex-1 items-center border-[1px] border-solid rounded-md border-[#657786] mx-7 ${styles} relative`}
 		>
 			<input
 				className='w-full h-9 caret-[#01adba] p-1 rounded-md input-none'
@@ -22,7 +42,8 @@ const Search: React.FC<Props> = ({ styles, handleChange, handleClick }) => {
 				onClick={handleClick}
 				className='text-lg p-1 text-[#657786] cus-shadow'
 			/>
-		</div>
+			{isTippy && <Tippy value={searchValue} />}
+		</form>
 	);
 };
 

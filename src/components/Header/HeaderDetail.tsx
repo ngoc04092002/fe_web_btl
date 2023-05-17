@@ -70,6 +70,7 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 	// websocket
 	useEffect(() => {
 		const stompClient = socketClient.getClient();
+		console.log(stompClient);
 		stompClient.connect(
 			{},
 			() => {

@@ -4,16 +4,45 @@ import { FacebookIcon } from 'react-share';
 
 import CardUserInfo from './CardUserInfo';
 
+import { IPostRoomResponse, IPostRoomSrc } from '@/types/pages/IDashBoard';
 import { IUser } from '@/types/pages/types';
 
 type Props = {
 	userData: IUser | undefined;
+	roomData: IPostRoomResponse;
 };
 
-const CardUserInfoContainer: FC<Props> = ({ userData }) => {
-	const [saveRoom, setSaveRoom] = useState(false);
+const CardUserInfoContainer: FC<Props> = ({ userData, roomData }) => {
+	const roomLocal = localStorage.getItem('rooms');
+	let rooms = roomLocal ? JSON.parse(roomLocal) : [];
+	const [saveRoom, setSaveRoom] = useState(() => {
+		const isExist = rooms.find((r: { id: number }) => r.id === roomData.id);
+		if (isExist) {
+			return true;
+		}
+		return false;
+	});
 
 	const toggleSaveRoom = () => {
+		const { id, title, des, phone, roomType, price, acreage, bathroom, bedRoom, src } =
+			roomData as IPostRoomResponse;
+		if (!saveRoom) {
+			rooms.push({
+				id,
+				title,
+				des,
+				phone,
+				roomType,
+				price,
+				acreage,
+				bathroom,
+				bedRoom,
+				src: (src as IPostRoomSrc[])[0].src,
+			});
+		} else {
+			rooms = rooms.filter((room: { id: number }) => room.id !== roomData.id);
+		}
+		localStorage.setItem('rooms', JSON.stringify(rooms));
 		setSaveRoom(!saveRoom);
 	};
 	return (

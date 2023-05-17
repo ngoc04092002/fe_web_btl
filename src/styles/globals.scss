@@ -22,6 +22,9 @@
 			width: 0;
 		}
 	}
+	input{
+		box-shadow: none !important;
+	}
 	body {
 		position: relative;
 		font-size: 100%;
@@ -80,6 +83,9 @@
 		&::-webkit-scrollbar {
 			width: 0;
 		}
+	}
+	.d-rtl {
+		direction: rtl;
 	}
 	.shadow-026 {
 		box-shadow: 0 2px 6px rgba(70, 80, 110, 0.3);

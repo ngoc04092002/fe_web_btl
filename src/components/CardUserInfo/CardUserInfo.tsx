@@ -29,6 +29,11 @@ const CardUserInfo: FC<Props> = ({ userData }) => {
 		}
 	};
 
+	const handleClickFeedback = () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+		toggleBackDrop();
+	};
+
 	return (
 		<div className='shadow-026 p-3 rounded-xl cus-screen:col-span-1 cus-screen:block hidden'>
 			<div className='flex items-center p-4 border-0 border-b border-solid border-[#ccc]'>
@@ -65,12 +70,12 @@ const CardUserInfo: FC<Props> = ({ userData }) => {
 				</ButtonWrapper>
 
 				<ButtonWrapper
-					onClick={toggleBackDrop}
+					onClick={handleClickFeedback}
 					styles='w-full !bg-white border border-solid border-[#d0d6e0] rounded-md hover:!bg-[#e1e1e152]'
 				>
 					<div>
 						<MailOutlined className='text-[#01adba] align-baseline mr-2' />
-						<span className='text-base text-[#222] font-medium'>Gửi tin nhắn</span>
+						<span className='text-base text-[#222] font-medium'>Góp ý</span>
 					</div>
 				</ButtonWrapper>
 			</div>

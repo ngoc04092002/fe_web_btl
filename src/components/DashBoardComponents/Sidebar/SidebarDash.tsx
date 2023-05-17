@@ -1,6 +1,7 @@
 import {
 	BookOutlined,
 	ContactsOutlined,
+	DatabaseOutlined,
 	HomeOutlined,
 	LockOutlined,
 	UserOutlined,
@@ -72,6 +73,19 @@ const siderbarData: ISidebarRest[] = [
 		),
 		child: [],
 		color: '#f5365c',
+		role: ['user', 'admin'],
+	},
+	{
+		path: '/dash-board/comments',
+		title: 'Góp ý khách hàng',
+		Icon: (props: ISidebarIconProps) => (
+			<DatabaseOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [],
+		color: '#2dce89',
 		role: ['user', 'admin'],
 	},
 	{

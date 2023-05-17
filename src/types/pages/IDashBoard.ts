@@ -129,3 +129,12 @@ export interface IFilterPostRoomParams {
 	numberRoom?: string;
 	time?: string;
 }
+
+export interface IClientFeedback {
+	id?: number;
+	name: string;
+	phone: string;
+	email: string;
+	content: string;
+	clientId?: number;
+}

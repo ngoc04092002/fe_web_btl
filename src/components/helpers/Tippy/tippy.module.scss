@@ -1,0 +1,17 @@
+.tippy_container {
+	max-height: 400px;
+	overflow-y: overlay;
+	overflow-x: hidden;
+	&::-webkit-scrollbar {
+		width: 0.3rem;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #ccc;
+		border-radius: 3rem;
+	}
+}
