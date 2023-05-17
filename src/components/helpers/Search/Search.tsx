@@ -21,19 +21,23 @@ const Search: React.FC<ISearch> = ({
 		if (!searchValue) {
 			div.style.display = 'none';
 		}
+
+		function targetElement(e:any) {
+			const className = e.target.className;
+			if (!className.includes('tippy')) {
+				(div as HTMLDivElement).style.display = 'none';
+			}
+		}
 		const input: HTMLInputElement = document.querySelector('input') as HTMLInputElement;
 
 		input.addEventListener('focus', () => {
 			div.style.display = 'block';
 		});
 
-		window.addEventListener('click', (e: any) => {
-			const className = e.target.className;
-			console.log(className.includes('tippy'), className);
-			if (!className.includes('tippy')) {
-				div.style.display = 'none';
-			}
-		});
+		window.addEventListener('click', targetElement);
+		return () => {
+			window.removeEventListener('click', targetElement);
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
