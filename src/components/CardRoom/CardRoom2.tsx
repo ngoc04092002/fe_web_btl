@@ -34,7 +34,7 @@ const CardRoom2: FC<Props> = ({ room, styles, setRoomData }) => {
 					/>
 				</div>
 				<div className='w-[80%] px-2 self-start'>
-					<h1 className='font-bold text-lg vertical-1'>{room.title}</h1>
+					<h1 className='font-bold text-lg vertical-1 break-all'>{room.title}</h1>
 					<p className='text-sm'>{room.des}</p>
 					<ul className='my-2'>
 						<li>
@@ -56,12 +56,18 @@ const CardRoom2: FC<Props> = ({ room, styles, setRoomData }) => {
 					</div>
 				</div>
 			</a>
-			<div className='sm:w-fit w-full'>
+			<div className='sm:w-fit w-full flex flex-col'>
 				<ButtonWrapper
 					onClick={handleDelete}
-					styles='!mb-0 sm:mt-0 mt-6 sm:!w-auto !w-[100%]'
+					styles='!mb-4 sm:mt-0 mt-6 sm:!w-auto !w-[100%]'
 				>
 					Xoá
+				</ButtonWrapper>
+				<ButtonWrapper
+					onClick={handleDelete}
+					styles='!mb-0 mt-0 mt-6 sm:!w-auto !w-[100%]'
+				>
+					Đặt
 				</ButtonWrapper>
 			</div>
 		</div>

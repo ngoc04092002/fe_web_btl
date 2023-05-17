@@ -36,40 +36,49 @@ export const initialTextFiledPostRoom: {
 	id: string;
 	label: string;
 	unit?: string;
+	type?: string;
 }[] = [
 	{
 		id: 'title',
+		type: 'text',
 		label: 'tiêu đề',
 	},
 	{
 		id: 'des',
+		type: 'text',
 		label: 'miêu tả',
 	},
 	{
 		id: 'address',
+		type: 'text',
 		label: 'địa chỉ',
 	},
 	{
 		id: 'phone',
+		type: 'text',
 		label: 'số điện thoại',
 	},
 	{
 		id: 'price',
+		type: 'text',
 		label: 'Giá',
 		unit: 'đ',
 	},
 	{
 		id: 'sale',
+		type: 'text',
 		label: 'Sale',
 		unit: '%',
 	},
 	{
 		id: 'bedRoom',
+		type: 'text',
 		label: 'Phòng ngủ',
 		unit: '',
 	},
 	{
 		id: 'bathroom',
+		type: 'text',
 		label: 'Phòng tắm',
 		unit: '',
 	},
@@ -77,10 +86,12 @@ export const initialTextFiledPostRoom: {
 		id: 'acreage',
 		label: 'Diện tích',
 		unit: 'm^2',
+		type: 'text',
 	},
 	{
 		id: 'limitNumberPeople',
 		label: 'Giới hạn số người',
+		type: 'number',
 		unit: '',
 	},
 ];

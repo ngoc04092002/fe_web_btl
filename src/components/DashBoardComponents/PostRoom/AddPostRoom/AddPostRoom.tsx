@@ -57,8 +57,12 @@ const AddPostRoom = (props: Props) => {
 			return res;
 		},
 	});
-
+	console.log(value);
 	const handleSubmit = () => {
+		if (!avatar.length) {
+			getToast('Bạn cần phải thêm ảnh', 'warn');
+			return;
+		}
 		let arraySrc: IPostRoomSrc[] = [];
 		const lenAvatar = avatar.length - 1;
 		avatar.forEach((a, index) => {
@@ -76,6 +80,7 @@ const AddPostRoom = (props: Props) => {
 										id: (user as IUser).id,
 									},
 								};
+								console.log(index, formData);
 								mutate(formData, {
 									onError: (res: AxiosError) => {
 										getToast('', 'network bad');
@@ -118,6 +123,7 @@ const AddPostRoom = (props: Props) => {
 						<TextField
 							key={p.id}
 							required
+							type={p.type}
 							className='w-full mb-3'
 							id={p.id}
 							label={p.label}
@@ -136,6 +142,7 @@ const AddPostRoom = (props: Props) => {
 								id={p.id}
 								label={p.label}
 								name={p.id}
+								type={p.type}
 								onChange={handleChange}
 								InputProps={{
 									endAdornment: <InputAdornment position='end'>{p.unit}</InputAdornment>,

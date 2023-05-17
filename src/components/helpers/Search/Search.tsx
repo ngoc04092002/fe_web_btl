@@ -30,6 +30,7 @@ const Search: React.FC<ISearch> = ({
 		input.addEventListener('blur', () => {
 			div.style.display = 'none';
 		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return (
 		<form
