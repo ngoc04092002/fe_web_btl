@@ -18,6 +18,9 @@ const Search: React.FC<ISearch> = ({
 		if (!div) {
 			return;
 		}
+		if (!searchValue) {
+			div.style.display = 'none';
+		}
 		const input: HTMLInputElement = document.querySelector('input') as HTMLInputElement;
 
 		input.addEventListener('focus', () => {
