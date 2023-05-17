@@ -136,5 +136,5 @@ export interface IClientFeedback {
 	phone: string;
 	email: string;
 	content: string;
-	clientId: number;
+	clientId?: number;
 }

@@ -26,3 +26,9 @@ export const getClientFeedbackReportInfo: (
 ) => Promise<AxiosResponse<IClientFeedback[], any>> = (id) => {
 	return http.get<IClientFeedback[]>('get-client-feedback', { params: { id } });
 };
+
+export const deleteClientFeedback: (id: number) => Promise<AxiosResponse<boolean, any>> = (
+	id: number,
+) => {
+	return http.delete<boolean>(`delete-client-feedback/${id}`);
+};

@@ -30,6 +30,7 @@ export function FetchApiGetClientFeedbackReportInfo(id: number) {
 		queryFn: () => getClientFeedbackReportInfo(id),
 		staleTime: 60 * 1000,
 		cacheTime: 2 * 60 * 1000,
+		enabled: !!id,
 	});
 
 	const res: IClientFeedback[] | undefined = data?.data;

@@ -73,7 +73,10 @@ const RoomDetailContainer: FC<Props> = () => {
 					isLoading={isLoading}
 				/>
 				{showBackDrop && (
-					<PopupSendMail styles='animate-[wiggle_1s_ease-in-out] absolute z-[10000] -translate-x-1/2 w-[414px] top-0 min-h-[360px] left-1/2 bg-white p-3' />
+					<PopupSendMail
+						userId={res?.clientEntityPostRoom?.id}
+						styles='animate-[wiggle_1s_ease-in-out] absolute z-[10000] -translate-x-1/2 w-[414px] top-0 min-h-[360px] left-1/2 bg-white p-3'
+					/>
 				)}
 			</div>
 			{!isLoading &&

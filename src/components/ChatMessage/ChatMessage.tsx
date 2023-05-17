@@ -21,6 +21,7 @@ type Props = {
 	postUser?: IUser;
 };
 const cx = classNames.bind(styles);
+let stompClient: any = null;
 
 const ChatMessage: FC<Props> = ({ postUser }) => {
 	const { user } = useContext(AuthContext);
@@ -39,22 +40,28 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 		e.target.style.height = e.target.scrollHeight + 'px';
 	};
 
+	function connect() {
+		stompClient = socketClient.getClient();
+		if (stompClient !== null) {
+			stompClient.connect(
+				{},
+				() => {
+					stompClient.subscribe('/receive/message', (response: any) => {
+						const resData: CreateMessageRequest = JSON.parse(response.body);
+						console.log(resData);
+						if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
+							setMsgData((prev) => [...prev, resData]);
+						}
+					});
+				},
+				onError,
+			);
+		}
+	}
+
 	// websocket
 	useEffect(() => {
-		const stompClient = socketClient.getClient();
-		stompClient.connect(
-			{},
-			() => {
-				stompClient.subscribe('/receive/message', (response: any) => {
-					const resData: CreateMessageRequest = JSON.parse(response.body);
-					console.log(resData);
-					if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
-						setMsgData((prev) => [...prev, resData]);
-					}
-				});
-			},
-			onError,
-		);
+		connect();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -67,14 +74,20 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 	};
 
 	const handleSendMessage = () => {
-		chatMessageClient.postMessage({
-			rid,
-			from: (user as IUser)?.username,
-			to: postUser?.username || '',
-			msg: msg,
-			// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
-		});
-		setMsg('');
+		console.log(stompClient);
+		if (stompClient !== null && stompClient.connected) {
+			chatMessageClient.postMessage({
+				rid,
+				from: (user as IUser)?.username,
+				to: postUser?.username || '',
+				msg: msg,
+				// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+			});
+			setMsg('');
+		} else {
+			console.log('No STOMP connection!');
+			connect();
+		}
 	};
 
 	const newMsgData = [...res, ...msgData];

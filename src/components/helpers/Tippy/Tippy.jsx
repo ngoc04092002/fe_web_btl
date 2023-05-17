@@ -18,7 +18,6 @@ const Tippy = ({ value = '' }) => {
 		s: value,
 	});
 
-	console.log(res);
 	return (
 		<div
 			className={`${cx('tippy_container')} tippy absolute bg-white top-[42px] left-0 w-full p-2`}
