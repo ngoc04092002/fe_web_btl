@@ -52,6 +52,7 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 					})
 					.catch((e) => {
 						console.log(e);
+						localStorage.removeItem('accessToken');
 						getToast(e?.response?.data, 'error');
 						navigate('/sign-in');
 					});
