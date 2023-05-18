@@ -57,7 +57,7 @@ const AddPostRoom = (props: Props) => {
 			return res;
 		},
 	});
-	console.log(value);
+
 	const handleSubmit = () => {
 		if (!avatar.length) {
 			getToast('Bạn cần phải thêm ảnh', 'warn');
@@ -80,7 +80,6 @@ const AddPostRoom = (props: Props) => {
 										id: (user as IUser).id,
 									},
 								};
-								console.log(index, formData);
 								mutate(formData, {
 									onError: (res: AxiosError) => {
 										getToast('', 'network bad');
@@ -101,8 +100,6 @@ const AddPostRoom = (props: Props) => {
 					getToast('Lỗi khi upload hình ảnh', 'warn');
 				});
 		});
-
-		console.log(value);
 	};
 
 	useEffect(() => {

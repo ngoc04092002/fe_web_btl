@@ -45,8 +45,6 @@ const DialogCard = (props: Props) => {
 		unknown
 	>({
 		mutationFn: (formData: IRequestBodyQA) => {
-			console.log(formData);
-
 			const res = createQA(formData);
 			return res;
 		},

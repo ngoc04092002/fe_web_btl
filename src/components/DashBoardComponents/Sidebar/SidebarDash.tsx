@@ -5,6 +5,7 @@ import {
 	HomeOutlined,
 	LockOutlined,
 	UserOutlined,
+	WechatOutlined,
 } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import React, { FC } from 'react';
@@ -86,6 +87,19 @@ const siderbarData: ISidebarRest[] = [
 		),
 		child: [],
 		color: '#2dce89',
+		role: ['user', 'admin'],
+	},
+	{
+		path: '/dash-board/chat-message',
+		title: 'Tin nhắn',
+		Icon: (props: ISidebarIconProps) => (
+			<WechatOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [],
+		color: '#0499a8',
 		role: ['user', 'admin'],
 	},
 	{

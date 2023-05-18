@@ -90,7 +90,6 @@ const QuillText: FC<Props> = ({ fieldsNewsMain }) => {
 	};
 
 	const handleRecordNews = (e: any) => {
-		console.log('record', valuePiece, body, img);
 		const { title, des, caption } = valuePiece;
 		if (img.file) {
 			setFileImgs((prev) => [...prev, img]);

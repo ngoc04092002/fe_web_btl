@@ -18,7 +18,6 @@ const cx = classNames.bind(styles);
 const currentPageUrl = 'facebook.com';
 
 const NewsDetail: FC<Props> = ({ res }) => {
-	console.log(res);
 
 	return (
 		<div className='w-full md:w-[70%]'>

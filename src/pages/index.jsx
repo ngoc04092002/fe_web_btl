@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { Admin, FeedBackForgotPassword, ANews } from './Admin';
 import DashBoard from './Dashboard';
+import ChatMessagePage from './Dashboard/ChatMessagePage';
 import ClientFeedback from './Dashboard/ClientFeedback';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
@@ -29,7 +30,7 @@ import {
 	RoomItem,
 	WrapperElm,
 } from '@/components';
-import Loading from '@/components/Loading/Loading';
+import Loading from '@/components/Loading';
 import { AuthProvider, ContextWrapper } from '@/context';
 
 const AuthLayout = () => {
@@ -152,6 +153,10 @@ export const routes = createBrowserRouter([
 									{
 										path: 'comments',
 										element: <ClientFeedback />,
+									},
+									{
+										path: 'chat-message',
+										element: <ChatMessagePage />,
 									},
 									{
 										path: 'admin',

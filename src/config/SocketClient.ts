@@ -6,8 +6,8 @@ import ISocketClient from './ISocketClient';
 class SocketClient implements ISocketClient {
 	private readonly client: CompatClient;
 	constructor() {
-		const url = 'http://localhost:8080/ws';
-		const socket = new SockJS(url);
+		const url = 'http://localhost:8080';
+		const socket = new SockJS(url + '/websocket');
 		this.client = Stomp.over(socket);
 	}
 

@@ -11,7 +11,6 @@ type Props = { data: MessageResponse[] };
 
 const Messages: FC<Props> = ({ data }) => {
 	const { user } = useContext(AuthContext);
-	console.log(data);
 	return (
 		<div>
 			<div className='mt-3 mb-10'>

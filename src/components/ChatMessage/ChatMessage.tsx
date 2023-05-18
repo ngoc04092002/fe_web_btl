@@ -40,6 +40,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 		e.target.style.height = e.target.scrollHeight + 'px';
 	};
 
+	// connect ws
 	function connect() {
 		stompClient = socketClient.getClient();
 		if (stompClient !== null) {
@@ -58,6 +59,13 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 			);
 		}
 	}
+	// disconnect ws
+	// function disconnect() {
+	// 	if (stompClient != null) {
+	// 		stompClient.disconnect();
+	// 	}
+	// 	console.log('Disconnected');
+	// }
 
 	// websocket
 	useEffect(() => {

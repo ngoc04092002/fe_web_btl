@@ -22,9 +22,9 @@ const Search: React.FC<ISearch> = ({
 			div.style.display = 'none';
 		}
 
-		function targetElement(e:any) {
+		function targetElement(e: any) {
 			const className = e.target.className;
-			if (typeof className === 'string' && !className.includes('tippy')){
+			if (typeof className === 'string' && !className.includes('tippy')) {
 				(div as HTMLDivElement).style.display = 'none';
 			}
 		}

@@ -1,4 +1,5 @@
 import CalendarContainer from './Calendar';
+import ChatMessage from './DashBoardComponents/ChatMessage';
 import DashBoardMain from './DashBoardComponents/DashBoardMain';
 import PostRoom from './DashBoardComponents/PostRoom';
 import AddPostRoom from './DashBoardComponents/PostRoom/AddPostRoom';
@@ -18,6 +19,7 @@ import WrapperElm from './WrapperElm';
 import NotFoundItem from './helpers/NotFoundItem';
 
 export {
+	ChatMessage,
 	Orders,
 	DialogCard,
 	AddPostRoom,
