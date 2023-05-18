@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { Admin, FeedBackForgotPassword, ANews } from './Admin';
-import DashBoard from './Dashboard';
-import ChatMessagePage from './Dashboard/ChatMessagePage';
-import ClientFeedback from './Dashboard/ClientFeedback';
+import { ChatMessagePage, ClientFeedback, DashBoard, OrdersDash } from './Dashboard';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
+import { Account, MainInduction, RentRoom } from './Inductions';
 import LaterView from './LaterView';
 import News from './News';
 import NotFound from './NotFound';
@@ -112,6 +111,20 @@ export const routes = createBrowserRouter([
 						element: <QA />,
 					},
 					{
+						path: 'inductions',
+						element: <MainInduction />,
+						children: [
+							{
+								path: 'account',
+								element: <Account />,
+							},
+							{
+								path: 'rent-room',
+								element: <RentRoom />,
+							},
+						],
+					},
+					{
 						element: <ProtectedRoute />,
 						children: [
 							{
@@ -157,6 +170,10 @@ export const routes = createBrowserRouter([
 									{
 										path: 'chat-message',
 										element: <ChatMessagePage />,
+									},
+									{
+										path: 'orders',
+										element: <OrdersDash />,
 									},
 									{
 										path: 'admin',

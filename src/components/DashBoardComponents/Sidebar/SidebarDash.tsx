@@ -4,6 +4,7 @@ import {
 	DatabaseOutlined,
 	HomeOutlined,
 	LockOutlined,
+	ShoppingCartOutlined,
 	UserOutlined,
 	WechatOutlined,
 } from '@ant-design/icons';
@@ -100,6 +101,19 @@ const siderbarData: ISidebarRest[] = [
 		),
 		child: [],
 		color: '#0499a8',
+		role: ['user', 'admin'],
+	},
+	{
+		path: '/dash-board/orders',
+		title: 'Các đơn đặt',
+		Icon: (props: ISidebarIconProps) => (
+			<ShoppingCartOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [],
+		color: '#1976d2',
 		role: ['user', 'admin'],
 	},
 	{

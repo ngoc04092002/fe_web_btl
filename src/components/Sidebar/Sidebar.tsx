@@ -47,7 +47,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 					setUser({});
 					localStorage.clear();
 					setActive(false);
-					navigate('/');
+					navigate('/sign-in');
 				})
 				.catch((error) => {
 					getToast('Netword bad', 'error');

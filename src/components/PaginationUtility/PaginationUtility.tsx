@@ -25,12 +25,12 @@ const PaginationUtility: FC<Props> = () => {
 			text: 'Phòng trọ công nhân',
 		},
 		{
-			path: '/',
+			path: '/inductions/rent-room',
 			Icon: <List color='#7e00c2' />,
 			text: 'Các bước thuê trọ',
 		},
 		{
-			path: '/',
+			path: '/inductions/account',
 			Icon: <List color='#00abc2' />,
 			text: 'Hướng dẫn đăng ký tài khoản',
 		},

@@ -1,2 +1,20 @@
 .chat_message-container {
+	img {
+		user-select: none;
+	}
+	height: 300px;
+	overflow-x: hidden;
+	overflow-y: overlay;
+	&::-webkit-scrollbar {
+		width: 0.2rem;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: #ccc;
+		border-radius: 3rem;
+	}
 }

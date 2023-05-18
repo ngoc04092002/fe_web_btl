@@ -69,6 +69,7 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 					handleClick={handleClickSearch}
 					searchValue={searchValue}
 					isTippy
+					isHeader
 				/>
 
 				<MenuOutlined

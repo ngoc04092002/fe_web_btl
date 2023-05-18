@@ -14,7 +14,7 @@ const LineChart = () => {
 	const splitPathname = pathname.split('/');
 	const isAdmin = splitPathname.at(-1) === 'admin';
 	const { res, isLoading } = FetchApiGetFeedbackReportInfo(isAdmin);
-	console.log(res);
+	console.log(res, isLoading, isAdmin);
 	const smiles = new Map();
 	const meh = new Map();
 	const frown = new Map();
@@ -67,7 +67,9 @@ const LineChart = () => {
 			// }
 		},
 	};
-	if (isLoading) {
+
+	//fix
+	if (isLoading && isAdmin) {
 		return <Loading />;
 	}
 	return (

@@ -104,8 +104,8 @@ const AddPostRoom = (props: Props) => {
 
 	useEffect(() => {
 		return () => {
-			avatar &&
-				avatar.forEach((a) => {
+			!!avatar.length &&
+				avatar?.forEach((a) => {
 					URL.revokeObjectURL(a.url);
 				});
 		};

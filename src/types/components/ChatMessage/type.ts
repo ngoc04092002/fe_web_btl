@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface CreateMessageRequest {
 	id?: string;
 	rid: string;
@@ -11,4 +13,12 @@ export interface MessageResponse {
 	from: string;
 	to: string;
 	msg: string;
+}
+
+export interface IBodyChatMessage {
+	isLoading?: boolean;
+	msgData: MessageResponse[] | [];
+	handleChangeMsg: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+	msg: string;
+	handleSendMessage: () => void;
 }

@@ -1,12 +1,8 @@
-import { CloseOutlined, MessageFilled, SendOutlined } from '@ant-design/icons';
-import classNames from 'classnames/bind';
+import { CloseOutlined, MessageFilled } from '@ant-design/icons';
 // import dayjs from 'dayjs';
 import React, { FC, useContext, useEffect, useState } from 'react';
 
-import Loading from '../Loading';
-
-import Messages from './Messages';
-import styles from './chat-message.module.scss';
+import BodyChatMessage from './BodyChatMessage';
 
 import socketClient from '@/config/SocketClient';
 import { AuthContext } from '@/context/AuthProvider';
@@ -20,7 +16,7 @@ import { formatRoomId } from '@/utils/FormatIds';
 type Props = {
 	postUser?: IUser;
 };
-const cx = classNames.bind(styles);
+
 let stompClient: any = null;
 
 const ChatMessage: FC<Props> = ({ postUser }) => {
@@ -34,10 +30,6 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 
 	const handleShowBoxChat = () => {
 		setShowBoxChat(!showBoxChat);
-	};
-	const resizeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		e.target.style.height = '40px';
-		e.target.style.height = e.target.scrollHeight + 'px';
 	};
 
 	// connect ws
@@ -130,24 +122,13 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 							className='justify-items-end block ml-auto text-white cursor-pointer text-xl font-bold'
 						/>
 					</div>
-					<div className={`${cx('chat_msg_body')} pl-3 pr-5`}>
-						{isLoading ? <Loading /> : <Messages data={newMsgData} />}
-					</div>
-					<div className='flex h-fit items-center px-2 mb-2 pt-2'>
-						<textarea
-							rows={1}
-							onInput={resizeTextArea}
-							className='border max-h-[80px] border-solid h-[40px] min-h-[40px] !border-[#01adba] input-none flex-1 duration-[0s] bg-[#dbdbdb9e] rounded-lg resize-none'
-							name='content'
-							placeholder='Aa'
-							onChange={handleChangeMsg}
-							value={msg}
-						/>
-						<SendOutlined
-							onClick={handleSendMessage}
-							className='ml-2 p-3 cursor-pointer hover:bg-[#dbdbdb9e] rounded-[50%]'
-						/>
-					</div>
+					<BodyChatMessage
+						handleChangeMsg={handleChangeMsg}
+						handleSendMessage={handleSendMessage}
+						msg={msg}
+						msgData={newMsgData}
+						isLoading={isLoading}
+					/>
 				</div>
 			)}
 		</div>

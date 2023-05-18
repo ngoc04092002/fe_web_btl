@@ -24,8 +24,19 @@ const CardUserInfoContainer: FC<Props> = ({ userData, roomData }) => {
 	});
 
 	const toggleSaveRoom = () => {
-		const { id, title, des, phone, roomType, price, acreage, bathroom, bedRoom, src } =
-			roomData as IPostRoomResponse;
+		const {
+			id,
+			title,
+			des,
+			phone,
+			roomType,
+			price,
+			acreage,
+			bathroom,
+			bedRoom,
+			src,
+			clientEntityPostRoom,
+		} = roomData as IPostRoomResponse;
 		if (!saveRoom) {
 			rooms.push({
 				id,
@@ -37,6 +48,7 @@ const CardUserInfoContainer: FC<Props> = ({ userData, roomData }) => {
 				acreage,
 				bathroom,
 				bedRoom,
+				client: clientEntityPostRoom,
 				src: (src as IPostRoomSrc[])[0].src,
 			});
 		} else {

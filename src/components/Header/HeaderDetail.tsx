@@ -7,14 +7,12 @@ import {
 } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import { getAuth, signOut } from 'firebase/auth';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './header.module.scss';
 
-import socketClient from '@/config/SocketClient';
 import { AuthContext } from '@/context/AuthProvider';
-import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
 import { IAuthContext } from '@/types/context/type';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
@@ -28,7 +26,6 @@ type Props = {
 const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 	const { user, setUser } = useContext<IAuthContext>(AuthContext);
 	const isUserExist = Object.keys(user).length;
-	const [msgData, setMsgData] = useState<CreateMessageRequest[] | []>([]);
 	const navigate = useNavigate();
 
 	const handleLogout = () => {
@@ -41,7 +38,7 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 				.then(() => {
 					setUser({});
 					localStorage.clear();
-					navigate('/');
+					navigate('/sign-in');
 				})
 				.catch((error) => {
 					getToast('Netword bad', 'error');
@@ -67,29 +64,6 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 		},
 	];
 
-	// websocket
-	useEffect(() => {
-		const stompClient = socketClient.getClient();
-		console.log(stompClient);
-		stompClient.connect(
-			{},
-			() => {
-				stompClient.subscribe('/receive/message', (response) => {
-					const resData: CreateMessageRequest = JSON.parse(response.body);
-					console.log(resData);
-					if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
-						setMsgData((prev) => [...prev, resData]);
-					}
-				});
-			},
-			onError,
-		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	const onError = (err: any) => {
-		console.log(err);
-	};
-	console.log(msgData);
 	return (
 		<div
 			className={`${cx(

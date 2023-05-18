@@ -102,6 +102,7 @@ export interface IPostRoomResponse {
 	bedRoom: string;
 	bathroom: string;
 	acreage: string;
+	status: boolean;
 	limitNumberPeople: number;
 	roomType: string;
 	src?: IPostRoomSrc[];

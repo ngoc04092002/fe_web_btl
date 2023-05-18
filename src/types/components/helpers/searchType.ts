@@ -6,4 +6,5 @@ export interface ISearch {
 	handleClick?: () => void;
 	searchValue?: string;
 	isTippy?: boolean;
+	isHeader?: boolean;
 }
