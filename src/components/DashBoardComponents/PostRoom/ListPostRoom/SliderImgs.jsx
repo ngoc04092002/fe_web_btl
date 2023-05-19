@@ -28,12 +28,12 @@ const SliderImgs = ({ srcs }) => {
 							<video
 								src={src.src}
 								controls
-								className={`w-[460px] ${index === slideIndex ? 'block' : 'hidden'}`}
+								className={`w-[300px] md:w-[460px] ${index === slideIndex ? 'block' : 'hidden'}`}
 							/>
 						) : (
 							<img
 								src={src.src}
-								className={`w-[460px] ${index === slideIndex ? 'block' : 'hidden'}`}
+								className={`w-[300px] md:w-[460px] ${index === slideIndex ? 'block' : 'hidden'}`}
 								alt=''
 							/>
 						)}

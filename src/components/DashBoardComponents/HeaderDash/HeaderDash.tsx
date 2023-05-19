@@ -1,14 +1,16 @@
-import { ArrowUpOutlined, BellOutlined, SwitcherOutlined } from '@ant-design/icons';
+import { BellOutlined, SwitcherOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import React, { FC, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import HeaderReport from './HeaderReport';
 import styles from './header-dash.module.scss';
 
-import { ChartRevenueIcon, HomeIcon, HomeRentIcon, MapIcon } from '@/assets/icons';
+import { HomeIcon } from '@/assets/icons';
+import Loading from '@/components/Loading';
 import Bar from '@/components/helpers/Bar';
 import { AuthContext } from '@/context/AuthProvider';
-import { IBar, IDataStat } from '@/types/pages/IDashBoard';
+import { IBar } from '@/types/pages/IDashBoard';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 
@@ -20,42 +22,9 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 	const pathname: string = location.pathname;
 	const splitPathname: string[] = pathname.split('/');
 	const slicePathName: string[] = pathname.split('/').slice(2, splitPathname.length - 1);
-
-	const dataStats: IDataStat[] = [
-		{
-			title: 'Tỉnh (Thành phố)',
-			sales: '3',
-			icon: <MapIcon />,
-			developSpeed: '100',
-			color: 'bg-[linear-gradient(87deg,#f5365c,#f56036)!important]',
-			timestamp: 'Kể từ tháng trước',
-		},
-		{
-			title: 'Đã cho thuê',
-			sales: '100,000',
-			icon: <HomeRentIcon />,
-			developSpeed: '100',
-			color: 'bg-[linear-gradient(87deg,#fb6340,#fbb140)!important]',
-			timestamp: 'Kể từ tháng trước',
-		},
-		{
-			title: splitPathname.includes('admin') ? 'Phản hồi' : 'Còn trống',
-			sales: '100,000',
-			icon: <HomeIcon className='fill-white' />,
-			developSpeed: '100',
-			color: 'bg-[linear-gradient(87deg,#2dce89,#2dcecc)!important]',
-			timestamp: 'Kể từ tháng trước',
-		},
-		{
-			title: 'Tổng giá tiền',
-			sales: '100,000',
-			icon: <ChartRevenueIcon />,
-			developSpeed: '100',
-			color: 'bg-[linear-gradient(87deg,#5e72e4,#825ee4)!important]',
-			timestamp: 'Kể từ tháng trước',
-		},
-	];
-
+	if (!Object.keys(user).length) {
+		return <Loading />;
+	}
 	return (
 		<div>
 			<div className={`${cx('header_dash')} flex items-center justify-between md:justify-end mb-8`}>
@@ -165,32 +134,7 @@ const HeaderDash: FC<IBar> = ({ classSvg, className, handleToggleShowSidebar }) 
 				</div>
 				<div className={cx('btn-filter')}>Filters</div>
 			</div>
-			<div className='grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-6'>
-				{dataStats.map((s, index) => (
-					<div
-						key={index}
-						className={`${cx('card-stats')} flex flex-col py-4 px-5 justify-between`}
-					>
-						<div className='flex items-center justify-between mb-6'>
-							<div>
-								<h1 className='uppercase text-sm text-[#8898aa] font-semibold font-[inherit]'>
-									{s.title}
-								</h1>
-								<p className='text-[#32325d] font-semibold text-xl'>{s.sales}</p>
-							</div>
-							<div className={`${s.color} rounded-[50%] p-3`}>{s.icon}</div>
-						</div>
-						<ul className='flex items-center justify-between'>
-							<li className='text-[#2dce89] flex items-center mr-2'>
-								<ArrowUpOutlined /> {s.developSpeed}%
-							</li>
-							<li className='text-[#525f7f] overflow-hidden whitespace-nowrap text-ellipsis'>
-								{s.timestamp}
-							</li>
-						</ul>
-					</div>
-				))}
-			</div>
+			<HeaderReport userId={(user as IUser).id as number} />
 		</div>
 	);
 };

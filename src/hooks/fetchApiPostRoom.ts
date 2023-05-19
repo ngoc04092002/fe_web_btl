@@ -3,9 +3,15 @@ import { useQuery } from '@tanstack/react-query';
 import {
 	filterPostRoom,
 	getAllPostRoomOfUser,
+	getPostRoomAmountByMonth,
 	getPostRoomById,
+	getPostRoomReport,
 } from '@/infrastructure/dashboardActions';
-import { IFilterPostRoomParams, IPostRoomResponse } from '@/types/pages/IDashBoard';
+import {
+	IFilterPostRoomParams,
+	IPostRoomReportResponse,
+	IPostRoomResponse,
+} from '@/types/pages/IDashBoard';
 
 export function FetchApiGetPostRoomById(id: number) {
 	const { data, isLoading } = useQuery({
@@ -23,6 +29,41 @@ export function FetchApiGetPostRoomById(id: number) {
 		isLoading,
 	};
 }
+
+export function FetchApiGetPostRoomReportId(id: number) {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get-post_room-report', id],
+		queryFn: () => getPostRoomReport(id),
+		staleTime: 3 * 60 * 1000,
+		cacheTime: 5 * 60 * 1000,
+		enabled: typeof id === 'number' && id !== 0,
+	});
+
+	const res: IPostRoomReportResponse | undefined = data?.data;
+
+	return {
+		res,
+		isLoading,
+	};
+}
+
+export function FetchApiGetPostRoomAmountByMonth(id: number) {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get-post_room-amount', id],
+		queryFn: () => getPostRoomAmountByMonth(id),
+		staleTime: 3 * 60 * 1000,
+		cacheTime: 5 * 60 * 1000,
+		enabled: typeof id === 'number' && id !== 0,
+	});
+
+	const res: number[] | undefined = data?.data;
+
+	return {
+		res,
+		isLoading,
+	};
+}
+
 export function FetchApiFilterPostRoom(params: IFilterPostRoomParams) {
 	const { data, isLoading } = useQuery({
 		queryKey: ['filter-post-room', params],

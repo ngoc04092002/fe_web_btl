@@ -11,6 +11,7 @@ import {
 	IEWaitingR,
 	IFilterPostRoomParams,
 	IFormEditPassword,
+	IPostRoomReportResponse,
 	IPostRoomResponse,
 	IRequestPostRoom,
 } from '@/types/pages/IDashBoard';
@@ -100,6 +101,18 @@ export const getAllPostRoomOfUser: (
 	userid: number,
 ) => Promise<AxiosResponse<IPostRoomResponse[], any>> = (userid: number) => {
 	return http.get<IPostRoomResponse[]>('get-post_room-user', { params: { id: userid } });
+};
+
+export const getPostRoomReport: (
+	userid: number,
+) => Promise<AxiosResponse<IPostRoomReportResponse, any>> = (userid: number) => {
+	return http.get<IPostRoomReportResponse>('get-post_room-report', { params: { id: userid } });
+};
+
+export const getPostRoomAmountByMonth: (userid: number) => Promise<AxiosResponse<number[], any>> = (
+	userid: number,
+) => {
+	return http.get<number[]>('get-post_room-amount', { params: { id: userid } });
 };
 
 export const deletePostRoom: (id: number) => Promise<AxiosResponse<boolean, any>> = (

@@ -167,18 +167,18 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 										<TableCell
 											component='th'
 											scope='row'
-											className='w-[100px] h-full cursor-pointer'
+											className='w-[150px] md:w-[100px] h-full cursor-pointer'
 											onClick={() => handleOpen(row?.src || [])}
 										>
 											<img
 												src={row.src?.[0]?.src || ''}
 												alt=''
-												className='object-cover w-full h-full'
+												className='object-cover w-[150px] md:w-[100px] h-full'
 											/>
 										</TableCell>
 										<TableCell
 											align='left'
-											className='max-w-[400px] break-words'
+											className='max-w-[200px] break-words'
 										>
 											{row.title}
 										</TableCell>

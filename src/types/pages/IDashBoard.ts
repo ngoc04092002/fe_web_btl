@@ -11,12 +11,13 @@ export interface IBar {
 
 export interface IDataStat {
 	title: string;
-	sales: string;
+	sales: number;
 	// eslint-disable-next-line no-undef
 	icon: JSX.Element;
 	color: string;
 	developSpeed: string;
 	timestamp: string;
+	increment: boolean;
 }
 export type DashBoardFormIdEditPassword = 'password' | 'verifyPassword';
 export type DashBoardFormIdEditProfile = keyof IFromEditProfile;
@@ -138,4 +139,16 @@ export interface IClientFeedback {
 	email: string;
 	content: string;
 	clientId?: number;
+}
+
+interface IFormReport {
+	sales: number;
+	developSpeed: string;
+	increment: boolean;
+}
+
+export interface IPostRoomReportResponse {
+	totalRoom: IFormReport;
+	rented: IFormReport;
+	sales: IFormReport;
 }

@@ -90,19 +90,15 @@ function convertDecimal(number: number) {
 	const decimalPlaces = 2;
 	for (let i = 0; i < decimalPlaces; i++) {
 		const digit = Math.floor(number * 10 ** (i + 1)) % 10;
-		if (digit > 0) {
-			if (result.length > 0) {
-				result += ' ';
-			}
-			result += tens[digit];
+		if (result.length > 0 && digit > 0) {
+			result += ' ';
 		}
+		result += tens[digit];
 		const onesDigit = Math.floor(number * 10 ** i) % 10;
-		if (onesDigit > 0) {
-			if (result.length > 0) {
-				result += ' ';
-			}
-			result += ones[onesDigit];
+		if (onesDigit > 0 && result.length > 0) {
+			result += ' ';
 		}
+		result += ones[onesDigit];
 	}
 
 	return result;
