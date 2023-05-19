@@ -136,7 +136,7 @@ const QuillText: FC<Props> = ({ fieldsNewsMain }) => {
 
 		// upload imgs pieces
 		async function updateImgsPiece() {
-			await fileImgs.forEach((f) => {
+			await fileImgs?.forEach((f) => {
 				const imgRef = ref(storage, `/images/${f.file?.name + v4()}`);
 				uploadBytes(imgRef, f.file as File)
 					.then((d) => {
@@ -189,6 +189,16 @@ const QuillText: FC<Props> = ({ fieldsNewsMain }) => {
 			.catch((err) => {
 				getToast('Lỗi khi upload hình ảnh', 'warn');
 			});
+	};
+
+	// reset all
+	const handleReset = () => {
+		setValuePiece(initValueNewsPiece);
+		setBody('');
+		setImg(initValueImg);
+		setTopicSelected(null);
+		setImgMain(initValueImg);
+		setValueMain(initValueNewsMain);
 	};
 
 	useEffect(() => {
@@ -305,13 +315,21 @@ const QuillText: FC<Props> = ({ fieldsNewsMain }) => {
 				url={img.url}
 				body={body}
 			/>
-			<ButtonWrapper
-				onClick={handleSubmit}
-				styles='float-right'
-				isLoading={isLoading}
-			>
-				Tạo
-			</ButtonWrapper>
+			<div className='float-right flex items-center'>
+				<ButtonWrapper
+					onClick={handleReset}
+					styles='mr-4'
+					isLoading={isLoading}
+				>
+					Đặt lại
+				</ButtonWrapper>
+				<ButtonWrapper
+					onClick={handleSubmit}
+					isLoading={isLoading}
+				>
+					Tạo
+				</ButtonWrapper>
+			</div>
 		</div>
 	);
 };

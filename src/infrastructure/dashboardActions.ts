@@ -101,3 +101,9 @@ export const getAllPostRoomOfUser: (
 ) => Promise<AxiosResponse<IPostRoomResponse[], any>> = (userid: number) => {
 	return http.get<IPostRoomResponse[]>('get-post_room-user', { params: { id: userid } });
 };
+
+export const deletePostRoom: (id: number) => Promise<AxiosResponse<boolean, any>> = (
+	id: number,
+) => {
+	return http.delete<boolean>(`delete-post-room/${id}`);
+};

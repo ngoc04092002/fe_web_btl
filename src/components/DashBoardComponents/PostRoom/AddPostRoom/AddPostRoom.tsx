@@ -38,7 +38,7 @@ const AddPostRoom = (props: Props) => {
 		}
 		const files: FileList = e.target.files;
 		let arrayFiles: any = [];
-		Array.from(files).forEach((f) => {
+		Array.from(files)?.forEach((f) => {
 			const fUrl: string = URL.createObjectURL(f);
 			arrayFiles.push({ url: fUrl, file: f });
 		});
@@ -65,7 +65,7 @@ const AddPostRoom = (props: Props) => {
 		}
 		let arraySrc: IPostRoomSrc[] = [];
 		const lenAvatar = avatar.length - 1;
-		avatar.forEach((a, index) => {
+		avatar?.forEach((a, index) => {
 			const imageRef = ref(storage, `/images/${a.file?.name + v4()}`);
 			uploadBytes(imageRef, a.file as File)
 				.then((d) => {

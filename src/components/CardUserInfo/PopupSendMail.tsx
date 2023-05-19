@@ -45,6 +45,7 @@ const PopupSendMail: FC<Props> = ({ styles, userId }) => {
 
 	const handleSubmit = () => {
 		values.clientId = userId;
+		console.log(values);
 		mutate(values, {
 			onError: (res: AxiosError) => {
 				getToast(res.response?.data as string, 'error');

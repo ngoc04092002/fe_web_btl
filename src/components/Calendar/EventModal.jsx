@@ -97,7 +97,7 @@ export default function EventModal() {
 							onChange={(e) => setTitle(e.target.value)}
 						/>
 						<span className='material-icons-outlined text-gray-400'>Lịch:</span>
-						<p>{daySelected.format('dddd, MMMM DD')}</p>
+						<p>{daySelected.format('dddd, MMMM, ngày DD')}</p>
 						<span className='material-icons-outlined text-gray-400'>Miêu tả:</span>
 						<input
 							type='text'

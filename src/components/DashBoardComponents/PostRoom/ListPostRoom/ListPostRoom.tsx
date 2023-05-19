@@ -12,6 +12,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import React, { FC, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import SliderImgs from './SliderImgs';
 import TablePaginationActions from './TablePaginationActions';
@@ -19,20 +20,23 @@ import TablePaginationActions from './TablePaginationActions';
 import Loading from '@/components/Loading';
 import ButtonWrapper from '@/components/helpers/ButtonWrapper';
 import { FetchApiGetAllPostRoomOfUser } from '@/hooks/fetchApiPostRoom';
-import { updatePostRoom } from '@/infrastructure/dashboardActions';
+import { deletePostRoom, updatePostRoom } from '@/infrastructure/dashboardActions';
 import { IPostRoomResponse, IPostRoomSrc } from '@/types/pages/IDashBoard';
 import { getToast } from '@/utils/CustomToast';
+import { deleteFirebaseImgPath } from '@/utils/DeleteFirebaseImgPath';
 
 type Props = {
 	userId: number;
 };
 
 const ListPostRoom: FC<Props> = ({ userId }) => {
+	const navigation = useNavigate();
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
-	const { res, isLoading } = FetchApiGetAllPostRoomOfUser(userId);
 	const [srcs, setSrcs] = useState<IPostRoomSrc[] | []>([]);
 	const [values, setValues] = useState<IPostRoomResponse[] | []>([]);
+
+	const { res, isLoading } = FetchApiGetAllPostRoomOfUser(userId);
 
 	const [open, setOpen] = useState(false);
 	const handleClose = (e: any) => {
@@ -57,6 +61,18 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 		},
 	});
 
+	const { mutate: mutateDelete, isLoading: loadingDelete } = useMutation<
+		AxiosResponse<boolean, any>,
+		AxiosError,
+		{ id: number },
+		unknown
+	>({
+		mutationFn: (formData: { id: number }) => {
+			const res = deletePostRoom(formData.id);
+			return res;
+		},
+	});
+
 	// Avoid a layout jump when reaching the last page with empty rows.
 	const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - values.length) : 0;
 
@@ -71,12 +87,35 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 		setPage(0);
 	};
 
-	const deletePostRoom = (room: IPostRoomResponse) => {
+	const handleDeletePostRoom = (room: IPostRoomResponse) => {
 		console.log(room);
+		const srcs: IPostRoomSrc[] | [] = room.src || [];
+		srcs.forEach((src) => {
+			if (src.src.includes('firebase')) {
+				deleteFirebaseImgPath(src.src);
+			}
+		});
+		mutateDelete(
+			{ id: room.id },
+			{
+				onError: (res) => {
+					getToast('', 'network bad');
+				},
+				onSuccess: (res) => {
+					if (res.data) {
+						getToast('Xoá thành công!', 'success');
+						const updateRooms = values.filter((v) => v.id !== room.id);
+						setValues(updateRooms);
+					} else {
+						getToast('', 'network bad');
+					}
+				},
+			},
+		);
 	};
 
 	const handleUpdatePostRoom = (room: IPostRoomResponse) => {
-		console.log(room);
+		navigation(`/dash-board/post-room/add-post-room/${room.id}`);
 	};
 
 	const updateStatusPostRoom = (room: IPostRoomResponse) => {
@@ -84,7 +123,6 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 			...room,
 			status: !room.status,
 		};
-		console.log(newRoomData);
 		mutateUpdateStatus(newRoomData, {
 			onError: (res) => {
 				getToast('', 'network bad');
@@ -96,7 +134,6 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 					}
 					return v;
 				});
-				console.log('update', updateRooms);
 				setValues(updateRooms);
 				getToast('Chuyển đổi trạng thái thành công!', 'success');
 			},
@@ -168,7 +205,8 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 										>
 											<ButtonWrapper onClick={() => handleUpdatePostRoom(row)}>Sửa</ButtonWrapper>
 											<ButtonWrapper
-												onClick={() => deletePostRoom(row)}
+												isLoading={loadingDelete}
+												onClick={() => handleDeletePostRoom(row)}
 												styles='ml-2 !bg-red-500'
 											>
 												Xóa

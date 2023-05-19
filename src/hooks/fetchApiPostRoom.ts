@@ -13,7 +13,7 @@ export function FetchApiGetPostRoomById(id: number) {
 		queryFn: () => getPostRoomById(id),
 		staleTime: 10 * 60 * 1000,
 		cacheTime: 20 * 60 * 1000,
-		enabled: typeof id === 'number',
+		enabled: typeof id === 'number' && id !== 0,
 	});
 
 	const res: IPostRoomResponse | undefined = data?.data;

@@ -148,7 +148,7 @@ const TableNews = ({ rows, pathDelete, pathGet }) => {
 							return null;
 						}) || []
 					).map((r) => r.img);
-					filterImgs.forEach((d) => {
+					filterImgs?.forEach((d) => {
 						if (d.startsWith('https://firebasestorage.googleapis.com')) {
 							// Delete the old file
 							deleteFirebaseImgPath(d);

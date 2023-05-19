@@ -80,7 +80,7 @@ const RoomItem: FC<Props> = ({ dataHotNewsRent, res, isLoading }) => {
 						<h1>Thông tin chính</h1>
 						<div className='p-4 bg-[#e9e9e93d]'>
 							<ul className='grid grid-cols-2 gap-4 pl-7 mt-2'>
-								<li className='text-[#657380]'>
+								<li>
 									<span>Diện tích phòng</span>
 									<span className='float-right mr-10'>
 										{res.acreage} m<sub className='align-super'>2</sub>

@@ -75,7 +75,7 @@ const LineChart = () => {
 	return (
 		<div className='w-full bg-[#172b4d] rounded-lg mb-8'>
 			<Line
-				className='p-3 rounded-lg '
+				className='p-3 rounded-lg !w-full'
 				data={config.data}
 				options={config.options}
 				style={{ minHeight: '550px' }}

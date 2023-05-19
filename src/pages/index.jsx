@@ -154,7 +154,7 @@ export const routes = createBrowserRouter([
 										element: <PostRoom />,
 										children: [
 											{
-												path: 'add-post-room',
+												path: 'add-post-room/:id?',
 												element: <AddPostRoom />,
 											},
 										],

@@ -9,7 +9,7 @@ import {
 	tableCellClasses,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
@@ -46,6 +46,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 type Props = {};
 
 const OrdersDash = (props: Props) => {
+	const queryClient = useQueryClient();
 	const { user } = useContext(AuthContext);
 	const [values, setValues] = useState<IBill[] | []>([]);
 
@@ -79,7 +80,7 @@ const OrdersDash = (props: Props) => {
 		if (res) {
 			setValues(res);
 		}
-	}, []);
+	}, [res]);
 
 	if (!user) {
 		return <></>;
@@ -108,7 +109,6 @@ const OrdersDash = (props: Props) => {
 			},
 		);
 	};
-
 	const handleVerify = (billId: number, rid: number) => {
 		const newData = values.filter((nd) => nd.id !== billId);
 		mutateVerify(
@@ -119,6 +119,7 @@ const OrdersDash = (props: Props) => {
 				},
 				onSuccess: (res) => {
 					if (res.data) {
+						queryClient.invalidateQueries({ queryKey: ['get-post_room-user', { type: 'done' }] });
 						getToast('Xóa thành công!', 'success');
 						setValues(newData);
 					} else {
