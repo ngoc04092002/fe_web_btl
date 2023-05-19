@@ -3,9 +3,11 @@ import React from 'react';
 import { IUser } from '@/types/pages/types';
 
 export interface IBill {
+	id?: number;
 	name: string;
 	phone: string;
 	rid?: number;
+	createdAt?: string;
 	clientEntityBill?: IUser;
 }
 

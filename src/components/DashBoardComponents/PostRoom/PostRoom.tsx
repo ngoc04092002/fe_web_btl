@@ -1,8 +1,11 @@
-import React, { useContext, useLayoutEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Outlet, useNavigate, useOutlet } from 'react-router-dom';
 
 import './post-room.scss';
+import ListPostRoom from './ListPostRoom';
+
 import { AuthContext } from '@/context/AuthProvider';
+import { IUser } from '@/types/pages/types';
 import { getToast } from '@/utils/CustomToast';
 
 type Props = {};
@@ -11,9 +14,9 @@ const PostRoom = (props: Props) => {
 	const { user } = useContext(AuthContext);
 	const outlet = useOutlet();
 	const navigation = useNavigate();
-	useLayoutEffect(() => {
-		if (Object.keys(user)) {
-			if (!(user as any)?.sdt?.trim()) {
+	useEffect(() => {
+		if (Object.keys(user).length) {
+			if (!(user as IUser)?.sdt?.trim()) {
 				getToast('Bạn cần cập nhật số điện thoại', 'warn');
 				navigation('/dash-board/profile');
 			}
@@ -21,17 +24,11 @@ const PostRoom = (props: Props) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return (
-		<>
-			{outlet ? (
-				<Outlet />
-			) : (
-				<div className='post_room bg-white p-4 w-full mb-12'>
-					<h1 className='font-bold text-lg mb-4'>Các bài đăng phòng</h1>
-				</div>
-			)}
-		</>
-	);
+	if (!Object.keys(user).length) {
+		return <></>;
+	}
+
+	return <>{outlet ? <Outlet /> : <ListPostRoom userId={(user as IUser)?.id as number} />}</>;
 };
 
 export default PostRoom;

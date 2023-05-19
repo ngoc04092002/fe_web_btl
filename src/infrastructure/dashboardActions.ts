@@ -78,6 +78,13 @@ export const createPostRoom: (payload: IRequestPostRoom) => Promise<AxiosRespons
 ) => {
 	return http.post<boolean>('save-post-room', payload);
 };
+
+export const updatePostRoom: (
+	payload: IPostRoomResponse,
+) => Promise<AxiosResponse<IPostRoomResponse, any>> = (payload: IPostRoomResponse) => {
+	return http.put<IPostRoomResponse>('update-post-room', payload);
+};
+
 export const filterPostRoom: (
 	params: IFilterPostRoomParams,
 ) => Promise<AxiosResponse<IPostRoomResponse[], any>> = (params: IFilterPostRoomParams) => {
@@ -87,4 +94,10 @@ export const getPostRoomById: (id: number) => Promise<AxiosResponse<IPostRoomRes
 	id: number,
 ) => {
 	return http.get<IPostRoomResponse>(`room-item/${id}`);
+};
+
+export const getAllPostRoomOfUser: (
+	userid: number,
+) => Promise<AxiosResponse<IPostRoomResponse[], any>> = (userid: number) => {
+	return http.get<IPostRoomResponse[]>('get-post_room-user', { params: { id: userid } });
 };

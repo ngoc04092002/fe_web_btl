@@ -7,8 +7,6 @@ export function GetOrders(id: number) {
 	const { data, isLoading } = useQuery({
 		queryKey: ['search-news', id],
 		queryFn: () => getOrders(id),
-		staleTime: 30 * 1000,
-		cacheTime: 60 * 1000,
 	});
 
 	const res: IBill[] | undefined = data?.data;

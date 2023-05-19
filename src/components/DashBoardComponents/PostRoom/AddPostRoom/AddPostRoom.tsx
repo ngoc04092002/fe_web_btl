@@ -75,6 +75,7 @@ const AddPostRoom = (props: Props) => {
 							if (index === lenAvatar) {
 								const formData = {
 									...value,
+									status: true,
 									src: arraySrc,
 									clientEntityPostRoom: {
 										id: (user as IUser).id,
