@@ -15,12 +15,12 @@ const PaginationUtility: FC<Props> = () => {
 			text: 'Review khu vực',
 		},
 		{
-			path: '/',
+			path: '/search-room?price=price=<2%20triệu',
 			Icon: <Graduate />,
-			text: 'Phòng trọ gần trường',
+			text: 'Phòng trọ sinh viên',
 		},
 		{
-			path: '/',
+			path: '/search-room?price=2%20triệu%20-%206%20triệu',
 			Icon: <Worker />,
 			text: 'Phòng trọ công nhân',
 		},

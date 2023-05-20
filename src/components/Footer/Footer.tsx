@@ -35,7 +35,7 @@ const footerIntroduce: IFooterIntroduce[] = [
 	},
 	{
 		title: 'Công cụ tiện ích',
-		intros: ['Phòng trọ gần KCN', 'Phòng trọ gần trường'],
+		intros: ['Phòng trọ gần KCN', 'Phòng trọ sinh viên'],
 	},
 ];
 

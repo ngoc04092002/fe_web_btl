@@ -76,7 +76,7 @@ const HeaderReport: FC<Props> = ({ userId }) => {
 								<li
 									className={`${
 										s.increment ? 'text-[#2dce89]' : 'text-red-500'
-									}  flex items-center mr-2`}
+									}  flex items-center mr-2 whitespace-nowrap`}
 								>
 									{s.increment ? <ArrowUpOutlined /> : <ArrowDownOutlined />} {s.developSpeed}
 								</li>

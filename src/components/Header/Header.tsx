@@ -114,7 +114,7 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 						</Link>
 					)}
 					<Link
-						to='publish'
+						to='/dash-board/post-room/add-post-room'
 						className='py-1 px-3 rounded hover:text-[#3dbfc9] font-medium border-solid border-[1px] border-[#01adba]'
 					>
 						Đăng tin

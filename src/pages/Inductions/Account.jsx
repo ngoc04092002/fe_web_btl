@@ -28,7 +28,7 @@ const Account = () => {
 						<img
 							src={getImage(`b${index + 1}.png`)}
 							alt=''
-							className='w-full h-[400px]'
+							className='w-[80%] h-[400px] m-auto'
 						/>
 					</figure>
 				</div>
