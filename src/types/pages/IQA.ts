@@ -6,6 +6,8 @@ export interface IRequestBodyQA {
 	img: string;
 	content: string;
 	clientEntityQa: Omit<IUser, 'token'>;
+	likes?: Ilikes[];
+	commentsEntities?: IComments[];
 }
 
 export interface iFilterQA {
@@ -60,4 +62,9 @@ export interface ITextFieldComment {
 export interface IToggleLike {
 	clientLikeEntities: Pick<IUser, 'id'>;
 	qaEntity: Pick<IQAResponse, 'id'>;
+}
+
+export interface IQAReport {
+	id: number;
+	report: boolean;
 }

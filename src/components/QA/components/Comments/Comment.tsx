@@ -54,6 +54,10 @@ const Comment: FC<Props> = ({ comment }) => {
 	});
 
 	const handleSend = () => {
+		if (!Object.keys(user).length) {
+			getToast('Bạn hãy đăng nhập', 'warn');
+			return;
+		}
 		const { token, ...fields } = user as IUser;
 		const formData: ICommentChild = {
 			content: text,

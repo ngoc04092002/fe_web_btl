@@ -17,8 +17,8 @@ export function FetchApiGetPostRoomById(id: number) {
 	const { data, isLoading } = useQuery({
 		queryKey: [`news/${id}`, id],
 		queryFn: () => getPostRoomById(id),
-		staleTime: 10 * 60 * 1000,
-		cacheTime: 20 * 60 * 1000,
+		staleTime: 60 * 1000,
+		cacheTime: 2 * 60 * 1000,
 		enabled: typeof id === 'number' && id !== 0,
 	});
 
@@ -34,8 +34,8 @@ export function FetchApiGetPostRoomReportId(id: number) {
 	const { data, isLoading } = useQuery({
 		queryKey: ['get-post_room-report', id],
 		queryFn: () => getPostRoomReport(id),
-		staleTime: 3 * 60 * 1000,
-		cacheTime: 5 * 60 * 1000,
+		staleTime: 60 * 1000,
+		cacheTime: 2 * 60 * 1000,
 		enabled: typeof id === 'number' && id !== 0,
 	});
 
@@ -51,8 +51,8 @@ export function FetchApiGetPostRoomAmountByMonth(id: number) {
 	const { data, isLoading } = useQuery({
 		queryKey: ['get-post_room-amount', id],
 		queryFn: () => getPostRoomAmountByMonth(id),
-		staleTime: 3 * 60 * 1000,
-		cacheTime: 5 * 60 * 1000,
+		staleTime: 60 * 1000,
+		cacheTime: 2 * 60 * 1000,
 		enabled: typeof id === 'number' && id !== 0,
 	});
 
@@ -83,8 +83,8 @@ export function FetchApiGetAllPostRoomOfUser(id: number) {
 	const { data, isLoading } = useQuery({
 		queryKey: ['get-post_room-user', id],
 		queryFn: () => getAllPostRoomOfUser(id),
-		staleTime: 10 * 60 * 1000,
-		cacheTime: 20 * 60 * 1000,
+		staleTime: 60 * 1000,
+		cacheTime: 2 * 60 * 1000,
 		enabled: typeof id === 'number',
 	});
 

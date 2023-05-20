@@ -4,11 +4,22 @@ import http from '@/config/axiosConfig';
 import {
 	ICommentChild,
 	IComments,
+	IQAReport,
 	IQAResponse,
 	IRequestBodyQA,
 	IToggleLike,
 	iFilterQA,
 } from '@/types/pages/IQA';
+
+export const getAllQa: () => Promise<AxiosResponse<IRequestBodyQA[], any>> = () => {
+	return http.get('get-all-QA');
+};
+
+export const getAllQaByUser: (userId: number) => Promise<AxiosResponse<IRequestBodyQA[], any>> = (
+	userId: number,
+) => {
+	return http.get('get-all-QA-user', { params: { id: userId } });
+};
 
 export const createQA: (body: IRequestBodyQA) => Promise<AxiosResponse<boolean, any>> = (
 	body: IRequestBodyQA,
@@ -38,4 +49,14 @@ export const toggleLike: (body: IToggleLike) => Promise<AxiosResponse<number, an
 	body: IToggleLike,
 ) => {
 	return http.post('toggle-like', body);
+};
+
+export const deleteQa: (id: number) => Promise<AxiosResponse<boolean, any>> = (id: number) => {
+	return http.delete<boolean>(`delete-QA/${id}`);
+};
+
+export const updateQa: (body: IQAReport) => Promise<AxiosResponse<boolean, any>> = (
+	body: IQAReport,
+) => {
+	return http.put<boolean>('update-qa', body);
 };

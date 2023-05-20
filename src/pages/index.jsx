@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
-import { Admin, FeedBackForgotPassword, ANews } from './Admin';
-import { ChatMessagePage, ClientFeedback, DashBoard, OrdersDash } from './Dashboard';
+import { Admin, FeedBackForgotPassword, ANews, QAReport } from './Admin';
+import { ChatMessagePage, ClientFeedback, DashBoard, OrdersDash, QADash } from './Dashboard';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
 import Home from './Home';
@@ -176,6 +176,10 @@ export const routes = createBrowserRouter([
 										element: <OrdersDash />,
 									},
 									{
+										path: 'q-a',
+										element: <QADash />,
+									},
+									{
 										path: 'admin',
 										element: <Admin />,
 										children: [
@@ -190,6 +194,10 @@ export const routes = createBrowserRouter([
 											{
 												path: 'news',
 												element: <ANews />,
+											},
+											{
+												path: 'qa-report',
+												element: <QAReport />,
 											},
 										],
 									},

@@ -4,6 +4,7 @@ import {
 	DatabaseOutlined,
 	HomeOutlined,
 	LockOutlined,
+	QuestionCircleOutlined,
 	ShoppingCartOutlined,
 	UserOutlined,
 	WechatOutlined,
@@ -117,6 +118,19 @@ const siderbarData: ISidebarRest[] = [
 		role: ['user', 'admin'],
 	},
 	{
+		path: '/dash-board/q-a',
+		title: 'Question & Answer',
+		Icon: (props: ISidebarIconProps) => (
+			<QuestionCircleOutlined
+				title={props.title}
+				style={{ color: props.color }}
+			/>
+		),
+		child: [],
+		color: '#007eff',
+		role: ['user', 'admin'],
+	},
+	{
 		path: '/dash-board/admin',
 		title: 'Admin',
 		Icon: (props: ISidebarIconProps) => (
@@ -129,6 +143,7 @@ const siderbarData: ISidebarRest[] = [
 			{ to: 'admin/feedback-forgot-password', title: 'Ý kiến - Quên MK' },
 			{ to: 'admin/add-news', title: 'Tạo tin tức' },
 			{ to: 'admin/news', title: 'Tin tức' },
+			{ to: 'admin/qa-report', title: 'Báo cáo QA' },
 		],
 		color: '#505050',
 		role: ['admin'],

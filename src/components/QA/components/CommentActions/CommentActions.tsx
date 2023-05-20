@@ -10,8 +10,8 @@ import { CommentIcon, LikeIcon } from '@/assets/icons';
 import SkeletonTypography from '@/components/helpers/SkeletonTypography';
 import { reportList } from '@/constants/initialValueQA';
 import { AuthContext } from '@/context/AuthProvider';
-import { createComment, toggleLike } from '@/infrastructure/qaActions';
-import { IComments, IQAResponse, IToggleLike } from '@/types/pages/IQA';
+import { createComment, toggleLike, updateQa } from '@/infrastructure/qaActions';
+import { IComments, IQAReport, IQAResponse, IToggleLike } from '@/types/pages/IQA';
 import { IUser } from '@/types/pages/types';
 import { getToast } from '@/utils/CustomToast';
 
@@ -53,6 +53,10 @@ const CommentActions: FC<Props> = ({ data }) => {
 
 	const handleClickLike = () => {
 		setLike(!like);
+		if (!Object.keys(user).length) {
+			console.log(1);
+			return;
+		}
 		const formData = {
 			clientLikeEntities: {
 				id: (user as IUser)?.id as number,
@@ -92,9 +96,11 @@ const CommentActions: FC<Props> = ({ data }) => {
 		},
 	});
 
-	console.log(data);
-
 	const handleSend = () => {
+		if (!Object.keys(user).length) {
+			getToast('Bạn hãy đăng nhập', 'warn');
+			return;
+		}
 		const { clientEntityQa, ...rest } = data as IQAResponse;
 		const { token, ...fields } = user as IUser;
 		const formData: Omit<IComments, 'id' | 'commentChildren'> = {
@@ -113,9 +119,39 @@ const CommentActions: FC<Props> = ({ data }) => {
 		});
 	};
 
+	const { mutate: mutateUpdate } = useMutation<
+		AxiosResponse<boolean, any>,
+		AxiosError,
+		IQAReport,
+		unknown
+	>({
+		mutationFn: (formData: IQAReport) => {
+			const res = updateQa(formData);
+			return res;
+		},
+	});
+
 	const handleClickReport = (r: string) => {
+		if (!Object.keys(user).length) {
+			getToast('Bạn hãy đăng nhập', 'warn');
+			return;
+		}
 		if (data) {
-			console.log(data.id, r);
+			setShowReport(false);
+			const formData = {
+				id: data.id,
+				report: true,
+			};
+			mutateUpdate(formData, {
+				onError: (res) => {
+					getToast(res.response?.data as string, 'error');
+				},
+				onSuccess: (res) => {
+					if (res.data) {
+						getToast('Report thành công!', 'success');
+					}
+				},
+			});
 		}
 	};
 
