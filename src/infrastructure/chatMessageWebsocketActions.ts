@@ -1,6 +1,5 @@
 import ISocketClient from '@/config/ISocketClient';
-import socketClient from '@/config/SocketClient';
-import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
+// import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
 
 class ChatMessageClient {
 	#socketClient: ISocketClient;
@@ -8,11 +7,9 @@ class ChatMessageClient {
 		this.#socketClient = socketClient;
 	}
 
-	postMessage(request: CreateMessageRequest): void {
+	postMessage(request: object): void {
 		this.#socketClient.send('/send/message', request, {});
 	}
 }
 
-const chatMessageClient = new ChatMessageClient(socketClient);
-
-export default chatMessageClient;
+export default ChatMessageClient;

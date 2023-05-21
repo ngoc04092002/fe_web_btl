@@ -1,12 +1,12 @@
 import { AxiosResponse } from 'axios';
 
 import http from '@/config/axiosConfig';
-import { MessageResponse } from '@/types/components/ChatMessage/type';
+import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
 
-export const getRidMessages: (rid: string) => Promise<AxiosResponse<MessageResponse[], any>> = (
+export const getRidMessages: (
 	rid: string,
-) => {
-	return http.get<MessageResponse[]>('get-msg', {
+) => Promise<AxiosResponse<CreateMessageRequest[], any>> = (rid: string) => {
+	return http.get<CreateMessageRequest[]>('get-msg', {
 		params: { rid },
 	});
 };

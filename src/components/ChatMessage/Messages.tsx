@@ -11,6 +11,7 @@ type Props = { data: MessageResponse[] };
 
 const Messages: FC<Props> = ({ data }) => {
 	const { user } = useContext(AuthContext);
+	const userId = (user as IUser)?.id || 0;
 	return (
 		<div>
 			<div className='mt-3 mb-10'>
@@ -21,7 +22,7 @@ const Messages: FC<Props> = ({ data }) => {
 							<Message
 								key={index}
 								msg={d.msg}
-								isOwern={(user as IUser)?.username === d.from}
+								isOwern={userId.toString() === d.from}
 							/>
 						))}
 				</div>

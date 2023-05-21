@@ -27,7 +27,7 @@ const userFetch = {
 const AuthProvider: FC<PropsAuth> = ({ children }) => {
 	const accessToken = localStorage.getItem('accessToken') || '';
 	// const [user, setUser] = useState<{} | IUser>(userFetch);
-	const [user, setUser] = useState<{} | IUser>({});
+	const [user, setUser] = useState<IUser | {}>({});
 	const navigate = useNavigate();
 	const { data, isLoading } = useQuery({
 		queryKey: ['refresh-cookie', accessToken],

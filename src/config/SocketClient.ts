@@ -8,7 +8,7 @@ class SocketClient implements ISocketClient {
 	constructor() {
 		const url = 'http://localhost:8080';
 		const socket = new SockJS(url + '/websocket');
-		this.client = Stomp.over(socket);
+		this.client = Stomp.over(() => socket);
 	}
 
 	public send(path: string, body: object, headers: Record<string, string>): void {
@@ -24,6 +24,4 @@ class SocketClient implements ISocketClient {
 	}
 }
 
-const socketClient = new SocketClient();
-
-export default socketClient;
+export default SocketClient;

@@ -1,13 +1,15 @@
 import { CloseOutlined, MessageFilled } from '@ant-design/icons';
 // import dayjs from 'dayjs';
+import { Stomp } from '@stomp/stompjs';
 import React, { FC, useContext, useEffect, useState } from 'react';
+import SockJS from 'sockjs-client';
 
 import BodyChatMessage from './BodyChatMessage';
 
-import socketClient from '@/config/SocketClient';
+// import SocketClient from '@/config/SocketClient';
 import { AuthContext } from '@/context/AuthProvider';
 import { FetchApiGetRidMessages } from '@/hooks/fetchApiChatMessage';
-import chatMessageClient from '@/infrastructure/chatMessageWebsocketActions';
+// import ChatMessageClient from '@/infrastructure/chatMessageWebsocketActions';
 import { CreateMessageRequest, MessageResponse } from '@/types/components/ChatMessage/type';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
@@ -26,15 +28,17 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 	const rid = formatRoomId(`${(user as IUser)?.id}`, `${postUser?.id}`);
 
 	const { res, isLoading } = FetchApiGetRidMessages(rid);
-	const [msgData, setMsgData] = useState<MessageResponse[] | []>([]);
+	const [msgData, setMsgData] = useState<MessageResponse[] | []>(res);
 
 	const handleShowBoxChat = () => {
 		setShowBoxChat(!showBoxChat);
 	};
 
-	// connect ws
-	function connect() {
-		stompClient = socketClient.getClient();
+	// websocket
+	useEffect(() => {
+		const socket = new SockJS('http://localhost:8080/websocket');
+		stompClient = Stomp.over(() => socket);
+		// stompClient = new SocketClient().getClient();
 		if (stompClient !== null) {
 			stompClient.connect(
 				{},
@@ -43,6 +47,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
 						console.log(resData);
 						if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
+							console.log(msgData);
 							setMsgData((prev) => [...prev, resData]);
 						}
 					});
@@ -50,18 +55,6 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 				onError,
 			);
 		}
-	}
-	// disconnect ws
-	// function disconnect() {
-	// 	if (stompClient != null) {
-	// 		stompClient.disconnect();
-	// 	}
-	// 	console.log('Disconnected');
-	// }
-
-	// websocket
-	useEffect(() => {
-		connect();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -76,23 +69,40 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 	const handleSendMessage = () => {
 		console.log(stompClient);
 		if (stompClient !== null && stompClient.connected) {
-			chatMessageClient.postMessage({
-				rid,
-				from: (user as IUser)?.username,
-				to: postUser?.username || '',
-				msg: msg,
-				// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
-			});
+			// const chatMessageClient = new ChatMessageClient(stompClient);
+			stompClient.send(
+				'/send/message',
+				{},
+				JSON.stringify({
+					rid,
+					from: (user as IUser)?.id,
+					to: postUser?.id || '',
+					msg: msg,
+					// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+				}),
+			);
+			// chatMessageClient.postMessage({
+			// 	rid,
+			// 	from: (user as IUser)?.username,
+			// 	to: postUser?.username || '',
+			// 	msg: msg,
+			// 	// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
+			// });
 			setMsg('');
 		} else {
 			console.log('No STOMP connection!');
-			connect();
 		}
 	};
 
-	const newMsgData = [...res, ...msgData];
+	useEffect(() => {
+		if (!res.length) {
+			return;
+		}
+		setMsgData(res);
+	}, [res]);
 
-	console.log(newMsgData);
+	// const newMsgData = [...res, ...msgData];
+	console.log(res, msgData);
 	return (
 		<div className={`fixed z-[10000] ${showBoxChat ? 'bottom-0' : 'bottom-8'} right-8`}>
 			{!showBoxChat && (
@@ -126,7 +136,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 						handleChangeMsg={handleChangeMsg}
 						handleSendMessage={handleSendMessage}
 						msg={msg}
-						msgData={newMsgData}
+						msgData={msgData}
 						isLoading={isLoading}
 					/>
 				</div>

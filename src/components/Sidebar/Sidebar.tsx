@@ -9,16 +9,16 @@ import {
 } from '@ant-design/icons';
 import classNames from 'classnames/bind';
 import { getAuth, signOut } from 'firebase/auth';
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { BuildingIcon, CallIcon, HomeIcon, QAIcon, ZaloIcon } from '../../assets/icons';
 
 import styles from './sidebar.module.scss';
 
-import socketClient from '@/config/SocketClient';
+// import socketClient from '@/config/SocketClient';
 import { AuthContext } from '@/context/AuthProvider';
-import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
+// import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 import { getToast } from '@/utils/CustomToast';
@@ -32,7 +32,7 @@ type Props = {
 
 const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 	const { user, setUser } = useContext(AuthContext);
-	const [msgData, setMsgData] = useState<CreateMessageRequest[] | []>([]);
+	// const [msgData, setMsgData] = useState<CreateMessageRequest[] | []>([]);
 	const isUserExist = Object.keys(user).length;
 	const navigate = useNavigate();
 
@@ -97,28 +97,28 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 	];
 
 	// websocket
-	useEffect(() => {
-		const stompClient = socketClient.getClient();
-		stompClient.connect(
-			{},
-			() => {
-				stompClient.subscribe('/receive/message', (response) => {
-					const resData: CreateMessageRequest = JSON.parse(response.body);
-					console.log(resData);
-					if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
-						setMsgData((prev) => [...prev, resData]);
-					}
-				});
-			},
-			onError,
-		);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	// useEffect(() => {
+	// 	const stompClient = socketClient.getClient();
+	// 	stompClient.connect(
+	// 		{},
+	// 		() => {
+	// 			stompClient.subscribe('/receive/message', (response) => {
+	// 				const resData: CreateMessageRequest = JSON.parse(response.body);
+	// 				console.log(resData);
+	// 				if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
+	// 					setMsgData((prev) => [...prev, resData]);
+	// 				}
+	// 			});
+	// 		},
+	// 		onError,
+	// 	);
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, []);
 
-	const onError = (err: any) => {
-		console.log(err);
-	};
-	console.log(msgData);
+	// const onError = (err: any) => {
+	// 	console.log(err);
+	// };
+	// console.log(msgData);
 	return (
 		<div
 			className={`${cx('backdrop', {
