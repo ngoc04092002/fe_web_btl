@@ -10,7 +10,7 @@ import BodyChatMessage from './BodyChatMessage';
 import { AuthContext } from '@/context/AuthProvider';
 import { FetchApiGetRidMessages } from '@/hooks/fetchApiChatMessage';
 // import ChatMessageClient from '@/infrastructure/chatMessageWebsocketActions';
-import { CreateMessageRequest, MessageResponse } from '@/types/components/ChatMessage/type';
+import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 import { formatRoomId } from '@/utils/FormatIds';
@@ -28,7 +28,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 	const rid = formatRoomId(`${(user as IUser)?.id}`, `${postUser?.id}`);
 
 	const { res, isLoading } = FetchApiGetRidMessages(rid);
-	const [msgData, setMsgData] = useState<MessageResponse[] | []>(res);
+	const [msgData, setMsgData] = useState<CreateMessageRequest[] | []>(res);
 
 	const handleShowBoxChat = () => {
 		setShowBoxChat(!showBoxChat);
@@ -67,7 +67,6 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 	};
 
 	const handleSendMessage = () => {
-		console.log(stompClient);
 		if (stompClient !== null && stompClient.connected) {
 			// const chatMessageClient = new ChatMessageClient(stompClient);
 			stompClient.send(
@@ -99,7 +98,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 			return;
 		}
 		setMsgData(res);
-	}, [res]);
+	}, [!!res.length]);
 
 	return (
 		<div className={`fixed z-[10000] ${showBoxChat ? 'bottom-0' : 'bottom-8'} right-8`}>

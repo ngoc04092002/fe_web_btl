@@ -1,4 +1,4 @@
-import { AreaChartOutlined } from '@ant-design/icons';
+// import { AreaChartOutlined } from '@ant-design/icons';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -9,11 +9,11 @@ type Props = {};
 
 const PaginationUtility: FC<Props> = () => {
 	const dataUtiliity = [
-		{
-			path: '/',
-			Icon: <AreaChartOutlined className='color-main ' />,
-			text: 'Review khu vực',
-		},
+		// {
+		// 	path: '/',
+		// 	Icon: <AreaChartOutlined className='color-main ' />,
+		// 	text: 'Review khu vực',
+		// },
 		{
 			path: '/search-room?price=price=<2%20triệu',
 			Icon: <Graduate />,
@@ -37,7 +37,7 @@ const PaginationUtility: FC<Props> = () => {
 	];
 	return (
 		<NewsContainer title='Tiện tích từ chúng tôi'>
-			<div className='grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-3'>
+			<div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3'>
 				{dataUtiliity &&
 					!!dataUtiliity.length &&
 					dataUtiliity.map(({ path, Icon, text }, index) => (

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useParams } from 'react-router-dom';
 import { Pagination, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -10,6 +11,7 @@ import './room-detail.scss';
 import Loading from '../Loading/Loading';
 
 import { i18PostRoom } from '@/constants/FilterRoom';
+import { FetchApiGetPostRoomIds } from '@/hooks/fetchApiPostRoom';
 import { IRoomInfo } from '@/types/components/type';
 import { IPostRoomResponse, keysI18PostRoom } from '@/types/pages/IDashBoard';
 
@@ -20,9 +22,13 @@ type Props = {
 };
 
 const RoomItem: FC<Props> = ({ dataHotNewsRent, res, isLoading }) => {
+	const { id } = useParams();
+	const { res: ids } = FetchApiGetPostRoomIds();
 	if (isLoading || !res) {
 		return <Loading styles='!text-[#ccc]' />;
 	}
+	const index = ids.indexOf(id ? +id : 0);
+	const nextId = index !== -1 && index < ids.length - 1 ? ids[index + 1] : ids[0];
 	const keys = Object.keys(res);
 
 	return (
@@ -35,7 +41,7 @@ const RoomItem: FC<Props> = ({ dataHotNewsRent, res, isLoading }) => {
 					Về danh sách
 				</a>
 				<a
-					href='/room-item'
+					href={`/room-item/${nextId}`}
 					className='room_item-next py-2 pl-4 pr-2'
 				>
 					Tin sau

@@ -1,12 +1,11 @@
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { Stomp } from '@stomp/stompjs';
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import SockJS from 'sockjs-client';
 
 import { ChatMessage } from '@/components';
 import BodyChatMessage from '@/components/ChatMessage/BodyChatMessage';
-import Loading from '@/components/Loading/Loading';
 import { AuthContext } from '@/context/AuthProvider';
 import {
 	FetchApiGetAllUsersChatMessageTo,
@@ -21,22 +20,20 @@ type Props = {};
 let stompClient: any = null;
 
 const ChatMessagePage = (props: Props) => {
-	const { partnerId } = useParams();
+	const { partnerId, rid } = useParams();
 	const [showUser, setShowUser] = useState(false);
 	const [msg, setMsg] = useState('');
 	const { user } = useContext(AuthContext);
+	const navigation = useNavigate();
 	const [msgData, setMsgData] = useState<CreateMessageRequest[] | []>([]);
 	const [selectUser, setSelectUser] = useState({
 		img: getImage('user.png'),
-		username: 'Ngọc Văn',
+		username: 'Messages',
 	});
-
 	const userId = (user as IUser).id || 0;
-	const rid = `${(user as IUser).id}-${partnerId}`;
-	console.log('rid==>', rid);
 
 	const { res, isLoading } = FetchApiGetAllUsersChatMessageTo(userId);
-	const { res: msgDatas, isLoading: loadingMsg } = FetchApiGetRidMessages(rid);
+	const { res: msgDatas, isLoading: loadingMsg } = FetchApiGetRidMessages(rid || '');
 
 	const handleChangeMsg = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setMsg(e.target.value);
@@ -57,10 +54,10 @@ const ChatMessagePage = (props: Props) => {
 				() => {
 					stompClient.subscribe('/receive/message', (response: any) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
-						console.log('received==>', resData, msgData, resData.rid === rid, resData.rid, rid);
+						console.log(resData.rid, rid);
 						if (resData.rid === rid) {
-							const receivedMsg = msgData.filter((msg) => msg.id !== resData.id);
-							setMsgData([...receivedMsg, resData]);
+							console.log('received==>', resData, msgData);
+							setMsgData((prev) => [...prev, resData]);
 						}
 					});
 				},
@@ -75,7 +72,9 @@ const ChatMessagePage = (props: Props) => {
 	};
 
 	const handleSendMessage = () => {
-		console.log('send');
+		if (!rid || !partnerId) {
+			return;
+		}
 		if (stompClient !== null && stompClient.connected) {
 			stompClient.send(
 				'/send/message',
@@ -91,9 +90,20 @@ const ChatMessagePage = (props: Props) => {
 			setMsg('');
 		}
 	};
-	console.log(msgDatas, msgData);
+	useLayoutEffect(() => {
+		if (!msgDatas.length) {
+			return;
+		}
+		console.log(msgDatas);
+		setMsgData(msgDatas);
+	}, [!!msgDatas.length]);
 
-	const newDatas = msgDatas.concat(msgData);
+	useEffect(() => {
+		if (selectUser.username === 'Messages') {
+			console.log(1);
+			navigation('/dash-board/chat-message');
+		}
+	}, []);
 
 	return (
 		<div className='w-full mb-20'>
@@ -119,15 +129,13 @@ const ChatMessagePage = (props: Props) => {
 				)}
 			</div>
 			<div className='mt-4 max-h-[460px] p-3 bg-white'>
-				{loadingMsg ? (
-					<Loading />
-				) : (
+				{!!rid && !!partnerId && (
 					<BodyChatMessage
 						handleChangeMsg={handleChangeMsg}
 						handleSendMessage={handleSendMessage}
 						msg={msg}
-						msgData={newDatas}
-						isLoading={false}
+						msgData={msgData}
+						isLoading={loadingMsg && !!rid}
 					/>
 				)}
 			</div>

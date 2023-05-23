@@ -23,7 +23,7 @@ export interface MessageResponse {
 
 export interface IBodyChatMessage {
 	isLoading?: boolean;
-	msgData: MessageResponse[] | [];
+	msgData: CreateMessageRequest[] | [];
 	handleChangeMsg: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 	msg: string;
 	handleSendMessage: () => void;

@@ -7,6 +7,7 @@ export function FetchApiGetRidMessages(rid: string) {
 	const { data, isLoading } = useQuery({
 		queryKey: ['get-msg', rid],
 		queryFn: () => getRidMessages(rid),
+		enabled: !!rid,
 	});
 	const res: CreateMessageRequest[] | [] = data?.data || [];
 

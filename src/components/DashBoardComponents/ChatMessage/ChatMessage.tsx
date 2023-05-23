@@ -1,11 +1,13 @@
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './chat-message.module.scss';
 
 import SkeletonTypography from '@/components/helpers/SkeletonTypography/SkeletonTypography';
+import { AuthContext } from '@/context/AuthProvider';
 import { IChatMessageUserInfo } from '@/types/components/ChatMessage/type';
+import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 
 type Props = {
@@ -17,6 +19,11 @@ type Props = {
 const cx = classNames.bind(styles);
 
 const ChatMessage: FC<Props> = ({ loading, data, setSelectUser }) => {
+	const { user } = useContext(AuthContext);
+	if (!Object.keys(user).length) {
+		return <></>;
+	}
+	const userId = (user as IUser).id;
 	return (
 		<div
 			className={`${cx(
@@ -40,7 +47,7 @@ const ChatMessage: FC<Props> = ({ loading, data, setSelectUser }) => {
 									})
 								}
 								key={d.id}
-								to={`/dash-board/chat-message/${d.id}`}
+								to={`/dash-board/chat-message/${d.id}/${userId}-${d.id}`}
 								className='flex items-center mb-2  hover:bg-[#e5e5e5c7] p-3'
 							>
 								<img

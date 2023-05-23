@@ -168,7 +168,7 @@ export const routes = createBrowserRouter([
 										element: <ClientFeedback />,
 									},
 									{
-										path: 'chat-message/:partnerId?',
+										path: 'chat-message/:partnerId?/:rid?',
 										element: <ChatMessagePage />,
 									},
 									{

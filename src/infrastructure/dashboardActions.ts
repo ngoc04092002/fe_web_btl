@@ -120,3 +120,7 @@ export const deletePostRoom: (id: number) => Promise<AxiosResponse<boolean, any>
 ) => {
 	return http.delete<boolean>(`delete-post-room/${id}`);
 };
+
+export const getPostRoomIds: () => Promise<AxiosResponse<number[], any>> = () => {
+	return http.get('get-ids');
+};

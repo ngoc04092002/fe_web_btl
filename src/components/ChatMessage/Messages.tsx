@@ -4,10 +4,10 @@ import React, { FC, useContext } from 'react';
 import Message from './Message';
 
 import { AuthContext } from '@/context/AuthProvider';
-import { MessageResponse } from '@/types/components/ChatMessage/type';
+import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
 import { IUser } from '@/types/pages/types';
 
-type Props = { data: MessageResponse[] };
+type Props = { data: CreateMessageRequest[] };
 
 const Messages: FC<Props> = ({ data }) => {
 	const { user } = useContext(AuthContext);

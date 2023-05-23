@@ -5,6 +5,7 @@ import {
 	getAllPostRoomOfUser,
 	getPostRoomAmountByMonth,
 	getPostRoomById,
+	getPostRoomIds,
 	getPostRoomReport,
 } from '@/infrastructure/dashboardActions';
 import {
@@ -89,6 +90,22 @@ export function FetchApiGetAllPostRoomOfUser(id: number) {
 	});
 
 	const res: IPostRoomResponse[] | [] = data?.data || [];
+
+	return {
+		res,
+		isLoading,
+	};
+}
+
+export function FetchApiGetPostRoomIds() {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get-ids'],
+		queryFn: () => getPostRoomIds(),
+		staleTime: 10 * 60 * 1000,
+		cacheTime: 20 * 60 * 1000,
+	});
+
+	const res: number[] | [] = data?.data || [];
 
 	return {
 		res,
