@@ -9,6 +9,12 @@ export interface CreateMessageRequest {
 	createdAt?: string;
 }
 
+export interface IChatMessageUserInfo {
+	id: number;
+	img: string;
+	username: string;
+}
+
 export interface MessageResponse {
 	from: string;
 	to: string;

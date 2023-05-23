@@ -6,9 +6,13 @@ import SockJS from 'sockjs-client';
 
 import { ChatMessage } from '@/components';
 import BodyChatMessage from '@/components/ChatMessage/BodyChatMessage';
+import Loading from '@/components/Loading/Loading';
 import { AuthContext } from '@/context/AuthProvider';
-// import { FetchApiGetRidMessages } from '@/hooks/fetchApiChatMessage';
-import { CreateMessageRequest, MessageResponse } from '@/types/components/ChatMessage/type';
+import {
+	FetchApiGetAllUsersChatMessageTo,
+	FetchApiGetRidMessages,
+} from '@/hooks/fetchApiChatMessage';
+import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 
@@ -17,15 +21,27 @@ type Props = {};
 let stompClient: any = null;
 
 const ChatMessagePage = (props: Props) => {
-	const { rid } = useParams();
+	const { partnerId } = useParams();
 	const [showUser, setShowUser] = useState(false);
 	const [msg, setMsg] = useState('');
 	const { user } = useContext(AuthContext);
-	const [msgData, setMsgData] = useState<MessageResponse[] | []>([]);
+	const [msgData, setMsgData] = useState<CreateMessageRequest[] | []>([]);
+	const [selectUser, setSelectUser] = useState({
+		img: getImage('user.png'),
+		username: 'Ngọc Văn',
+	});
+
+	const userId = (user as IUser).id || 0;
+	const rid = `${(user as IUser).id}-${partnerId}`;
+	console.log('rid==>', rid);
+
+	const { res, isLoading } = FetchApiGetAllUsersChatMessageTo(userId);
+	const { res: msgDatas, isLoading: loadingMsg } = FetchApiGetRidMessages(rid);
+
 	const handleChangeMsg = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setMsg(e.target.value);
 	};
-	console.log('rid', rid);
+
 	const handleToggleShowUser = () => {
 		setShowUser(!showUser);
 	};
@@ -41,9 +57,10 @@ const ChatMessagePage = (props: Props) => {
 				() => {
 					stompClient.subscribe('/receive/message', (response: any) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
-						if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
-							console.log(msgData);
-							setMsgData((prev) => [...prev, resData]);
+						console.log('received==>', resData, msgData, resData.rid === rid, resData.rid, rid);
+						if (resData.rid === rid) {
+							const receivedMsg = msgData.filter((msg) => msg.id !== resData.id);
+							setMsgData([...receivedMsg, resData]);
 						}
 					});
 				},
@@ -64,9 +81,9 @@ const ChatMessagePage = (props: Props) => {
 				'/send/message',
 				{},
 				JSON.stringify({
-					rid: '2-7',
-					from: (user as IUser)?.username,
-					to: 'postUser?.username' || '',
+					rid,
+					from: userId.toString(),
+					to: partnerId,
 					msg: msg,
 					// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
 				}),
@@ -74,8 +91,9 @@ const ChatMessagePage = (props: Props) => {
 			setMsg('');
 		}
 	};
+	console.log(msgDatas, msgData);
 
-	const newMsgData = [...msgData];
+	const newDatas = msgDatas.concat(msgData);
 
 	return (
 		<div className='w-full mb-20'>
@@ -85,23 +103,33 @@ const ChatMessagePage = (props: Props) => {
 			>
 				<div className='flex items-center'>
 					<img
-						src={getImage('user.png')}
+						src={selectUser.img || getImage('user.png')}
 						alt=''
 						className='w-12 h-12 mr-4 rounded-[50%] object-cover select-none'
 					/>
-					<p>Ngọc Văn</p>
+					<p>{selectUser.username}</p>
 				</div>
 				{showUser ? <CaretDownOutlined /> : <CaretUpOutlined />}
-				{showUser && <ChatMessage />}
+				{showUser && !!Object.keys(user).length && (
+					<ChatMessage
+						data={res}
+						loading={isLoading}
+						setSelectUser={setSelectUser}
+					/>
+				)}
 			</div>
-			<div className='mt-4 max-h-[420px] p-3 bg-white'>
-				<BodyChatMessage
-					handleChangeMsg={handleChangeMsg}
-					handleSendMessage={handleSendMessage}
-					msg={msg}
-					msgData={newMsgData}
-					isLoading={false}
-				/>
+			<div className='mt-4 max-h-[460px] p-3 bg-white'>
+				{loadingMsg ? (
+					<Loading />
+				) : (
+					<BodyChatMessage
+						handleChangeMsg={handleChangeMsg}
+						handleSendMessage={handleSendMessage}
+						msg={msg}
+						msgData={newDatas}
+						isLoading={false}
+					/>
+				)}
 			</div>
 		</div>
 	);

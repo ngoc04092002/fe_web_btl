@@ -46,7 +46,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 					stompClient.subscribe('/receive/message', (response: any) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
 						console.log(resData);
-						if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
+						if (resData.rid === rid) {
 							console.log(msgData);
 							setMsgData((prev) => [...prev, resData]);
 						}
@@ -101,8 +101,6 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 		setMsgData(res);
 	}, [res]);
 
-	// const newMsgData = [...res, ...msgData];
-	console.log(res, msgData);
 	return (
 		<div className={`fixed z-[10000] ${showBoxChat ? 'bottom-0' : 'bottom-8'} right-8`}>
 			{!showBoxChat && (

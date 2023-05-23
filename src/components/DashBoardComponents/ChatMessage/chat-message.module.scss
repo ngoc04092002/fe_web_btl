@@ -2,7 +2,7 @@
 	img {
 		user-select: none;
 	}
-	height: 300px;
+	max-height: 300px;
 	overflow-x: hidden;
 	overflow-y: overlay;
 	&::-webkit-scrollbar {

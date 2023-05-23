@@ -1,6 +1,6 @@
 import { SendOutlined } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import Loading from '../Loading';
 
@@ -21,9 +21,16 @@ const BodyChatMessage: FC<IBodyChatMessage> = ({
 		e.target.style.height = '40px';
 		e.target.style.height = e.target.scrollHeight + 'px';
 	};
+	useEffect(() => {
+		const div = document.querySelector('.scrollTo');
+		if (div) {
+			console.log(div.scrollHeight);
+			div.scrollTop = div.scrollHeight;
+		}
+	}, []);
 	return (
 		<>
-			<div className={`${cx('chat_msg_body')} pl-3 pr-5`}>
+			<div className={`${cx('chat_msg_body')} pl-3 pr-5 scrollTo`}>
 				{isLoading ? <Loading /> : <Messages data={msgData} />}
 			</div>
 			<div className='flex h-fit items-center px-2 mb-2 pt-2'>
