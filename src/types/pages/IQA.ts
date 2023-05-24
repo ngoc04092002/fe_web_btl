@@ -10,7 +10,7 @@ export interface IRequestBodyQA {
 	commentsEntities?: IComments[];
 }
 
-export interface iFilterQA {
+export interface IFilterQA {
 	s: string;
 	limit: number;
 	offset: number;

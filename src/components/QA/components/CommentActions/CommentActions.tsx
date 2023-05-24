@@ -205,7 +205,12 @@ const CommentActions: FC<Props> = ({ data }) => {
 				)}
 				{isLoading && <SkeletonTypography loading />}
 			</div>
-			{showComment && <Comments comments={commentDatas} />}
+			{showComment && (
+				<Comments
+					comments={commentDatas}
+					setCommentDatas={setCommentDatas}
+				/>
+			)}
 		</>
 	);
 };

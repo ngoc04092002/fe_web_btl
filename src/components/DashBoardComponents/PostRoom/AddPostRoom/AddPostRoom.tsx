@@ -72,6 +72,8 @@ const AddPostRoom = (props: Props) => {
 					getDownloadURL(d.ref)
 						.then((url) => {
 							arraySrc.push({ src: url });
+						})
+						.then(() => {
 							if (index === lenAvatar) {
 								const formData = {
 									...value,

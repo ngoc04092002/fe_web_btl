@@ -119,7 +119,7 @@ const siderbarData: ISidebarRest[] = [
 	},
 	{
 		path: '/dash-board/q-a',
-		title: 'Question & Answer',
+		title: 'Hỏi đáp',
 		Icon: (props: ISidebarIconProps) => (
 			<QuestionCircleOutlined
 				title={props.title}

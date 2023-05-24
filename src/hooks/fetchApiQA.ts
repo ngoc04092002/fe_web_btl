@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { filterQA, getAllQa, getAllQaByUser } from '@/infrastructure/qaActions';
-import { IQAResponse, IRequestBodyQA, iFilterQA } from '@/types/pages/IQA';
+import { IQAResponse, IRequestBodyQA, IFilterQA } from '@/types/pages/IQA';
 
-export function FetchApiFilterQA(params: iFilterQA) {
+export function FetchApiFilterQA(params: IFilterQA) {
 	const { data, isLoading } = useQuery({
 		queryKey: ['filter-qa', params],
 		queryFn: () => filterQA(params),

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, memo, useContext, useState } from 'react';
 
 import TextFieldComment from '../TextFieldComment';
 
@@ -15,9 +15,10 @@ import { getToast } from '@/utils/CustomToast';
 
 type Props = {
 	comment: IComments;
+	setCommentDatas: React.Dispatch<React.SetStateAction<IComments[]>>;
 };
 
-const Comment: FC<Props> = ({ comment }) => {
+const Comment: FC<Props> = ({ comment, setCommentDatas }) => {
 	const { user } = useContext(AuthContext);
 	const [showChildComments, setShowChildComments] = useState(false);
 	const [childCommentDatas, setChildCommentDatas] = useState<ICommentChild[] | []>(() => {
@@ -76,8 +77,12 @@ const Comment: FC<Props> = ({ comment }) => {
 	};
 
 	return (
-		<div className='pl-3 mt-3 border-0 border-l-2 border-solid border-[#e6ecf0]'>
-			<CommentResponse comment={comment} />
+		<div className='pl-3 mr-4 mt-3 border-0 border-l-2 border-solid border-[#e6ecf0]'>
+			<CommentResponse
+				comment={comment}
+				setChildCommentDatas={setChildCommentDatas}
+				setCommentDatas={setCommentDatas}
+			/>
 			<div className=' ml-12 flex items-center'>
 				<p
 					onClick={handleShowChildComments}
@@ -110,6 +115,8 @@ const Comment: FC<Props> = ({ comment }) => {
 								key={c.id}
 								comment={c}
 								child
+								setChildCommentDatas={setChildCommentDatas}
+								setCommentDatas={setCommentDatas}
 							/>
 						))}
 				</div>
@@ -118,4 +125,4 @@ const Comment: FC<Props> = ({ comment }) => {
 	);
 };
 
-export default Comment;
+export default memo(Comment);

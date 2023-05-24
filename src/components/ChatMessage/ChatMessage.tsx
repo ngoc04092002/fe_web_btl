@@ -98,6 +98,7 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 			return;
 		}
 		setMsgData(res);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [!!res.length]);
 
 	return (

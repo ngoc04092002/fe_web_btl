@@ -8,7 +8,7 @@ import {
 	IQAResponse,
 	IRequestBodyQA,
 	IToggleLike,
-	iFilterQA,
+	IFilterQA,
 } from '@/types/pages/IQA';
 
 export const getAllQa: () => Promise<AxiosResponse<IRequestBodyQA[], any>> = () => {
@@ -27,8 +27,8 @@ export const createQA: (body: IRequestBodyQA) => Promise<AxiosResponse<boolean, 
 	return http.post('save-QA', body);
 };
 
-export const filterQA: (params: iFilterQA) => Promise<AxiosResponse<IQAResponse[], any>> = (
-	params: iFilterQA,
+export const filterQA: (params: IFilterQA) => Promise<AxiosResponse<IQAResponse[], any>> = (
+	params: IFilterQA,
 ) => {
 	return http.get('filter-qa', { params });
 };
@@ -59,4 +59,14 @@ export const updateQa: (body: IQAReport) => Promise<AxiosResponse<boolean, any>>
 	body: IQAReport,
 ) => {
 	return http.put<boolean>('update-qa', body);
+};
+
+export const deleteComment: (id: number) => Promise<AxiosResponse<boolean, any>> = (id: number) => {
+	return http.delete<boolean>(`delete-comment/${id}`);
+};
+
+export const deleteCommentChild: (id: number) => Promise<AxiosResponse<boolean, any>> = (
+	id: number,
+) => {
+	return http.delete<boolean>(`delete-comment-child/${id}`);
 };

@@ -96,6 +96,7 @@ const ChatMessagePage = (props: Props) => {
 		}
 		console.log(msgDatas);
 		setMsgData(msgDatas);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [!!msgDatas.length]);
 
 	useEffect(() => {
@@ -103,6 +104,7 @@ const ChatMessagePage = (props: Props) => {
 			console.log(1);
 			navigation('/dash-board/chat-message');
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
