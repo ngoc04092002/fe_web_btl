@@ -7,4 +7,5 @@ export interface ISearch {
 	searchValue?: string;
 	isTippy?: boolean;
 	isHeader?: boolean;
+	isQa?: boolean;
 }

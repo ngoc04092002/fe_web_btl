@@ -1,7 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getAllUsersChatMessageTo, getRidMessages } from '@/infrastructure/chatMessageAction';
-import { CreateMessageRequest, IChatMessageUserInfo } from '@/types/components/ChatMessage/type';
+import {
+	findMessageRep,
+	getAllUsersChatMessageTo,
+	getRidMessages,
+	getStatusRoom,
+} from '@/infrastructure/chatMessageAction';
+import {
+	CreateMessageRequest,
+	IChatMessageUserInfo,
+	ISeemModal,
+} from '@/types/components/ChatMessage/type';
 
 export function FetchApiGetRidMessages(rid: string) {
 	const { data, isLoading } = useQuery({
@@ -10,6 +19,34 @@ export function FetchApiGetRidMessages(rid: string) {
 		enabled: !!rid,
 	});
 	const res: CreateMessageRequest[] | [] = data?.data || [];
+
+	return {
+		res,
+		isLoading,
+	};
+}
+
+export function FetchApiGetStatusRoom(rid: string) {
+	const { data, isLoading } = useQuery({
+		queryKey: ['get-status-room', rid],
+		queryFn: () => getStatusRoom(rid),
+		enabled: !!rid,
+	});
+	const res: ISeemModal | undefined = data?.data;
+
+	return {
+		res,
+		isLoading,
+	};
+}
+
+export function FetchApiFindMessageRep(userId: string) {
+	const { data, isLoading } = useQuery({
+		queryKey: ['check-miss-msg', userId],
+		queryFn: () => findMessageRep(userId),
+		enabled: !!userId,
+	});
+	const res: boolean = !!data?.data;
 
 	return {
 		res,

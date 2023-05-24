@@ -7,8 +7,6 @@ export function FetchApiFilterQA(params: IFilterQA) {
 	const { data, isLoading } = useQuery({
 		queryKey: ['filter-qa', params],
 		queryFn: () => filterQA(params),
-		staleTime: 5 * 60 * 1000,
-		cacheTime: 7 * 60 * 1000,
 	});
 
 	const res: IQAResponse[] | undefined = data?.data;

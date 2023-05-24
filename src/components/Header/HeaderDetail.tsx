@@ -13,6 +13,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 
 import { AuthContext } from '@/context/AuthProvider';
+import { useAppSelector } from '@/hooks/CustomHookRedux';
+import { FetchApiFindMessageRep } from '@/hooks/fetchApiChatMessage';
 import { IAuthContext } from '@/types/context/type';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
@@ -28,6 +30,10 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 	const isUserExist = Object.keys(user).length;
 	const navigate = useNavigate();
 
+	const statusRoom = useAppSelector((state) => state.statusRoom);
+	const checkUser = statusRoom.rid.split('-')?.[0] === (user as IUser).id?.toString();
+	const checkMissMsg = FetchApiFindMessageRep((user as IUser).id?.toString() || '');
+	console.log('checkMissMsg==>', checkMissMsg);
 	const handleLogout = () => {
 		if (!isUserExist) {
 			// check for login
@@ -63,7 +69,6 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 			text: 'Góp ý kiến',
 		},
 	];
-
 	return (
 		<div
 			className={`${cx(
@@ -111,13 +116,15 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 					onClick={handleUnShow}
 					className='relative'
 				>
-					<Link to={'/dash-board'}>
+					<Link to='/dash-board/chat-message'>
 						<BellOutlined />
 						<span>Thông báo</span>
 					</Link>
-					<span className='absolute bg-red-600 left-[-3px] top-[6px] w-4 h-4 rounded-[50%] flex items-center justify-center text-white'>
-						!
-					</span>
+					{checkUser && statusRoom.isRep && (
+						<span className='absolute bg-red-600 left-[-3px] top-[6px] w-4 h-4 rounded-[50%] flex items-center justify-center text-white'>
+							!
+						</span>
+					)}
 				</li>
 			</ul>
 			<span

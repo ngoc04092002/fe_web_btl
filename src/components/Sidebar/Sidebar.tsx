@@ -19,6 +19,7 @@ import styles from './sidebar.module.scss';
 // import socketClient from '@/config/SocketClient';
 import { AuthContext } from '@/context/AuthProvider';
 // import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
+import { useAppSelector } from '@/hooks/CustomHookRedux';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 import { getToast } from '@/utils/CustomToast';
@@ -54,6 +55,9 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 				});
 		}
 	};
+
+	const statusRoom = useAppSelector((state) => state.statusRoom);
+	const checkUser = statusRoom.rid.split('-')?.[0] === (user as IUser).id?.toString();
 
 	const dataUtiliity = [
 		{
@@ -96,29 +100,6 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 		},
 	];
 
-	// websocket
-	// useEffect(() => {
-	// 	const stompClient = socketClient.getClient();
-	// 	stompClient.connect(
-	// 		{},
-	// 		() => {
-	// 			stompClient.subscribe('/receive/message', (response) => {
-	// 				const resData: CreateMessageRequest = JSON.parse(response.body);
-	// 				console.log(resData);
-	// 				if (resData.rid.includes((user as IUser)?.id?.toString() || '')) {
-	// 					setMsgData((prev) => [...prev, resData]);
-	// 				}
-	// 			});
-	// 		},
-	// 		onError,
-	// 	);
-	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	// }, []);
-
-	// const onError = (err: any) => {
-	// 	console.log(err);
-	// };
-	// console.log(msgData);
 	return (
 		<div
 			className={`${cx('backdrop', {
@@ -130,9 +111,9 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 					<div className='flex items-center select-none'>
 						<div className='mr-4'>
 							<img
-								src={getImage('user.png')}
+								src={(Object.keys(user).length && (user as IUser).avatar) || getImage('user.png')}
 								alt='user'
-								className='w-9 h-9'
+								className='w-9 h-9 object-cover rounded-[50%]'
 							/>
 						</div>
 						{!!isUserExist && (
@@ -216,13 +197,15 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 						onClick={handleActive}
 						className='relative'
 					>
-						<Link to={'/dash-board'}>
+						<Link to='/dash-board/chat-message'>
 							<BellOutlined />
 							<span>Thông báo</span>
 						</Link>
-						<span className='absolute bg-red-600 left-[-3px] top-[6px] w-4 h-4 rounded-[50%] flex items-center justify-center text-white'>
-							!
-						</span>
+						{checkUser && statusRoom.isRep && (
+							<span className='absolute bg-red-600 left-[-3px] top-[6px] w-4 h-4 rounded-[50%] flex items-center justify-center text-white'>
+								!
+							</span>
+						)}
 					</li>
 				</ul>
 				<span

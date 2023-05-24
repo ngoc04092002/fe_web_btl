@@ -12,7 +12,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import React, { FC, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import SliderImgs from './SliderImgs';
 import TablePaginationActions from './TablePaginationActions';
@@ -30,7 +30,7 @@ type Props = {
 };
 
 const ListPostRoom: FC<Props> = ({ userId }) => {
-	const navigation = useNavigate();
+	// const navigation = useNavigate();
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const [srcs, setSrcs] = useState<IPostRoomSrc[] | []>([]);
@@ -114,9 +114,9 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 		);
 	};
 
-	const handleUpdatePostRoom = (room: IPostRoomResponse) => {
-		navigation(`/dash-board/post-room/add-post-room/${room.id}`);
-	};
+	// const handleUpdatePostRoom = (room: IPostRoomResponse) => {
+	// 	navigation(`/dash-board/post-room/add-post-room/${room.id}`);
+	// };
 
 	const updateStatusPostRoom = (room: IPostRoomResponse) => {
 		const newRoomData = {
@@ -203,7 +203,7 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 											align='right'
 											className=''
 										>
-											<ButtonWrapper onClick={() => handleUpdatePostRoom(row)}>Sửa</ButtonWrapper>
+											{/* <ButtonWrapper onClick={() => handleUpdatePostRoom(row)}>Sửa</ButtonWrapper> */}
 											<ButtonWrapper
 												isLoading={loadingDelete}
 												onClick={() => handleDeletePostRoom(row)}

@@ -74,6 +74,7 @@ const AddPostRoom = (props: Props) => {
 							arraySrc.push({ src: url });
 						})
 						.then(() => {
+							console.log(index, lenAvatar);
 							if (index === lenAvatar) {
 								const formData = {
 									...value,

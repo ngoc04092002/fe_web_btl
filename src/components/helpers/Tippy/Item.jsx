@@ -8,7 +8,7 @@ const Item = ({ item }) => {
 		>
 			<div className='w-[20%] h-[100px]'>
 				<img
-					src={item.src[0].src}
+					src={item?.src?.[0]?.src}
 					alt=''
 					className='w-full h-full'
 				/>

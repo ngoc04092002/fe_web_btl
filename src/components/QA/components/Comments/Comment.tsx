@@ -88,7 +88,7 @@ const Comment: FC<Props> = ({ comment, setCommentDatas }) => {
 					onClick={handleShowChildComments}
 					className='text-sm select-none mr-4 font-medium cursor-pointer color-main'
 				>
-					Xem thêm
+					Xem thêm{childCommentDatas.length > 0 ? `(${childCommentDatas.length})` : ''}
 				</p>
 				<p
 					onClick={handleShowAnswer}

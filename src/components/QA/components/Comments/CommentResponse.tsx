@@ -70,7 +70,7 @@ const CommentResponse: FC<Props> = ({
 		return <></>;
 	}
 	return (
-		<div className='mb-3 comment_response-container'>
+		<div className='mb-1 comment_response-container'>
 			<div className='flex items-start'>
 				<img
 					src={comment?.clientComment?.avatar || getImage('user.png')}

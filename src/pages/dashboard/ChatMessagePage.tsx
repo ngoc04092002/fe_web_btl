@@ -1,5 +1,7 @@
 import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { Stomp } from '@stomp/stompjs';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SockJS from 'sockjs-client';
@@ -11,9 +13,11 @@ import {
 	FetchApiGetAllUsersChatMessageTo,
 	FetchApiGetRidMessages,
 } from '@/hooks/fetchApiChatMessage';
-import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
+import { toggleStatusRoom } from '@/infrastructure/chatMessageAction';
+import { CreateMessageRequest, ISeemModal } from '@/types/components/ChatMessage/type';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
+import { getToast } from '@/utils/CustomToast';
 
 type Props = {};
 
@@ -29,6 +33,8 @@ const ChatMessagePage = (props: Props) => {
 	const [selectUser, setSelectUser] = useState({
 		img: getImage('user.png'),
 		username: 'Messages',
+		isRep: false,
+		rid: '',
 	});
 	const userId = (user as IUser).id || 0;
 
@@ -42,6 +48,13 @@ const ChatMessagePage = (props: Props) => {
 	const handleToggleShowUser = () => {
 		setShowUser(!showUser);
 	};
+
+	const { mutate } = useMutation<AxiosResponse<ISeemModal, any>, AxiosError, ISeemModal, unknown>({
+		mutationFn: (formData: ISeemModal) => {
+			const res = toggleStatusRoom(formData);
+			return res;
+		},
+	});
 
 	// websocket
 	useEffect(() => {
@@ -59,6 +72,17 @@ const ChatMessagePage = (props: Props) => {
 							console.log('received==>', resData, msgData);
 							setMsgData((prev) => [...prev, resData]);
 						}
+						if (rid === undefined) {
+							mutate(
+								{ rid: resData.rid, isRep: true },
+								{
+									onError: (res: AxiosError) => {
+										getToast(res.response?.data as string, 'error');
+									},
+									onSuccess: (res) => {},
+								},
+							);
+						}
 					});
 				},
 				onError,
@@ -66,7 +90,6 @@ const ChatMessagePage = (props: Props) => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
 	const onError = (err: any) => {
 		console.log(err);
 	};
@@ -94,18 +117,34 @@ const ChatMessagePage = (props: Props) => {
 		if (!msgDatas.length) {
 			return;
 		}
-		console.log(msgDatas);
 		setMsgData(msgDatas);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [!!msgDatas.length]);
 
 	useEffect(() => {
 		if (selectUser.username === 'Messages') {
-			console.log(1);
 			navigation('/dash-board/chat-message');
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	useEffect(() => {
+		if (!rid) {
+			return;
+		}
+		if (selectUser.isRep) {
+			console.log('here');
+			mutate(
+				{ rid: selectUser.rid, isRep: false },
+				{
+					onError: (res: AxiosError) => {
+						getToast(res.response?.data as string, 'error');
+					},
+					onSuccess: (res) => {},
+				},
+			);
+		}
+	}, [mutate, rid, selectUser.isRep, selectUser.rid]);
 
 	return (
 		<div className='w-full mb-20'>

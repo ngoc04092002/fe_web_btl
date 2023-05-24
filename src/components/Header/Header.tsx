@@ -1,6 +1,6 @@
 import { MenuOutlined } from '@ant-design/icons';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDebounce } from 'use-debounce';
 
 import Search from '../helpers/Search';
@@ -26,6 +26,7 @@ const menuNavBar: IMenuNavBar[] = [
 ];
 
 const Header: React.FC<Props> = ({ handleActive }) => {
+	const isQa = useLocation().pathname.endsWith('q-a');
 	const { user } = useContext<IAuthContext>(AuthContext);
 	const [show, setShow] = useState<boolean>(false);
 	const [search, setSearch] = useState<string>('');
@@ -70,6 +71,7 @@ const Header: React.FC<Props> = ({ handleActive }) => {
 					searchValue={searchValue}
 					isTippy
 					isHeader
+					isQa={isQa}
 				/>
 
 				<MenuOutlined

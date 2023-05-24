@@ -15,6 +15,12 @@ export interface IChatMessageUserInfo {
 	username: string;
 }
 
+export interface ISeemModal {
+	id?: string;
+	rid: string;
+	isRep: boolean;
+}
+
 export interface MessageResponse {
 	from: string;
 	to: string;

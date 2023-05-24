@@ -1,1 +1,1 @@
-export const reportList: string[] = ['Báo cáo phạm vi'];
+export const reportList: string[] = ['Báo cáo vi phạm'];

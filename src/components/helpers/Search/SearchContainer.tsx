@@ -11,18 +11,21 @@ const SeachContainer: React.FC<ISearch> = ({
 	handleClick,
 	isTippy = false,
 	isHeader = false,
+	isQa = false,
 }) => {
 	return (
 		<section
 			className={`${isHeader ? 'cus-screen:hidden flex' : 'cus-screen:flex hidden'}  flex-1 `}
 		>
-			<Search
-				searchValue={searchValue}
-				handleChange={handleChange}
-				styles={styles}
-				handleClick={handleClick}
-				isTippy={isTippy}
-			/>
+			{!isQa && (
+				<Search
+					searchValue={searchValue}
+					handleChange={handleChange}
+					styles={styles}
+					handleClick={handleClick}
+					isTippy={isTippy}
+				/>
+			)}
 		</section>
 	);
 };
