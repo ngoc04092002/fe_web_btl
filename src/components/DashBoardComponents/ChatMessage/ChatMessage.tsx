@@ -12,7 +12,6 @@ type Props = {
 };
 
 const ChatMessage: FC<Props> = ({ d, rid, setSelectUser }) => {
-	console.log('rid==>', rid);
 	const { res } = FetchApiGetStatusRoom(rid);
 
 	return (

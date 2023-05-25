@@ -13,7 +13,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 
 import { AuthContext } from '@/context/AuthProvider';
-import { useAppSelector } from '@/hooks/CustomHookRedux';
 import { FetchApiFindMessageRep } from '@/hooks/fetchApiChatMessage';
 import { IAuthContext } from '@/types/context/type';
 import { IUser } from '@/types/pages/types';
@@ -30,10 +29,8 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 	const isUserExist = Object.keys(user).length;
 	const navigate = useNavigate();
 
-	const statusRoom = useAppSelector((state) => state.statusRoom);
-	const checkUser = statusRoom.rid.split('-')?.[0] === (user as IUser).id?.toString();
-	const checkMissMsg = FetchApiFindMessageRep((user as IUser).id?.toString() || '');
-	console.log('checkMissMsg==>', checkMissMsg);
+	const { res } = FetchApiFindMessageRep((user as IUser).id?.toString() || '');
+
 	const handleLogout = () => {
 		if (!isUserExist) {
 			// check for login
@@ -120,7 +117,7 @@ const HeaderDetail: FC<Props> = ({ handleUnShow }) => {
 						<BellOutlined />
 						<span>Thông báo</span>
 					</Link>
-					{checkUser && statusRoom.isRep && (
+					{res && (
 						<span className='absolute bg-red-600 left-[-3px] top-[6px] w-4 h-4 rounded-[50%] flex items-center justify-center text-white'>
 							!
 						</span>

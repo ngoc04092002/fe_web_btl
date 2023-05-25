@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SockJS from 'sockjs-client';
 
-import { ChatMessage } from '@/components';
+import { ChatMessages } from '@/components';
 import BodyChatMessage from '@/components/ChatMessage/BodyChatMessage';
 import { AuthContext } from '@/context/AuthProvider';
 import {
@@ -55,7 +55,7 @@ const ChatMessagePage = (props: Props) => {
 			return res;
 		},
 	});
-
+	console.log(selectUser);
 	// websocket
 	useEffect(() => {
 		const socket = new SockJS('http://localhost:8080/websocket');
@@ -67,12 +67,12 @@ const ChatMessagePage = (props: Props) => {
 				() => {
 					stompClient.subscribe('/receive/message', (response: any) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
-						console.log(resData.rid, rid);
-						if (resData.rid === rid) {
+						console.log('rid==>', resData.rid, selectUser.rid);
+						if (resData.rid === selectUser.rid) {
 							console.log('received==>', resData, msgData);
 							setMsgData((prev) => [...prev, resData]);
 						}
-						if (rid === undefined) {
+						if (selectUser.rid === '') {
 							mutate(
 								{ rid: resData.rid, isRep: true },
 								{
@@ -162,7 +162,7 @@ const ChatMessagePage = (props: Props) => {
 				</div>
 				{showUser ? <CaretDownOutlined /> : <CaretUpOutlined />}
 				{showUser && !!Object.keys(user).length && (
-					<ChatMessage
+					<ChatMessages
 						data={res}
 						loading={isLoading}
 						setSelectUser={setSelectUser}

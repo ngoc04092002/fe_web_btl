@@ -16,10 +16,8 @@ import { BuildingIcon, CallIcon, HomeIcon, QAIcon, ZaloIcon } from '../../assets
 
 import styles from './sidebar.module.scss';
 
-// import socketClient from '@/config/SocketClient';
 import { AuthContext } from '@/context/AuthProvider';
-// import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
-import { useAppSelector } from '@/hooks/CustomHookRedux';
+import { FetchApiFindMessageRep } from '@/hooks/fetchApiChatMessage';
 import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 import { getToast } from '@/utils/CustomToast';
@@ -56,8 +54,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 		}
 	};
 
-	const statusRoom = useAppSelector((state) => state.statusRoom);
-	const checkUser = statusRoom.rid.split('-')?.[0] === (user as IUser).id?.toString();
+	const { res } = FetchApiFindMessageRep((user as IUser).id?.toString() || '');
 
 	const dataUtiliity = [
 		{
@@ -201,7 +198,7 @@ const Sidebar: FC<Props> = ({ active, handleActive, setActive }) => {
 							<BellOutlined />
 							<span>Thông báo</span>
 						</Link>
-						{checkUser && statusRoom.isRep && (
+						{res && (
 							<span className='absolute bg-red-600 left-[-3px] top-[6px] w-4 h-4 rounded-[50%] flex items-center justify-center text-white'>
 								!
 							</span>
