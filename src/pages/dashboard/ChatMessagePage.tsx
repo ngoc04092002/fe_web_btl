@@ -2,7 +2,7 @@ import { CaretDownOutlined, CaretUpOutlined } from '@ant-design/icons';
 import { Stomp } from '@stomp/stompjs';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SockJS from 'sockjs-client';
 
@@ -55,7 +55,7 @@ const ChatMessagePage = (props: Props) => {
 			return res;
 		},
 	});
-	console.log(selectUser);
+
 	// websocket
 	useEffect(() => {
 		const socket = new SockJS('http://localhost:8080/websocket');
@@ -67,12 +67,13 @@ const ChatMessagePage = (props: Props) => {
 				() => {
 					stompClient.subscribe('/receive/message', (response: any) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
-						console.log('rid==>', resData.rid, selectUser.rid);
+						console.log('rid==>', resData.rid, selectUser.rid, rid);
 						if (resData.rid === selectUser.rid) {
 							console.log('received==>', resData, msgData);
-							setMsgData((prev) => [...prev, resData]);
+							const newData = msgData.filter((x) => x.id !== resData.id);
+							setMsgData([...newData, resData]);
 						}
-						if (selectUser.rid === '') {
+						if (selectUser.rid !== rid) {
 							mutate(
 								{ rid: resData.rid, isRep: true },
 								{
@@ -89,11 +90,11 @@ const ChatMessagePage = (props: Props) => {
 			);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [rid]);
 	const onError = (err: any) => {
 		console.log(err);
 	};
-
+	console.log('rid===>', rid);
 	const handleSendMessage = () => {
 		if (!rid || !partnerId) {
 			return;
@@ -113,12 +114,11 @@ const ChatMessagePage = (props: Props) => {
 			setMsg('');
 		}
 	};
-	useLayoutEffect(() => {
+	useEffect(() => {
 		if (!msgDatas.length) {
 			return;
 		}
 		setMsgData(msgDatas);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [!!msgDatas.length]);
 
 	useEffect(() => {
@@ -127,24 +127,6 @@ const ChatMessagePage = (props: Props) => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	useEffect(() => {
-		if (!rid) {
-			return;
-		}
-		if (selectUser.isRep) {
-			console.log('here');
-			mutate(
-				{ rid: selectUser.rid, isRep: false },
-				{
-					onError: (res: AxiosError) => {
-						getToast(res.response?.data as string, 'error');
-					},
-					onSuccess: (res) => {},
-				},
-			);
-		}
-	}, [mutate, rid, selectUser.isRep, selectUser.rid]);
 
 	return (
 		<div className='w-full mb-20'>

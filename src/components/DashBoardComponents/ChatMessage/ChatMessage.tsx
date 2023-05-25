@@ -1,9 +1,13 @@
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FetchApiGetStatusRoom } from '@/hooks/fetchApiChatMessage';
-import { IChatMessageUserInfo } from '@/types/components/ChatMessage/type';
+import { toggleStatusRoom } from '@/infrastructure/chatMessageAction';
+import { IChatMessageUserInfo, ISeemModal } from '@/types/components/ChatMessage/type';
 import { getImage } from '@/utils/CustomImagePath';
+import { getToast } from '@/utils/CustomToast';
 
 type Props = {
 	d: IChatMessageUserInfo;
@@ -13,20 +17,40 @@ type Props = {
 
 const ChatMessage: FC<Props> = ({ d, rid, setSelectUser }) => {
 	const { res } = FetchApiGetStatusRoom(rid);
+	const { mutate } = useMutation<AxiosResponse<ISeemModal, any>, AxiosError, ISeemModal, unknown>({
+		mutationFn: (formData: ISeemModal) => {
+			const res = toggleStatusRoom(formData);
+			return res;
+		},
+	});
+	const handleSelect = () => {
+		console.log('select');
+		if (!rid) {
+			return;
+		}
+		mutate(
+			{ rid: rid, isRep: false },
+			{
+				onError: (res: AxiosError) => {
+					getToast(res.response?.data as string, 'error');
+				},
+				onSuccess: (res) => {},
+			},
+		);
+		setSelectUser({
+			img: d.img,
+			username: d.username,
+			isRep: !!res?.isRep,
+			rid,
+		});
+	};
 
 	return (
 		<Link
-			onClick={() =>
-				setSelectUser({
-					img: d.img,
-					username: d.username,
-					isRep: !!res?.isRep,
-					rid,
-				})
-			}
+			onClick={handleSelect}
 			key={d.id}
 			to={`/dash-board/chat-message/${d.id}/${rid}`}
-			className='flex items-center mb-2  hover:bg-[#e5e5e5c7] p-3'
+			className='flex items-center hover:bg-[#e5e5e5c7] p-3 relative'
 		>
 			<img
 				src={d.img || getImage('user.png')}
