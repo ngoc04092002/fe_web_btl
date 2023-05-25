@@ -60,20 +60,18 @@ const ChatMessagePage = (props: Props) => {
 	useEffect(() => {
 		const socket = new SockJS('http://localhost:8080/websocket');
 		stompClient = Stomp.over(() => socket);
-		// stompClient = new SocketClient().getClient();
+
 		if (stompClient !== null) {
 			stompClient.connect(
 				{},
 				() => {
 					stompClient.subscribe('/receive/message', (response: any) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
-						console.log('rid==>', resData.rid, selectUser.rid, rid);
-						if (resData.rid === selectUser.rid) {
+						if (resData.rid === rid) {
 							console.log('received==>', resData, msgData);
-							const newData = msgData.filter((x) => x.id !== resData.id);
-							setMsgData([...newData, resData]);
-						}
-						if (selectUser.rid !== rid) {
+							const filterData = msgData.filter((m) => m.id !== resData.id);
+							setMsgData([...filterData, resData]);
+						} else {
 							mutate(
 								{ rid: resData.rid, isRep: true },
 								{
@@ -90,11 +88,11 @@ const ChatMessagePage = (props: Props) => {
 			);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [rid]);
+	}, [rid, msgData]);
 	const onError = (err: any) => {
 		console.log(err);
 	};
-	console.log('rid===>', rid);
+
 	const handleSendMessage = () => {
 		if (!rid || !partnerId) {
 			return;
@@ -119,7 +117,7 @@ const ChatMessagePage = (props: Props) => {
 			return;
 		}
 		setMsgData(msgDatas);
-	}, [!!msgDatas.length]);
+	}, [msgDatas]);
 
 	useEffect(() => {
 		if (selectUser.username === 'Messages') {
@@ -127,6 +125,8 @@ const ChatMessagePage = (props: Props) => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
+	console.log('rid==>', rid, msgData);
 
 	return (
 		<div className='w-full mb-20'>
