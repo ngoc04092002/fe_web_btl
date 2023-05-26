@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import http from '@/config/axiosConfig';
+import { http } from '@/config/axiosConfig';
 import { IBill } from '@/types/components/Order/type';
 
 export const createBill: (payload: IBill) => Promise<AxiosResponse<boolean, any>> = (

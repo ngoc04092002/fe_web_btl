@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import http from '@/config/axiosConfig';
+import { http } from '@/config/axiosConfig';
 import { IClientFeedback } from '@/types/pages/IDashBoard';
 import { IFeedbackReportData } from '@/types/pages/IFeedBack';
 import { IFeedback } from '@/types/pages/types';

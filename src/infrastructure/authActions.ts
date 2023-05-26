@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import http from '@/config/axiosConfig';
+import { http } from '@/config/axiosConfig';
 import { IFormSignInUser, IUser, IUserLogged } from '@/types/pages/types';
 
 export const signUpUser: (payload: IUser) => Promise<AxiosResponse<string, any>> = (
@@ -28,8 +28,12 @@ export const refreshToken: (payload: string) => Promise<AxiosResponse<string, an
 export const getUserInfo: (payload: string) => Promise<AxiosResponse<IUserLogged, any>> = (
 	payload: string,
 ) => {
+	const pathname = window.location.pathname;
 	return http.get<IUserLogged>('get-user-info', {
 		params: { access: payload },
+		headers: {
+			'path-name': pathname,
+		},
 	});
 };
 

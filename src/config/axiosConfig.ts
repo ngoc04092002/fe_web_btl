@@ -4,9 +4,8 @@ import IAxiosConfigure from './IAxiosConfigure';
 
 class HttpClient implements IAxiosConfigure {
 	private axiosInstance: AxiosInstance;
-	constructor() {
-		const pathname = window.location.pathname;
-		console.log(pathname);
+
+	constructor(pathname: string) {
 		const accessToken = localStorage.getItem('accessToken') || '';
 		const baseURL = process.env.REACT_APP_BASE_URL || 'http://localhost:8080/api/v1/';
 		this.axiosInstance = axios.create({
@@ -15,7 +14,6 @@ class HttpClient implements IAxiosConfigure {
 			headers: {
 				'Content-Type': 'application/json',
 				'access-token': accessToken,
-				'pathname': pathname,
 			},
 		});
 		this.setRequestConfig();
@@ -33,6 +31,6 @@ class HttpClient implements IAxiosConfigure {
 	}
 }
 
-const http: AxiosInstance = new HttpClient().getConfigure();
+const http: AxiosInstance = new HttpClient('').getConfigure();
 
-export default http;
+export { http };

@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import http from '@/config/axiosConfig';
+import { http } from '@/config/axiosConfig';
 import {
 	CreateMessageRequest,
 	IChatMessageUserInfo,
