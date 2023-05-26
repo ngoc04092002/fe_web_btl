@@ -7,6 +7,7 @@ import styles from './search-room-item.module.scss';
 
 import { BookMarkHaveStarIcon } from '@/assets/icons';
 import { IPostRoomResponse } from '@/types/pages/IDashBoard';
+import { convertToVND } from '@/utils/CustomCurrency';
 
 type Props = {
 	data: IPostRoomResponse;
@@ -59,7 +60,7 @@ const Item: FC<Props> = ({ data }) => {
 					<li>{data.bathroom} WC</li>
 				</ul>
 				<div className='flex items-center'>
-					<h2 className='text-[#0499a8] font-bold text-lg mr-4'>{data.price}</h2>
+					<h2 className='text-[#0499a8] font-bold text-lg mr-4'>{convertToVND(+data.price)}</h2>
 					<h2 className='font-bold text-lg'>
 						Sale:{' '}
 						<span className='text-[#0499a8]'>

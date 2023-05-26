@@ -12,6 +12,7 @@ const SeachContainer: React.FC<ISearch> = ({
 	isTippy = false,
 	isHeader = false,
 	isQa = false,
+	placeholder = 'Từ khóa, Đường, Quận, Dự án hoặc địa danh ...',
 }) => {
 	return (
 		<section
@@ -24,6 +25,7 @@ const SeachContainer: React.FC<ISearch> = ({
 					styles={styles}
 					handleClick={handleClick}
 					isTippy={isTippy}
+					placeholder={placeholder}
 				/>
 			)}
 		</section>

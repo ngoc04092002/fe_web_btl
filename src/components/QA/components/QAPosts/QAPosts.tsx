@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import QAPost from './QAPost';
 
@@ -11,8 +12,9 @@ const pageSize = 8;
 
 const QAPosts = (props: Props) => {
 	const [currentPage, setCurrentPage] = useState(0);
+	const [searchParams] = useSearchParams();
 	const { res, isLoading } = FetchApiFilterQA({
-		s: '',
+		s: searchParams.get('s') || '',
 		limit: pageSize,
 		offset: currentPage * pageSize,
 	});

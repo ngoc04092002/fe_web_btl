@@ -9,7 +9,6 @@ type Props = {
 };
 
 const SearchRoomItem: FC<Props> = ({ data }) => {
-	console.log(data);
 	const filterRooms = data && !!data.length ? data.filter((d) => d.status) : [];
 	return (
 		<div>

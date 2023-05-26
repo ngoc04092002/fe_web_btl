@@ -12,6 +12,7 @@ const Search: React.FC<ISearch> = ({
 	styles,
 	handleChange,
 	handleClick,
+	placeholder,
 }) => {
 	useEffect(() => {
 		const div: HTMLDivElement | null = document.querySelector('.tippy');
@@ -47,7 +48,7 @@ const Search: React.FC<ISearch> = ({
 			<input
 				className='w-full h-9 caret-[#01adba] tippy-input p-1 rounded-md input-none'
 				type='text'
-				placeholder='Từ khóa, Đường, Quận, Dự án hoặc địa danh ...'
+				placeholder={placeholder}
 				onChange={(e) => handleChange?.(e)}
 			/>
 			<SearchOutlined

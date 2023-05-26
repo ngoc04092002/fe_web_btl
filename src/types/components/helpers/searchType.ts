@@ -8,4 +8,5 @@ export interface ISearch {
 	isTippy?: boolean;
 	isHeader?: boolean;
 	isQa?: boolean;
+	placeholder?: string;
 }

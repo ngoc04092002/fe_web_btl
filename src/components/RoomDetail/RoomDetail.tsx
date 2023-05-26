@@ -14,6 +14,7 @@ import { i18PostRoom } from '@/constants/FilterRoom';
 import { FetchApiGetPostRoomIds } from '@/hooks/fetchApiPostRoom';
 import { IRoomInfo } from '@/types/components/type';
 import { IPostRoomResponse, keysI18PostRoom } from '@/types/pages/IDashBoard';
+import { convertToVND } from '@/utils/CustomCurrency';
 
 type Props = {
 	dataHotNewsRent: IRoomInfo[] | [];
@@ -80,7 +81,7 @@ const RoomItem: FC<Props> = ({ dataHotNewsRent, res, isLoading }) => {
 					<div className=' mt-4'>
 						<h1>{res?.title}</h1>
 						<p className='text-[#3c4146] mt-1 text-base'>{res?.address}</p>
-						<p className='color-main text-2xl font-bold mt-2'>{res?.price}</p>
+						<p className='color-main text-2xl font-bold mt-2'>{convertToVND(+res?.price)}</p>
 					</div>
 					<div className='mt-4'>
 						<h1>Thông tin chính</h1>
