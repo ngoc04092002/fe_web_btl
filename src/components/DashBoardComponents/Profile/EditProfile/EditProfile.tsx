@@ -67,11 +67,11 @@ const EditProfile: FC<Props> = () => {
 				getDownloadURL(d.ref)
 					.then((url) => {
 						const oldAvatar = (user as IUser).avatar;
-						if (oldAvatar && !!avatar.file) {
+						if (oldAvatar && !!avatar.file && oldAvatar.includes('firebase')) {
 							// Delete the old file
 							deleteFirebaseImgPath(oldAvatar);
 						}
-						if (!avatar.file) {
+						if (!avatar.file && url.includes('firebase')) {
 							deleteFirebaseImgPath(url);
 						}
 						const formData = {

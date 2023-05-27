@@ -26,6 +26,7 @@ const CardRoom1: FC<Props> = ({ d, styleInfo }) => {
 				/>
 			</div>
 			<div className={`${cx('card_room-rent')} ${styleInfo}`}>
+				<p className='vertical-1 font-semibold'>{d.title}</p>
 				<p className={`${cx('des')} text-sm font-medium`}>{d.des}</p>
 				<div className={`${cx('propers')}`}>
 					{!!d?.acreage && (
@@ -36,7 +37,7 @@ const CardRoom1: FC<Props> = ({ d, styleInfo }) => {
 					{!!d?.bathRoom && <span>{d.bathRoom} WC</span>}
 					{!!d?.bedRoom && <span>{d.bedRoom} VP</span>}
 				</div>
-				<p className='color-main text-[1.3rem] font-semibold'>{d.price}</p>
+				<p className='color-main text-base font-semibold'>{d.price}</p>
 			</div>
 		</Link>
 	);

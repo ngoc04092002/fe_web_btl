@@ -17,16 +17,16 @@ import {
 } from '@/types/pages/IDashBoard';
 import { IFeedback, IUser, IUserLogged } from '@/types/pages/types';
 
-const pathname = window.location.pathname;
-
 export const updatePassword: (
 	payload: Omit<IFormEditPassword, 'verifyPassword'> & Pick<IUser, 'email'>,
 ) => Promise<AxiosResponse<string, any>> = (
 	payload: Omit<IFormEditPassword, 'verifyPassword'> & Pick<IUser, 'email'>,
 ) => {
+	const pathname = window.location.pathname;
+
 	return http.put<string>('update-password', payload, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -35,26 +35,29 @@ export const updateProfile: (
 	payload: IUserLogged,
 	oldEmail: string,
 ) => Promise<AxiosResponse<IUserLogged, any>> = (payload: IUserLogged, oldEmail: string) => {
+	const pathname = window.location.pathname;
+
 	return http.put<IUserLogged>('update-client-info', payload, {
-		params: { oldEmail },
-		headers: {
-			'path-name': pathname,
-		},
+		params: { pathname: pathname, oldEmail },
 	});
 };
 
 export const getAllFeedbacks: () => Promise<AxiosResponse<IFeedback[], any>> = () => {
+	const pathname = window.location.pathname;
+
 	return http.get<IFeedback[]>('get-all-feedback', {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
 
 export const getAllEWaitingRs: () => Promise<AxiosResponse<IEWaitingR[], any>> = () => {
+	const path = window.location.pathname;
+
 	return http.get<IEWaitingR[]>('get-all-ewaitingr', {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: path,
 		},
 	});
 };
@@ -63,17 +66,21 @@ export const deleteIds: (path: string, ids: number[]) => Promise<AxiosResponse<b
 	path: string,
 	ids: number[],
 ) => {
+	const pathname = window.location.pathname;
+
 	return http.post<boolean>(path, ids, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
 
 export const getAllNews: () => Promise<AxiosResponse<INewsResponse[], any>> = () => {
+	const pathname = window.location.pathname;
+
 	return http.get<INewsResponse[]>('getAll-news-post', {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -81,9 +88,11 @@ export const getAllNews: () => Promise<AxiosResponse<INewsResponse[], any>> = ()
 export const getNewsById: (id: number) => Promise<AxiosResponse<INewsResponse, any>> = (
 	id: number,
 ) => {
+	const pathname = window.location.pathname;
+
 	return http.get<INewsResponse>(`news/${id}`, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -91,9 +100,11 @@ export const getNewsById: (id: number) => Promise<AxiosResponse<INewsResponse, a
 export const createNews: (payload: INewsMainData) => Promise<AxiosResponse<boolean, any>> = (
 	payload: INewsMainData,
 ) => {
+	const pathname = window.location.pathname;
+
 	return http.post<boolean>('save-news', payload, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -101,30 +112,30 @@ export const createNews: (payload: INewsMainData) => Promise<AxiosResponse<boole
 export const filterNews: (
 	params: IParamsFilterNews,
 ) => Promise<AxiosResponse<INewsResponse[], any>> = (params: IParamsFilterNews) => {
+	const pathname = window.location.pathname;
+
 	return http.get('get-news-post-limit', {
-		params: params,
-		headers: {
-			'path-name': pathname,
-		},
+		params: { pathname: pathname, ...params },
 	});
 };
 export const searchNews: (
 	params: IParamsSearchNews,
 ) => Promise<AxiosResponse<INewsResponse[], any>> = (params: IParamsSearchNews) => {
+	const pathname = window.location.pathname;
+
 	return http.get('search-news', {
-		params: params,
-		headers: {
-			'path-name': pathname,
-		},
+		params: { pathname: pathname, ...params },
 	});
 };
 
 export const createPostRoom: (payload: IRequestPostRoom) => Promise<AxiosResponse<boolean, any>> = (
 	payload: IRequestPostRoom,
 ) => {
+	const pathname = window.location.pathname;
+
 	return http.post<boolean>('save-post-room', payload, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -132,9 +143,11 @@ export const createPostRoom: (payload: IRequestPostRoom) => Promise<AxiosRespons
 export const updatePostRoom: (
 	payload: IPostRoomResponse,
 ) => Promise<AxiosResponse<IPostRoomResponse, any>> = (payload: IPostRoomResponse) => {
+	const pathname = window.location.pathname;
+
 	return http.put<IPostRoomResponse>('update-post-room', payload, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -142,19 +155,20 @@ export const updatePostRoom: (
 export const filterPostRoom: (
 	params: IFilterPostRoomParams,
 ) => Promise<AxiosResponse<IPostRoomResponse[], any>> = (params: IFilterPostRoomParams) => {
+	const pathname = window.location.pathname;
+
 	return http.get('filter-post-room', {
-		params: params,
-		headers: {
-			'path-name': pathname,
-		},
+		params: { pathname: pathname, ...params },
 	});
 };
 export const getPostRoomById: (id: number) => Promise<AxiosResponse<IPostRoomResponse, any>> = (
 	id: number,
 ) => {
+	const pathname = window.location.pathname;
+
 	return http.get<IPostRoomResponse>(`room-item/${id}`, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -162,50 +176,51 @@ export const getPostRoomById: (id: number) => Promise<AxiosResponse<IPostRoomRes
 export const getAllPostRoomOfUser: (
 	userid: number,
 ) => Promise<AxiosResponse<IPostRoomResponse[], any>> = (userid: number) => {
+	const pathname = window.location.pathname;
+
 	return http.get<IPostRoomResponse[]>('get-post_room-user', {
-		params: { id: userid },
-		headers: {
-			'path-name': pathname,
-		},
+		params: { id: userid, pathname: pathname },
 	});
 };
 
 export const getPostRoomReport: (
 	userid: number,
 ) => Promise<AxiosResponse<IPostRoomReportResponse, any>> = (userid: number) => {
+	const pathname = window.location.pathname;
+
 	return http.get<IPostRoomReportResponse>('get-post_room-report', {
-		params: { id: userid },
-		headers: {
-			'path-name': pathname,
-		},
+		params: { id: userid, pathname: pathname },
 	});
 };
 
 export const getPostRoomAmountByMonth: (userid: number) => Promise<AxiosResponse<number[], any>> = (
 	userid: number,
 ) => {
+	const pathname = window.location.pathname;
+
 	return http.get<number[]>('get-post_room-amount', {
-		params: { id: userid },
-		headers: {
-			'path-name': pathname,
-		},
+		params: { id: userid, pathname: pathname },
 	});
 };
 
 export const deletePostRoom: (id: number) => Promise<AxiosResponse<boolean, any>> = (
 	id: number,
 ) => {
+	const pathname = window.location.pathname;
+
 	return http.delete<boolean>(`delete-post-room/${id}`, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
 
 export const getPostRoomIds: () => Promise<AxiosResponse<number[], any>> = () => {
+	const pathname = window.location.pathname;
+
 	return http.get('get-ids', {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -213,9 +228,11 @@ export const getPostRoomIds: () => Promise<AxiosResponse<number[], any>> = () =>
 export const getAllClient: () => Promise<
 	AxiosResponse<Exclude<IUserLogged, 'token' | 'created_at'>[], any>
 > = () => {
+	// eslint-disable-next-line max-lines
+	const pathname = window.location.pathname;
 	return http.get('getAll-clients', {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };
@@ -223,9 +240,10 @@ export const getAllClient: () => Promise<
 export const deleteClientById: (id: number) => Promise<AxiosResponse<boolean, any>> = (
 	id: number,
 ) => {
+	const pathname = window.location.pathname;
 	return http.delete(`delete-client/${id}`, {
-		headers: {
-			'path-name': pathname,
+		params: {
+			pathname: pathname,
 		},
 	});
 };

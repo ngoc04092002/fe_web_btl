@@ -37,8 +37,6 @@ export function FetchApiGetAllNews() {
 	const { data, isLoading } = useQuery({
 		queryKey: ['getAll-news-post'],
 		queryFn: () => getAllNews(),
-		staleTime: 30 * 1000,
-		cacheTime: 60 * 1000,
 	});
 
 	const res: INewsResponse[] | undefined = data?.data;

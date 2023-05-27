@@ -4,8 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import React, { FC, createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Loading from '@/components/Loading';
-import { getUserInfo, refreshToken } from '@/infrastructure/authActions';
+import { getUserInfo } from '@/infrastructure/authActions';
 import { IAuthContext, PropsAuth } from '@/types/context/type';
 import { IUser } from '@/types/pages/types';
 import { getToast } from '@/utils/CustomToast';
@@ -29,22 +28,9 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 	// const [user, setUser] = useState<{} | IUser>(userFetch);
 	const [user, setUser] = useState<IUser | {}>({});
 	const navigate = useNavigate();
-	const { data, isLoading } = useQuery({
-		queryKey: ['refresh-cookie', accessToken],
-		queryFn: () => refreshToken(accessToken),
-		staleTime: 10 * 60 * 1000,
-		cacheTime: 20 * 60 * 1000,
-	});
 
 	useEffect(() => {
 		function getUser() {
-			if (data?.data === 'no') {
-				localStorage.clear();
-				setUser({});
-				// 	navigate('/sign-in');
-				return;
-			}
-
 			if (accessToken && !Object.keys(user).length) {
 				getUserInfo(accessToken)
 					.then((data) => {
@@ -52,6 +38,8 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 					})
 					.catch((e) => {
 						console.log(e);
+						localStorage.clear();
+						setUser({});
 						localStorage.removeItem('accessToken');
 						getToast(e?.response?.data, 'error');
 						navigate('/sign-in');
@@ -60,11 +48,7 @@ const AuthProvider: FC<PropsAuth> = ({ children }) => {
 		}
 		getUser();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [data]);
-
-	if (isLoading) {
-		return <Loading />;
-	}
+	}, []);
 
 	return <AuthContext.Provider value={{ user, setUser }}>{children}</AuthContext.Provider>;
 };

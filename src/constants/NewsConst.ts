@@ -27,7 +27,6 @@ export const topicNewsData: ITopicNewsData[] = [
 		child: [
 			{ to: 'xay-dung', type: 'Xây dựng' },
 			{ to: 'kien-truc', type: 'Kiến trúc' },
-			{ to: 'nha-cua-sao', type: 'Nhà của sao' },
 		],
 	},
 	{ to: 'phong-thuy', topic: 'Phong thuỷ', child: [] },
@@ -68,7 +67,6 @@ export const topicNewsDatai18: { [key: string]: string } = {
 	'kien-thuc-bds': 'Kiến thức bất động sản',
 	'phong-thuy': 'Phong thủy',
 	'goc-dau-tu': 'Góc đầu tư',
-	'nha-cua-sao': 'Nhà của sao',
 	'cho-nguoi-thue': 'Cho người thuê',
 	'loi-khuyen': 'Lời khuyên',
 };

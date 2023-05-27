@@ -57,7 +57,7 @@ const DialogCard = (props: Props) => {
 				getDownloadURL(d.ref)
 					.then((url) => {
 						const { token, ...rest } = user as IUser;
-						if (!img.file) {
+						if (!img.file && url.includes('firebase')) {
 							deleteFirebaseImgPath(url);
 						}
 						const formData = {
