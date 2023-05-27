@@ -144,6 +144,7 @@ const siderbarData: ISidebarRest[] = [
 			{ to: 'admin/add-news', title: 'Tạo tin tức' },
 			{ to: 'admin/news', title: 'Tin tức' },
 			{ to: 'admin/qa-report', title: 'Báo cáo QA' },
+			{ to: 'admin/account', title: 'Tài khoản người dùng' },
 		],
 		color: '#505050',
 		role: ['admin'],

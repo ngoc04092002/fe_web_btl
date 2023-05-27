@@ -209,3 +209,23 @@ export const getPostRoomIds: () => Promise<AxiosResponse<number[], any>> = () =>
 		},
 	});
 };
+
+export const getAllClient: () => Promise<
+	AxiosResponse<Exclude<IUserLogged, 'token' | 'created_at'>[], any>
+> = () => {
+	return http.get('getAll-clients', {
+		headers: {
+			'path-name': pathname,
+		},
+	});
+};
+
+export const deleteClientById: (id: number) => Promise<AxiosResponse<boolean, any>> = (
+	id: number,
+) => {
+	return http.delete(`delete-client/${id}`, {
+		headers: {
+			'path-name': pathname,
+		},
+	});
+};

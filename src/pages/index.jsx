@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 
-import { Admin, FeedBackForgotPassword, ANews, QAReport } from './Admin';
+import { Admin, FeedBackForgotPassword, ANews, QAReport, UserAccount } from './Admin';
 import { ChatMessagePage, ClientFeedback, DashBoard, OrdersDash, QADash } from './Dashboard';
 import FeedBack from './FeedBack';
 import ForgotPassword from './ForgotPassword';
@@ -198,6 +198,10 @@ export const routes = createBrowserRouter([
 											{
 												path: 'qa-report',
 												element: <QAReport />,
+											},
+											{
+												path: 'account',
+												element: <UserAccount />,
 											},
 										],
 									},
