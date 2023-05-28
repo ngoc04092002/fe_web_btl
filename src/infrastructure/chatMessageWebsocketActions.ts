@@ -2,13 +2,13 @@ import ISocketClient from '@/config/ISocketClient';
 // import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
 
 class ChatMessageClient {
-	#socketClient: ISocketClient;
+	private socketClient: ISocketClient;
 	constructor(socketClient: ISocketClient) {
-		this.#socketClient = socketClient;
+		this.socketClient = socketClient;
 	}
 
 	postMessage(request: object): void {
-		this.#socketClient.send('/send/message', request, {});
+		this.socketClient.send('/send/message', request, {});
 	}
 }
 

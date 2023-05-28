@@ -28,9 +28,23 @@ export interface MessageResponse {
 }
 
 export interface IBodyChatMessage {
+	rid?: string;
 	isLoading?: boolean;
 	msgData: CreateMessageRequest[] | [];
 	handleChangeMsg: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 	msg: string;
-	handleSendMessage: () => void;
+	handleSendMessage?: () => void;
+	handleDeleteMessage: (data: CreateMessageRequest) => void;
+}
+
+export interface IMessages {
+	data: CreateMessageRequest[];
+	handleDeleteMessage: (data: CreateMessageRequest) => void;
+}
+
+export interface IMessage {
+	data: CreateMessageRequest;
+	msg?: string;
+	isOwern?: boolean;
+	handleDeleteMessage: (data: CreateMessageRequest) => void;
 }

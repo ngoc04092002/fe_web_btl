@@ -11,11 +11,13 @@ import { IBodyChatMessage } from '@/types/components/ChatMessage/type';
 const cx = classNames.bind(styles);
 
 const BodyChatMessage: FC<IBodyChatMessage> = ({
+	rid,
 	handleChangeMsg,
 	handleSendMessage,
 	msg,
 	msgData,
 	isLoading,
+	handleDeleteMessage,
 }) => {
 	const resizeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		e.target.style.height = '40px';
@@ -34,7 +36,14 @@ const BodyChatMessage: FC<IBodyChatMessage> = ({
 	return (
 		<>
 			<div className={`${cx('chat_msg_body')} pl-3 pr-5 scrollTo`}>
-				{isLoading ? <Loading styles='!color-main' /> : <Messages data={msgData} />}
+				{isLoading ? (
+					<Loading styles='!color-main' />
+				) : (
+					<Messages
+						data={msgData}
+						handleDeleteMessage={handleDeleteMessage}
+					/>
+				)}
 				<div ref={messagesEndRef} />
 			</div>
 			<div className='flex h-fit items-center px-2 mb-2 pt-2'>

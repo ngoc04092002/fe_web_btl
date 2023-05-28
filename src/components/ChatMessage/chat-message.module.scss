@@ -14,4 +14,11 @@
 		background: #ccc;
 		border-radius: 3rem;
 	}
+	.chat_message-container {
+		&:hover {
+			.menu {
+				display: block;
+			}
+		}
+	}
 }

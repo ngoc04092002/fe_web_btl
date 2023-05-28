@@ -45,10 +45,17 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 				() => {
 					stompClient.subscribe('/receive/message', (response: any) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
-						console.log(resData);
 						if (resData.rid === rid) {
-							console.log(msgData);
 							setMsgData((prev) => [...prev, resData]);
+						}
+					});
+					stompClient.subscribe('/receive/message/delete', (response: any) => {
+						const resData: CreateMessageRequest = JSON.parse(response.body);
+						if (resData.rid === rid) {
+							setMsgData((prev) => {
+								const filterData = prev.filter((m) => m.id !== resData.id);
+								return filterData;
+							});
 						}
 					});
 				},
@@ -68,7 +75,6 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 
 	const handleSendMessage = () => {
 		if (stompClient !== null && stompClient.connected) {
-			// const chatMessageClient = new ChatMessageClient(stompClient);
 			stompClient.send(
 				'/send/message',
 				{},
@@ -80,13 +86,15 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 					// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
 				}),
 			);
-			// chatMessageClient.postMessage({
-			// 	rid,
-			// 	from: (user as IUser)?.username,
-			// 	to: postUser?.username || '',
-			// 	msg: msg,
-			// 	// createdAt: dayjs().format('YYYY-MM-DD hh:mm:ss'),
-			// });
+			setMsg('');
+		} else {
+			console.log('No STOMP connection!');
+		}
+	};
+
+	const handleDeleteMessage = (data: CreateMessageRequest) => {
+		if (stompClient !== null && stompClient.connected) {
+			stompClient.send('/send//message/delete', {}, JSON.stringify(data));
 			setMsg('');
 		} else {
 			console.log('No STOMP connection!');
@@ -131,11 +139,13 @@ const ChatMessage: FC<Props> = ({ postUser }) => {
 						/>
 					</div>
 					<BodyChatMessage
+						rid={rid}
 						handleChangeMsg={handleChangeMsg}
 						handleSendMessage={handleSendMessage}
 						msg={msg}
 						msgData={msgData}
 						isLoading={isLoading}
+						handleDeleteMessage={handleDeleteMessage}
 					/>
 				</div>
 			)}

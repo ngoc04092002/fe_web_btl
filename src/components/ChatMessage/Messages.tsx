@@ -4,12 +4,10 @@ import React, { FC, useContext } from 'react';
 import Message from './Message';
 
 import { AuthContext } from '@/context/AuthProvider';
-import { CreateMessageRequest } from '@/types/components/ChatMessage/type';
+import { IMessages } from '@/types/components/ChatMessage/type';
 import { IUser } from '@/types/pages/types';
 
-type Props = { data: CreateMessageRequest[] };
-
-const Messages: FC<Props> = ({ data }) => {
+const Messages: FC<IMessages> = ({ data, handleDeleteMessage }) => {
 	const { user } = useContext(AuthContext);
 	const userId = (user as IUser)?.id || 0;
 	return (
@@ -18,11 +16,13 @@ const Messages: FC<Props> = ({ data }) => {
 				<h1 className='text-center text-sm mb-2'>{dayjs().format('DD/MM/YYYY')}</h1>
 				<div>
 					{!!data &&
-						data.map((d, index) => (
+						data.map((d) => (
 							<Message
-								key={index}
+								data={d}
+								key={d?.id}
 								msg={d.msg}
 								isOwern={userId.toString() === d.from}
+								handleDeleteMessage={handleDeleteMessage}
 							/>
 						))}
 				</div>

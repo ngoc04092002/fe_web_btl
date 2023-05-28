@@ -68,9 +68,10 @@ const ChatMessagePage = (props: Props) => {
 					stompClient.subscribe('/receive/message', (response: any) => {
 						const resData: CreateMessageRequest = JSON.parse(response.body);
 						if (resData.rid === rid) {
-							console.log('received==>', resData, msgData);
-							const filterData = msgData.filter((m) => m.id !== resData.id);
-							setMsgData([...filterData, resData]);
+							setMsgData((prev) => {
+								const filterData = prev.filter((m) => m.id !== resData.id);
+								return [...filterData, resData];
+							});
 						} else {
 							mutate(
 								{ rid: resData.rid, isRep: true },
@@ -83,16 +84,25 @@ const ChatMessagePage = (props: Props) => {
 							);
 						}
 					});
+					stompClient.subscribe('/receive/message/delete', (response: any) => {
+						const resData: CreateMessageRequest = JSON.parse(response.body);
+						if (resData.rid === rid) {
+							setMsgData((prev) => {
+								const filterData = prev.filter((m) => m.id !== resData.id);
+								return filterData;
+							});
+						}
+					});
 				},
 				onError,
 			);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [rid, msgData]);
+	}, [rid]);
 	const onError = (err: any) => {
 		console.log(err);
 	};
-
+	console.log(msgData);
 	const handleSendMessage = () => {
 		if (!rid || !partnerId) {
 			return;
@@ -112,10 +122,18 @@ const ChatMessagePage = (props: Props) => {
 			setMsg('');
 		}
 	};
-	useEffect(() => {
-		if (!msgDatas.length) {
-			return;
+
+	const handleDeleteMessage = (data: CreateMessageRequest) => {
+		if (stompClient !== null && stompClient.connected) {
+			stompClient.send('/send//message/delete', {}, JSON.stringify(data));
+			setMsg('');
+		} else {
+			console.log('No STOMP connection!');
 		}
+	};
+
+	useEffect(() => {
+		console.log('render');
 		setMsgData(msgDatas);
 	}, [msgDatas]);
 
@@ -125,8 +143,6 @@ const ChatMessagePage = (props: Props) => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	console.log('rid==>', rid, msgData);
 
 	return (
 		<div className='w-full mb-20'>
@@ -154,11 +170,13 @@ const ChatMessagePage = (props: Props) => {
 			<div className='mt-4 max-h-[460px] p-3 bg-white'>
 				{!!rid && !!partnerId && (
 					<BodyChatMessage
+						rid={rid}
 						handleChangeMsg={handleChangeMsg}
 						handleSendMessage={handleSendMessage}
 						msg={msg}
 						msgData={msgData}
 						isLoading={loadingMsg && !!rid}
+						handleDeleteMessage={handleDeleteMessage}
 					/>
 				)}
 			</div>

@@ -37,9 +37,9 @@ const ChatMessages: FC<Props> = ({ loading, data, setSelectUser }) => {
 			) : (
 				<>
 					{!!data.length &&
-						data.map((d, index) => (
+						data.map((d) => (
 							<ChatMessage
-								key={index}
+								key={d.id}
 								d={d}
 								rid={`${userId}-${d.id}`}
 								setSelectUser={setSelectUser}
