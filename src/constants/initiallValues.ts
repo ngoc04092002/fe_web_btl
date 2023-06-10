@@ -9,6 +9,7 @@ export const initialSignupalues: IFormSignUp = {
 	group_form_female: false,
 	password1: '',
 	password2: '',
+	role: 'user',
 };
 
 export const initialSigninValues: IFormSignIn = {
