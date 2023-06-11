@@ -151,13 +151,15 @@ const QADash = ({ AdminData, AdminLoading }) => {
 									<TableCell>{row.commentsEntities.length}</TableCell>
 									<TableCell>{dayjs(row.createdAt).format('DD/MM/YYYY')}</TableCell>
 									<TableCell>
-										<ButtonWrapper
-											styles='!bg-red-500 ml-2'
-											isLoading={updateLoading}
-											onClick={() => handleCancel(row)}
-										>
-											Hủy
-										</ButtonWrapper>
+										{AdminData && (
+											<ButtonWrapper
+												styles='!bg-red-500 ml-2'
+												isLoading={updateLoading}
+												onClick={() => handleCancel(row)}
+											>
+												Hủy
+											</ButtonWrapper>
+										)}
 										<ButtonWrapper
 											styles='!bg-red-500 ml-2'
 											isLoading={delLoading}
