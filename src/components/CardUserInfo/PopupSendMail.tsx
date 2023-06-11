@@ -52,7 +52,7 @@ const PopupSendMail: FC<Props> = ({ styles, userId }) => {
 			},
 			onSuccess: (res) => {
 				if (res.data) {
-					getToast('Cập nhật thành công!', 'success');
+					getToast('Gửi thành công!', 'success');
 					setValues(initValueFeedbackInfo);
 					toggleBackDrop();
 				}
