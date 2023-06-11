@@ -23,17 +23,24 @@ const SliderImgs = ({ srcs }) => {
 			{srcs &&
 				!!srcs.length &&
 				srcs.map((src, index) => (
-					<div key={src.id}>
+					<div
+						key={src.id}
+						className='h-[500px] flex items-center justify-center'
+					>
 						{src.src.includes('mp4') ? (
 							<video
 								src={src.src}
 								controls
-								className={`w-[300px] md:w-[460px] ${index === slideIndex ? 'block' : 'hidden'}`}
+								className={`w-[300px] h-full md:w-[460px] ${
+									index === slideIndex ? 'block' : 'hidden'
+								}`}
 							/>
 						) : (
 							<img
 								src={src.src}
-								className={`w-[300px] md:w-[460px] ${index === slideIndex ? 'block' : 'hidden'}`}
+								className={`w-[300px] h-full md:w-[460px] ${
+									index === slideIndex ? 'block' : 'hidden'
+								}`}
 								alt=''
 							/>
 						)}

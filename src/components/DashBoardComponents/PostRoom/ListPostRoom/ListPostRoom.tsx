@@ -123,6 +123,7 @@ const ListPostRoom: FC<Props> = ({ userId }) => {
 			...room,
 			status: !room.status,
 		};
+		console.log(newRoomData);
 		mutateUpdateStatus(newRoomData, {
 			onError: (res) => {
 				getToast('', 'network bad');
