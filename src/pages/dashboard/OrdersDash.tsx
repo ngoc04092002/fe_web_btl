@@ -100,7 +100,7 @@ const OrdersDash = (props: Props) => {
 				},
 				onSuccess: (res) => {
 					if (res.data) {
-						getToast('Xóa thành công!', 'success');
+						getToast('Hủy đơn đặt!', 'success');
 						setValues(newData);
 					} else {
 						getToast('Đã có lỗi!', 'error');
@@ -120,7 +120,7 @@ const OrdersDash = (props: Props) => {
 				onSuccess: (res) => {
 					if (res.data) {
 						queryClient.invalidateQueries({ queryKey: ['get-post_room-user', { type: 'done' }] });
-						getToast('Xóa thành công!', 'success');
+						getToast('Đã cập nhật trạng thái phòng', 'success');
 						setValues(newData);
 					} else {
 						getToast('Đã có lỗi!', 'error');
