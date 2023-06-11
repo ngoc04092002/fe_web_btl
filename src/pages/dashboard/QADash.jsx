@@ -95,7 +95,6 @@ const QADash = ({ AdminData, AdminLoading }) => {
 		);
 	};
 	let data = AdminData || res;
-	console.log(AdminData, res);
 
 	if ((!AdminData && (!res || isLoading)) || (AdminData && AdminLoading)) {
 		return (

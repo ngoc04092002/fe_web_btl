@@ -136,13 +136,51 @@ const QuillText: FC<Props> = ({ fieldsNewsMain }) => {
 
 		// upload imgs pieces
 		async function updateImgsPiece() {
-			await fileImgs?.forEach((f) => {
+			await fileImgs?.forEach((f, index) => {
 				const imgRef = ref(storage, `/images/${f.file?.name + v4()}`);
 				uploadBytes(imgRef, f.file as File)
 					.then((d) => {
 						getDownloadURL(d.ref)
 							.then((url) => {
 								pieces[f.id as number].img = url;
+
+								if (index === fileImgs.length - 1) {
+									//upload img main
+									const imageRef = ref(storage, `/images/${imgMain.file?.name + v4()}`);
+									uploadBytes(imageRef, imgMain.file as File)
+										.then((d) => {
+											getDownloadURL(d.ref)
+												.then((url) => {
+													console.log(url);
+													valueMain.img = url;
+													valueMain.newsBody = pieces;
+													valueMain.clientEntity = {
+														id: (user as IUser).id,
+													};
+													mutate(valueMain, {
+														onError: (res: AxiosError) => {
+															getToast('', 'network bad');
+														},
+														onSuccess: (res) => {
+															if (res.data) {
+																getToast('Tạo thành công!', 'success');
+																//reset value main
+																setImgMain(initValueImg);
+																setValueMain(initValueNewsMain);
+															} else {
+																getToast('', 'network bad');
+															}
+														},
+													});
+												})
+												.catch((err) => {
+													getToast('Lỗi khi upload hình ảnh', 'warn');
+												});
+										})
+										.catch((err) => {
+											getToast('Lỗi khi upload hình ảnh', 'warn');
+										});
+								}
 							})
 							.catch((err) => {
 								getToast('Lỗi khi upload hình ảnh', 'warn');
@@ -154,41 +192,6 @@ const QuillText: FC<Props> = ({ fieldsNewsMain }) => {
 			});
 		}
 		updateImgsPiece();
-
-		//upload img main
-		const imageRef = ref(storage, `/images/${imgMain.file?.name + v4()}`);
-		uploadBytes(imageRef, imgMain.file as File)
-			.then((d) => {
-				getDownloadURL(d.ref)
-					.then((url) => {
-						valueMain.img = url;
-						valueMain.newsBody = pieces;
-						valueMain.clientEntity = {
-							id: (user as IUser).id,
-						};
-						mutate(valueMain, {
-							onError: (res: AxiosError) => {
-								getToast('', 'network bad');
-							},
-							onSuccess: (res) => {
-								if (res.data) {
-									getToast('Tạo thành công!', 'success');
-									//reset value main
-									setImgMain(initValueImg);
-									setValueMain(initValueNewsMain);
-								} else {
-									getToast('', 'network bad');
-								}
-							},
-						});
-					})
-					.catch((err) => {
-						getToast('Lỗi khi upload hình ảnh', 'warn');
-					});
-			})
-			.catch((err) => {
-				getToast('Lỗi khi upload hình ảnh', 'warn');
-			});
 	};
 
 	// reset all
