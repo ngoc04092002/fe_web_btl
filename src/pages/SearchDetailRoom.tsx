@@ -57,6 +57,8 @@ const SearchDetailRoom: FC<Props> = () => {
 		time,
 	});
 
+	console.log('res==>', res, currentPage);
+
 	const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		searchParams.set('s', e.target.value);
 		setSearchParams(searchParams);
@@ -142,7 +144,15 @@ const SearchDetailRoom: FC<Props> = () => {
 							<p className='text-xs select-none hover:opacity-70'>Lưu tìm kiếm</p>
 						</a>
 					</div>
-					{isLoading ? <Loading /> : res.length ? <SearchRoomItem data={res} /> : <NotFoundItem />}
+					{isLoading ? (
+						<Loading />
+					) : res.length ? (
+						<SearchRoomItem
+							data={res.slice(PageSize * (currentPage - 1), currentPage * PageSize)}
+						/>
+					) : (
+						<NotFoundItem />
+					)}
 				</div>
 				<NewsSearchDetailRoom />
 			</div>
