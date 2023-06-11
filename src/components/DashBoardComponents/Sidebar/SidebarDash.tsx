@@ -10,14 +10,16 @@ import {
 	WechatOutlined,
 } from '@ant-design/icons';
 import classNames from 'classnames/bind';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import ListSidebarDash from './ListSidebarDash';
 import styles from './sidebar-dash.module.scss';
 
 import Bar from '@/components/helpers/Bar';
+import { AuthContext } from '@/context/AuthProvider';
 import { IBar, ISidebarIconProps, ISidebarRest } from '@/types/pages/IDashBoard';
+import { IUser } from '@/types/pages/types';
 import { getImage } from '@/utils/CustomImagePath';
 
 const cx = classNames.bind(styles);
@@ -151,7 +153,8 @@ const siderbarData: ISidebarRest[] = [
 	},
 ];
 const SidebarDash: FC<IBar> = ({ showSidebar, handleToggleShowSidebar }) => {
-	const r = 'admin';
+	const { user } = useContext(AuthContext);
+	const r = (user as IUser).role || 'user';
 	return (
 		<nav
 			className={`${cx('sidebar_dash', {
