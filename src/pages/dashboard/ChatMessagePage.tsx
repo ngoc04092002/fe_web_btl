@@ -102,7 +102,6 @@ const ChatMessagePage = (props: Props) => {
 	const onError = (err: any) => {
 		console.log(err);
 	};
-	console.log(msgData);
 	const handleSendMessage = () => {
 		if (!rid || !partnerId) {
 			return;
@@ -133,9 +132,12 @@ const ChatMessagePage = (props: Props) => {
 	};
 
 	useEffect(() => {
+		if (!rid) {
+			return;
+		}
 		console.log('render');
 		setMsgData(msgDatas);
-	}, [msgDatas]);
+	}, [msgDatas, rid]);
 
 	useEffect(() => {
 		if (selectUser.username === 'Messages') {
